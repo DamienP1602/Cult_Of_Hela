@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputComponent), typeof(PlayerClickComponent))]
+[RequireComponent(typeof(PlayerInputComponent), typeof(PlayerClickComponent),typeof(PlayerInventoryComponent))]
 public class PlayerEntity : BaseEntity
 {
     public PlayerInputComponent InputComponent { get; private set; }
     public PlayerClickComponent ClickComponent { get; private set; }
-
+    public PlayerInventoryComponent InventoryComponent { get; private set; }
 
     protected override void Start()
     {
@@ -26,6 +26,6 @@ public class PlayerEntity : BaseEntity
 
         InputComponent = GetComponent<PlayerInputComponent>();
         ClickComponent = GetComponent<PlayerClickComponent>();
-
+        InventoryComponent = GetComponent<PlayerInventoryComponent>();
     }
 }

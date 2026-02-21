@@ -16,9 +16,11 @@ public class StatValue
 
 public class StatsComponent : MonoBehaviour
 {
+    public event Action onDeath;
+
+    [Header("Parameters")]
     [SerializeField] StatValue currentHealth;
     public StatValue damage;
-
 
     public void LooseHealth(int _damage)
     {
@@ -26,7 +28,7 @@ public class StatsComponent : MonoBehaviour
 
         if (currentHealth.Value <= 0)
         {
-            Destroy(gameObject);
+            onDeath?.Invoke();
         }
     }
 

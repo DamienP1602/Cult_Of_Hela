@@ -4,7 +4,7 @@ using UnityEngine;
 public class ChaseState : State
 {
     MovementComponent MovementComponent;
-    DetectionComponent DetectionComponent;
+    EnemyDetectionComponent DetectionComponent;
     InteractionComponent InteractionComponent;
 
     float currentTime = 0.0f;
@@ -18,8 +18,7 @@ public class ChaseState : State
         DetectionComponent = _owner.DetectionComponent;
         InteractionComponent = _owner.InteractionComponent;
 
-        currentTime = 0.0f;
-
+        currentTime = 0.5f;
         isStarted = true;
     }
 
@@ -29,7 +28,7 @@ public class ChaseState : State
         if (currentTime >= maxTime)
         {
             currentTime = 0.0f;
-            UpdateDestination();
+            InteractionComponent.SetTarget(DetectionComponent.Target);
         }
     }
 
@@ -37,13 +36,8 @@ public class ChaseState : State
     {
         InteractionComponent.ResetTarget();
         DetectionComponent.ResetTarget();
-
+        MovementComponent.ResetTarget();
+        
         isStarted = false;
-    }
-
-    void UpdateDestination()
-    {
-        MovementComponent.SetDestination(DetectionComponent.Target.transform.position);
-        InteractionComponent.SetTarget(DetectionComponent.Target);
     }
 }

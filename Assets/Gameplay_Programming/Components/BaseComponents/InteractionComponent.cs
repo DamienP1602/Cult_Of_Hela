@@ -10,7 +10,6 @@ public class InteractionComponent : MonoBehaviour
     [SerializeField] bool showDebug;
 
     [Header("Parameters")]
-    [SerializeField] bool canInteract;
     [SerializeField] float interactionDistance = 1.0f;
     [SerializeField] GameEntity target;
 
@@ -43,11 +42,9 @@ public class InteractionComponent : MonoBehaviour
 
     void CheckForTarget()
     {
-        if (IsTargetInInteractionRange() && canInteract)
+        if (IsTargetInInteractionRange())
         {
             ManageInteraction();
-
-            Invoke(nameof(ResetInteract), 1.0f);
         }
     }
 
@@ -63,14 +60,17 @@ public class InteractionComponent : MonoBehaviour
 
     public void ResetTarget() => target = null;
 
-    void ResetInteract() => canInteract = true;
-
     void ManageInteraction()
     {
         if (target is BaseEntity _enemy)
-        { 
+        {
             attackRef.SetTarget(_enemy);
             movementRef.SetRotationTarget(_enemy.transform.position);
+        }
+        else if (target is InteractableEntity _interactable)
+        {
+            PlayerEntity _player = GetComponent<PlayerEntity>();
+            _interactable.OnInteraction(_player);
         }
 
         movementRef.StopMovement();

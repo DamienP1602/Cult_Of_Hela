@@ -29,6 +29,8 @@ public class MovementComponent : MonoBehaviour
 
     private void Update()
     {
+        if (!agent.enabled) return;
+
         ReachDestinationUpdate();
         RotationUpdate();
     }
@@ -67,7 +69,7 @@ public class MovementComponent : MonoBehaviour
 
     void FollowTargetUpdate()
     {
-        if (!target) return;
+        if (!target || !agent.enabled) return;
 
         Vector3 _destination = target.transform.position;
         bool _succeed = agent.SetDestination(_destination);
@@ -76,6 +78,8 @@ public class MovementComponent : MonoBehaviour
 
     public void SetDestination(Vector3 _destination)
     {
+        if (!agent.enabled) return;
+
         bool _succeed = agent.SetDestination(_destination);
         destination = _destination;
         agent.isStopped = false;
@@ -93,6 +97,8 @@ public class MovementComponent : MonoBehaviour
 
     public void SetTarget(GameEntity _entity)
     {
+        if (!agent.enabled) return;
+
         Vector3 _destination = _entity.transform.position;
         bool _succeed = agent.SetDestination(_destination);
         destination = _destination;
@@ -100,12 +106,22 @@ public class MovementComponent : MonoBehaviour
         isAtDestination = false;
 
         if (_succeed)
+        {
             animRef.SetBool("movement", true);
+            animRef.SetBool("attack", false);
+        }
 
         if (!target)
             InvokeRepeating(nameof(FollowTargetUpdate), 0.2f, 0.2f);
 
+        rotateTo = null;
         target = _entity;
+    }
+
+    public void ResetTarget()
+    {
+        target = null;
+        rotateTo = null;
     }
 
     public void StopMovement()

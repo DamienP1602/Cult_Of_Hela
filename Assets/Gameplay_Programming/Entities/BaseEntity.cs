@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(MovementComponent),typeof(InteractionComponent), typeof(StatsComponent))]
 [RequireComponent(typeof(AttackComponent), typeof(AnimationComponent))]
@@ -27,6 +28,12 @@ public abstract class BaseEntity : GameEntity
 
     protected override void EventAssignation()
     {
+        StatsComponent.onDeath += EntityDeath;
+    }
 
+    protected virtual void EntityDeath()
+    {
+        AnimationComponent.SetTrigger("death");
+        MovementComponent.GetComponent<NavMeshAgent>().enabled = false;
     }
 }
