@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0022a03a5535b1e47b22cf3dcdaa6bc8, type: 3}
-  m_Name: test
+  m_Script: {fileID: 11500000, guid: 02de171a6766f764fbe31f9f7cf343c6, type: 3}
+  m_Name: Passif
   m_EditorClassIdentifier: 
-  AbilityName: non
-  spellAction: 1
+  AbilityName: 
+  spellAction: 0
   objectReference: {fileID: 0}
   ressourceCost: 0
   cooldown: 0

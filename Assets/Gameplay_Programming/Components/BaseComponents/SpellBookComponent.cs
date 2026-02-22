@@ -21,6 +21,8 @@ public class SpellBookComponent : MonoBehaviour
         if (_index >= bindedSpells.Count) return;
 
         Spell _spell = bindedSpells[_index];
-        Debug.Log(_spell.AbilityName);
+
+        BaseEntity _owner = GetComponent<BaseEntity>();
+        _spell.LaunchSpell(_owner);
     }
 }
