@@ -32,6 +32,23 @@ public class AnimationComponent : MonoBehaviour
 
     void Anim_Death()
     {
+        StartCoroutine(DownToDespawn());
+    }
+
+    IEnumerator DownToDespawn()
+    {
+        float _current = 0.0f;
+
+        while (_current < 1.0f)
+        {
+            Vector3 _value = Vector3.down * Time.deltaTime / 3.0f;
+            transform.position += _value;
+
+            _current += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+
         Destroy(gameObject);
     }
 

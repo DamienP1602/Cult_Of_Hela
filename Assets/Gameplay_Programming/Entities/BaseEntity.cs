@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(MovementComponent),typeof(InteractionComponent), typeof(StatsComponent))]
-[RequireComponent(typeof(AttackComponent), typeof(AnimationComponent))]
+[RequireComponent(typeof(AttackComponent), typeof(AnimationComponent),typeof(SpellBookComponent))]
 public abstract class BaseEntity : GameEntity
 {
     public MovementComponent MovementComponent { get; private set; }
@@ -10,6 +10,7 @@ public abstract class BaseEntity : GameEntity
     public StatsComponent StatsComponent { get; private set; }
     public AttackComponent AttackComponent { get; private set; }
     public AnimationComponent AnimationComponent { get; private set; }
+    public SpellBookComponent SpellBookComponent { get; private set; }
 
     protected override void Start()
     {
@@ -24,6 +25,7 @@ public abstract class BaseEntity : GameEntity
         StatsComponent = GetComponent<StatsComponent>();
         AttackComponent = GetComponent<AttackComponent>();
         AnimationComponent = GetComponent<AnimationComponent>();
+        SpellBookComponent = GetComponent<SpellBookComponent>();
     }
 
     protected override void EventAssignation()

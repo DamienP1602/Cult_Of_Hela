@@ -19,7 +19,7 @@ public class EnemyDetectionComponent : MonoBehaviour
     public bool IsPlayerInDetectionRange()
     {
         PlayerEntity _player = GameManager.Instance.Player;
-        if (!_player) return false;
+        if (!_player || _player.StatsComponent.health.Value <= 0) return false;
 
         bool _isInRange = Vector3.Distance(transform.position, _player.transform.position) <= detectionRange;
 

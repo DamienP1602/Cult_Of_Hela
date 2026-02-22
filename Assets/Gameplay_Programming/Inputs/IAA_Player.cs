@@ -100,6 +100,15 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FirstSpellBinding"",
+                    ""type"": ""Button"",
+                    ""id"": ""a49dc391-e593-4bc2-96dc-c498734c9118"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -113,6 +122,17 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                     ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41900cea-85c8-49c2-aa0f-d533d3a25329"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FirstSpellBinding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_LeftClick = m_Player.FindAction("LeftClick", throwIfNotFound: true);
+        m_Player_FirstSpellBinding = m_Player.FindAction("FirstSpellBinding", throwIfNotFound: true);
     }
 
     ~@IAA_Player()
@@ -203,6 +224,7 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_LeftClick;
+    private readonly InputAction m_Player_FirstSpellBinding;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -218,6 +240,10 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/LeftClick".
         /// </summary>
         public InputAction @LeftClick => m_Wrapper.m_Player_LeftClick;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/FirstSpellBinding".
+        /// </summary>
+        public InputAction @FirstSpellBinding => m_Wrapper.m_Player_FirstSpellBinding;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -247,6 +273,9 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
             @LeftClick.started += instance.OnLeftClick;
             @LeftClick.performed += instance.OnLeftClick;
             @LeftClick.canceled += instance.OnLeftClick;
+            @FirstSpellBinding.started += instance.OnFirstSpellBinding;
+            @FirstSpellBinding.performed += instance.OnFirstSpellBinding;
+            @FirstSpellBinding.canceled += instance.OnFirstSpellBinding;
         }
 
         /// <summary>
@@ -261,6 +290,9 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
             @LeftClick.started -= instance.OnLeftClick;
             @LeftClick.performed -= instance.OnLeftClick;
             @LeftClick.canceled -= instance.OnLeftClick;
+            @FirstSpellBinding.started -= instance.OnFirstSpellBinding;
+            @FirstSpellBinding.performed -= instance.OnFirstSpellBinding;
+            @FirstSpellBinding.canceled -= instance.OnFirstSpellBinding;
         }
 
         /// <summary>
@@ -308,5 +340,12 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLeftClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FirstSpellBinding" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFirstSpellBinding(InputAction.CallbackContext context);
     }
 }

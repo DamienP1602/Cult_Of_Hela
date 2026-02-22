@@ -13,7 +13,7 @@ public struct LootObject
     public float dropChance;
 }
 
-[CreateAssetMenu(fileName = "New LootTable", menuName = "Scriptable Objects/Enemies/LootTable")]
+[CreateAssetMenu(fileName = "New LootTable", menuName = "Scriptable Objects/Loots/LootTable")]
 public class LootTable : ScriptableObject
 {
     public List<LootObject> allDroppedObjects;

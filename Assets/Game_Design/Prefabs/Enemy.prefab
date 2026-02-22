@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 5685381060145071480}
   - component: {fileID: 7217506917318558836}
   - component: {fileID: 4380852937905122962}
+  - component: {fileID: 3152110668607826468}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -138,8 +139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 463f63fc4489aee44819fe32c51f2e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth:
-    value: 1
+  health:
+    value: 5
+    maxValue: 5
   damage:
     value: 1
 --- !u!114 &7924133527447769230
@@ -227,6 +229,19 @@ MonoBehaviour:
   fsm:
     currentStateName: 
   isFsmInitialized: 0
+--- !u!114 &3152110668607826468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3203650074338727904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968a3f3f6f50aed4b9de31a4e2d70ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTable: {fileID: 11400000, guid: 179f0f995666fbe4090816cae716a1da, type: 2}
 --- !u!1001 &70039885162356997
 PrefabInstance:
   m_ObjectHideFlags: 0

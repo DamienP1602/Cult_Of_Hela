@@ -14,6 +14,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "FirstSpellBinding",
+                    "type": "Button",
+                    "id": "a49dc391-e593-4bc2-96dc-c498734c9118",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -25,6 +34,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41900cea-85c8-49c2-aa0f-d533d3a25329",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FirstSpellBinding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

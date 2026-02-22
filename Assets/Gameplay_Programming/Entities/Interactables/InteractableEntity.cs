@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class InteractableEntity : GameEntity
 {

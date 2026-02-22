@@ -14,11 +14,20 @@ public class GameManager : Singleton<GameManager>
     [Header("Parameters")]
     [SerializeField] List<SpawnableObjects> spawnables;
 
+    HUD hud;
     PlayerEntity player;
 
     public PlayerEntity Player => player;
+    public HUD Hud => hud;
 
     public List<SpawnableObjects> Spawnables => spawnables;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        hud = GetComponent<HUD>();
+    }
 
     void Start()
     {

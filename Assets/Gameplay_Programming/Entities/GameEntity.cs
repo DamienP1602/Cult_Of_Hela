@@ -4,7 +4,7 @@ public abstract class GameEntity : MonoBehaviour
 {
     [field: SerializeField] public string EntityName { get; private set; }
 
-    [Header("Base Entity Data")]
+    [Header("Base Entity Parameters")]
     [SerializeField] protected bool initialized;
     [SerializeField] protected bool hasBeenDestroyed;
 

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyBrainComponent), typeof(EnemyDetectionComponent),typeof(EnemyDropComponent))]
+[RequireComponent(typeof(EnemyBrainComponent), typeof(EnemyDetectionComponent),typeof(DropComponent))]
 public class EnemyEntity : BaseEntity
 {
     public EnemyBrainComponent BrainComponent { get; private set; }
     public EnemyDetectionComponent DetectionComponent { get; private set; }
-    public EnemyDropComponent DropComponent { get; private set; }
+    public DropComponent DropComponent { get; private set; }
 
     protected override void Start()
     {
@@ -28,7 +28,7 @@ public class EnemyEntity : BaseEntity
 
         BrainComponent = GetComponent<EnemyBrainComponent>();
         DetectionComponent = GetComponent<EnemyDetectionComponent>();
-        DropComponent = GetComponent<EnemyDropComponent>();
+        DropComponent = GetComponent<DropComponent>();
 
         BrainComponent.InitBrain(this);
     }
