@@ -109,6 +109,15 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondSpellBinding"",
+                    ""type"": ""Button"",
+                    ""id"": ""a4e3adc6-bfb1-4cbf-8f88-2700bb6277d1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -133,6 +142,17 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                     ""action"": ""FirstSpellBinding"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59cb852c-8b58-48db-94b7-579677389798"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondSpellBinding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_LeftClick = m_Player.FindAction("LeftClick", throwIfNotFound: true);
         m_Player_FirstSpellBinding = m_Player.FindAction("FirstSpellBinding", throwIfNotFound: true);
+        m_Player_SecondSpellBinding = m_Player.FindAction("SecondSpellBinding", throwIfNotFound: true);
     }
 
     ~@IAA_Player()
@@ -225,6 +246,7 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_LeftClick;
     private readonly InputAction m_Player_FirstSpellBinding;
+    private readonly InputAction m_Player_SecondSpellBinding;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -244,6 +266,10 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/FirstSpellBinding".
         /// </summary>
         public InputAction @FirstSpellBinding => m_Wrapper.m_Player_FirstSpellBinding;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SecondSpellBinding".
+        /// </summary>
+        public InputAction @SecondSpellBinding => m_Wrapper.m_Player_SecondSpellBinding;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -276,6 +302,9 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
             @FirstSpellBinding.started += instance.OnFirstSpellBinding;
             @FirstSpellBinding.performed += instance.OnFirstSpellBinding;
             @FirstSpellBinding.canceled += instance.OnFirstSpellBinding;
+            @SecondSpellBinding.started += instance.OnSecondSpellBinding;
+            @SecondSpellBinding.performed += instance.OnSecondSpellBinding;
+            @SecondSpellBinding.canceled += instance.OnSecondSpellBinding;
         }
 
         /// <summary>
@@ -293,6 +322,9 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
             @FirstSpellBinding.started -= instance.OnFirstSpellBinding;
             @FirstSpellBinding.performed -= instance.OnFirstSpellBinding;
             @FirstSpellBinding.canceled -= instance.OnFirstSpellBinding;
+            @SecondSpellBinding.started -= instance.OnSecondSpellBinding;
+            @SecondSpellBinding.performed -= instance.OnSecondSpellBinding;
+            @SecondSpellBinding.canceled -= instance.OnSecondSpellBinding;
         }
 
         /// <summary>
@@ -347,5 +379,12 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFirstSpellBinding(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SecondSpellBinding" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSecondSpellBinding(InputAction.CallbackContext context);
     }
 }

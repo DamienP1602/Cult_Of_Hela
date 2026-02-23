@@ -30,15 +30,37 @@ public class SpellCustomPropertyDrawer : Editor
             _spell.cooldown = EditorGUILayout.IntField(_spell.cooldown);
         });
 
+        DrawTitle("Spell Action");
         HorizontalGUI(() =>
         {
-            GUILayout.Label("Spell Action", GUILayout.Width(120.0f));
             _spell.spellAction = (SpellActionType)EditorGUILayout.EnumPopup(_spell.spellAction);
         });
 
+        DrawTitle("Parameters");
+        if (_spell.spellAction == SpellActionType.AttackBonus)
+        {
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Damage Bonus", GUILayout.Width(120.0f));
+                _spell.bonusValue = EditorGUILayout.IntField(_spell.bonusValue);
+            });
+
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Has Duration", GUILayout.Width(120.0f));
+                _spell.hasDuration = EditorGUILayout.Toggle(_spell.hasDuration, GUILayout.Width(15.0f));
+
+                if (_spell.hasDuration)
+                {
+                    GUILayout.Label("Duration", GUILayout.Width(75.0f));
+                    _spell.bonusDuration = EditorGUILayout.IntField(_spell.bonusDuration);
+                }
+            });
+        }
+
         if (_spell.spellAction == SpellActionType.ThrowProjectile)
         {
-            DrawTitle("Projectile Parameters");
             HorizontalGUI(() =>
             {
                 SerializedProperty _object = serializedObject.FindProperty("objectReference");

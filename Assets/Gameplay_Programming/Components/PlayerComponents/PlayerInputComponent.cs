@@ -7,6 +7,7 @@ public class PlayerInputComponent : MonoBehaviour
 
     public InputAction LeftClick { get; private set; }
     public InputAction FirstSpellBinding { get; private set; }
+    public InputAction SecondSpellBinding { get; private set; }
 
     private void Awake()
     {
@@ -28,17 +29,20 @@ public class PlayerInputComponent : MonoBehaviour
     {
         LeftClick = action.Player.LeftClick;
         FirstSpellBinding = action.Player.FirstSpellBinding;
+        SecondSpellBinding = action.Player.SecondSpellBinding;
     }
 
     public void DisableInputs()
     {
         LeftClick.Disable();
         FirstSpellBinding.Disable();
+        SecondSpellBinding.Disable();
     }
 
     public void EnableInputs()
     {
         LeftClick.Enable();
         FirstSpellBinding.Enable();
+        SecondSpellBinding.Enable();
     }
 }

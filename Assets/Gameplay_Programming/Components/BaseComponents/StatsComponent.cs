@@ -98,9 +98,11 @@ public class StatsComponent : MonoBehaviour
 
     [Header("Parameters")]
     public MultipleStat health;
-    public MultipleStat mana;
+    public MultipleStat ressource;
     public SingleStat damage;
 
+    public bool IsDead => health.Value <= 0;
+    
     public void LooseHealth(int _damage)
     {
         health.RemoveValue(_damage);

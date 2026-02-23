@@ -13,9 +13,29 @@ public class Spell : Ability
     public GameObject objectReference;
     public int ressourceCost;
     public int cooldown;
+    public int bonusValue;
+    public bool hasDuration;
+    public int bonusDuration;
 
     public void LaunchSpell(BaseEntity _owner)
     {
+        switch (spellAction)
+        {
+            case SpellActionType.AttackBonus:
+                AttackBonus(_owner);
+                break;
 
+            case SpellActionType.ThrowProjectile:
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void AttackBonus(BaseEntity _owner)
+    {
+        AttackBonusEffect _newEffect = new AttackBonusEffect(bonusDuration, hasDuration ? bonusDuration : -1);
+        _owner.AttackComponent.AddEffect(_newEffect);
     }
 }
