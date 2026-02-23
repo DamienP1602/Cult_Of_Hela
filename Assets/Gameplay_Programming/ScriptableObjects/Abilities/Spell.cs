@@ -35,7 +35,7 @@ public class Spell : Ability
 
     void AttackBonus(BaseEntity _owner)
     {
-        AttackBonusEffect _newEffect = new AttackBonusEffect(bonusDuration, hasDuration ? bonusDuration : -1);
+        AttackBonusEffect _newEffect = new AttackBonusEffect(hasDuration ? bonusDuration : -1, bonusValue);
         _owner.AttackComponent.AddEffect(_newEffect);
     }
 }

@@ -22,6 +22,7 @@ public class PlayerEntity : BaseEntity
         InputComponent.LeftClick.canceled += (_context) => ClickComponent.SetIsClick(false);
 
         InputComponent.FirstSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(0);
+        InputComponent.SecondSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(1);
 
         UIEvent();
     }
