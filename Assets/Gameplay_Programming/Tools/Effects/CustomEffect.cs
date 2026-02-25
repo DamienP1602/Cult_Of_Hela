@@ -4,12 +4,17 @@ using UnityEngine;
 [Serializable]
 public abstract class CustomEffect
 {
+    [SerializeField] public string effectID;
+
     [SerializeField] protected float duration;
     [SerializeField] protected float currentDuration;
+    [SerializeField] public bool uniqueEffect;
 
-    public CustomEffect(float _duration)
+    public CustomEffect(string _effectID,float _duration, bool _uniqueEffect)
     {
+        effectID = _effectID;
         duration = _duration;
+        uniqueEffect = _uniqueEffect;
     }
 
     /// <summary>

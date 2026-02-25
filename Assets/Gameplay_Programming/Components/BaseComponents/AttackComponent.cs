@@ -50,32 +50,30 @@ public class AttackComponent : MonoBehaviour, ICustomBonus<AttackBonusEffect>
         if (interactRef.IsInRange(target))
         {
             StatsComponent _targetStats = target.StatsComponent;
-            if (DealDamage(_targetStats, statsRef.damage.Value))
-                return;
+            _targetStats.LooseHealth(statsRef.damage.Value);
 
-            foreach (AttackBonusEffect _bonus in attackBonuses)
+            int _size = attackBonuses.Count;
+            for (int _i = 0; _i < _size; _i++)
             {
+                AttackBonusEffect _bonus = attackBonuses[_i];
                 int _damageValue = (int)_bonus.ActivateEffect();
-                if (DealDamage(_targetStats, _damageValue))
-                    return;
+
+                _targetStats.LooseHealth(_damageValue);
+                if (_bonus.OneTimeUse)
+                {
+                    RemoveEffect(_bonus);
+                    _i--;
+                    _size = attackBonuses.Count;
+                }
+
             }
         }
 
         target = null;
     }
 
-    /// <summary>
-    /// return true = target is dead and we should stop dealing damages
-    /// </summary>
-    /// <param name="_targetStats"></param>
-    /// <returns></returns>
-    bool DealDamage(StatsComponent _targetStats, int _value)
+    void DealDamage(StatsComponent _targetStats, int _value)
     {
         _targetStats.LooseHealth(_value);
-
-        if (_targetStats.IsDead)
-            return true;
-
-        return false;
     }
 }

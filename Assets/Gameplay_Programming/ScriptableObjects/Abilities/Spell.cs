@@ -16,6 +16,8 @@ public class Spell : Ability
     public int bonusValue;
     public bool hasDuration;
     public int bonusDuration;
+    public bool oneTimeUse;
+    public bool uniqueEffect;
 
     public void LaunchSpell(BaseEntity _owner)
     {
@@ -35,7 +37,7 @@ public class Spell : Ability
 
     void AttackBonus(BaseEntity _owner)
     {
-        AttackBonusEffect _newEffect = new AttackBonusEffect(hasDuration ? bonusDuration : -1, bonusValue);
+        AttackBonusEffect _newEffect = new AttackBonusEffect(AbilityID,hasDuration ? bonusDuration : -1, uniqueEffect, bonusValue,oneTimeUse);
         _owner.AttackComponent.AddEffect(_newEffect);
     }
 }

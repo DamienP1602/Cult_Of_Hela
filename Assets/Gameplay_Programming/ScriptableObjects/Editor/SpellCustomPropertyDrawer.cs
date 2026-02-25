@@ -13,10 +13,17 @@ public class SpellCustomPropertyDrawer : Editor
         DrawTitle("Base Ability Parameters");
         HorizontalGUI(() =>
         {
-            GUILayout.Label("AbilityName", GUILayout.Width(120.0f));
+            GUILayout.Label("Ability Name", GUILayout.Width(120.0f));
             _spell.AbilityName = EditorGUILayout.TextField(_spell.AbilityName);
+        });
+
+        HorizontalGUI(() =>
+        {
+            GUILayout.Label("Ability ID", GUILayout.Width(120.0f));
+            _spell.AbilityID = EditorGUILayout.TextField(_spell.AbilityID);
 
         });
+
         DrawTitle("Spell Parameters");
 
         HorizontalGUI(() =>
@@ -57,6 +64,18 @@ public class SpellCustomPropertyDrawer : Editor
                     _spell.bonusDuration = EditorGUILayout.IntField(_spell.bonusDuration);
                 }
             });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("One Time Use", GUILayout.Width(120.0f));
+                _spell.oneTimeUse = EditorGUILayout.Toggle(_spell.oneTimeUse, GUILayout.Width(15.0f));
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Unique Effect", GUILayout.Width(120.0f));
+                _spell.uniqueEffect = EditorGUILayout.Toggle(_spell.uniqueEffect, GUILayout.Width(15.0f));
+            });
         }
 
         if (_spell.spellAction == SpellActionType.ThrowProjectile)
@@ -68,18 +87,7 @@ public class SpellCustomPropertyDrawer : Editor
             });
         }
 
-
-
-
-
-
-
-
-
-
-
-
-        serializedObject.ApplyModifiedProperties();
+        EditorUtility.SetDirty(target);
     }
 
     void DrawTitle(string _label)
