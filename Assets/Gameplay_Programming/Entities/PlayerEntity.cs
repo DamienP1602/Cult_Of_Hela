@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputComponent), typeof(PlayerClickComponent),typeof(PlayerInventoryComponent))]
+[RequireComponent(typeof(PlayerInputComponent), typeof(PlayerClickComponent), typeof(PlayerInventoryComponent))]
 [RequireComponent(typeof(PlayerCameraComponent))]
 public class PlayerEntity : BaseEntity
 {
@@ -29,7 +29,8 @@ public class PlayerEntity : BaseEntity
 
     void UIEvent()
     {
-        StatsComponent.health.onValueChange +=  GameManager.Instance.Hud.Overlay.ChangeHealthBar;
+        StatsComponent.health.onValueChange += GameManager.Instance.Hud.Overlay.ChangeHealthBar;
+        StatsComponent.ressource.onValueChange += GameManager.Instance.Hud.Overlay.ChangeRessourceBar;
     }
 
     protected override void Init()

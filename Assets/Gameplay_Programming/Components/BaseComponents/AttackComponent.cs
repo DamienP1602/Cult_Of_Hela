@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class AttackComponent : MonoBehaviour, ICustomBonus<AttackBonusEffect>
     {
         target = _entity;
         animRef.SetBool("attack", true);
+        animRef.LockAnimation("attack");
     }
 
     private void Awake()
@@ -45,28 +47,40 @@ public class AttackComponent : MonoBehaviour, ICustomBonus<AttackBonusEffect>
 
     public void RemoveEffect(AttackBonusEffect _effect) => attackBonuses.Remove(_effect);
 
+    public bool HasEffect(string _effectID)
+    {
+        foreach (AttackBonusEffect _bonus in attackBonuses)
+        {
+            if (_bonus.effectID == _effectID)
+                return true;
+        }
+        return false;
+    }
+
     void Anim_Attack()
     {
         if (interactRef.IsInRange(target))
         {
             StatsComponent _targetStats = target.StatsComponent;
-            _targetStats.LooseHealth(statsRef.damage.Value);
+            Vector3 _targetPos = target.transform.position + (Vector3.up * 2.0f);
 
-            int _size = attackBonuses.Count;
-            for (int _i = 0; _i < _size; _i++)
+            int _damageDeal = statsRef.GetDamageDeal();
+
+            for (int _i = 0; _i < attackBonuses.Count; _i++)
             {
                 AttackBonusEffect _bonus = attackBonuses[_i];
-                int _damageValue = (int)_bonus.ActivateEffect();
+                _damageDeal += (int)_bonus.ActivateEffect();
 
-                _targetStats.LooseHealth(_damageValue);
                 if (_bonus.OneTimeUse)
                 {
                     RemoveEffect(_bonus);
                     _i--;
-                    _size = attackBonuses.Count;
                 }
-
             }
+
+            _targetStats.LooseHealth(_damageDeal);
+            if (target is EnemyEntity)
+                WorldWidgetsManager.Instance.SpawnDamageText(_targetPos, _damageDeal);
         }
 
         target = null;

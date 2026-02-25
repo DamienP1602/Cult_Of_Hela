@@ -25,11 +25,12 @@ public class SpellBookComponent : MonoBehaviour
         StatsComponent _ownerStats = GetComponent<StatsComponent>();
         // can't use the spell : not enough ressources
         if (_spell.ressourceCost > _ownerStats.ressource.Value) return;
-        
-        // Consume ressource
-        _ownerStats.ressource.RemoveValue(_spell.ressourceCost);
 
         BaseEntity _owner = GetComponent<BaseEntity>();
-        _spell.LaunchSpell(_owner);
+        if (_spell.LaunchSpell(_owner))
+        {
+            // Consume ressource
+            _ownerStats.ressource.RemoveValue(_spell.ressourceCost);
+        }
     }
 }

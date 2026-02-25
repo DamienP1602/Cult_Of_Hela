@@ -86,6 +86,8 @@ public class InteractionComponent : MonoBehaviour
 
     public bool IsInRange(BaseEntity _entity)
     {
+        if (!_entity) return false;
+
         return Vector3.Distance(_entity.transform.position, transform.position) <= interactionDistance;
     }
 }

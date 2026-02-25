@@ -37,6 +37,19 @@ public class SpellCustomPropertyDrawer : Editor
             _spell.cooldown = EditorGUILayout.IntField(_spell.cooldown);
         });
 
+        HorizontalGUI(() =>
+        {
+            GUILayout.Label("Has Animation", GUILayout.Width(120.0f));
+            _spell.hasAnimation = EditorGUILayout.Toggle(_spell.hasAnimation, GUILayout.Width(15.0f));
+
+            if (_spell.hasAnimation)
+            {
+                GUILayout.Label("Animation Name", GUILayout.Width(100.0f));
+                _spell.animationName = EditorGUILayout.TextField(_spell.animationName);
+            }
+
+        });
+
         DrawTitle("Spell Action");
         HorizontalGUI(() =>
         {

@@ -18,14 +18,20 @@ public class Spell : Ability
     public int bonusDuration;
     public bool oneTimeUse;
     public bool uniqueEffect;
+    public bool hasAnimation;
+    public string animationName;
 
-    public void LaunchSpell(BaseEntity _owner)
+    /// <summary>
+    /// if true, it means the spell has been casted
+    /// </summary>
+    /// <param name="_owner"></param>
+    /// <returns></returns>
+    public bool LaunchSpell(BaseEntity _owner)
     {
         switch (spellAction)
         {
             case SpellActionType.AttackBonus:
-                AttackBonus(_owner);
-                break;
+                return AttackBonus(_owner);
 
             case SpellActionType.ThrowProjectile:
                 break;
@@ -33,11 +39,21 @@ public class Spell : Ability
             default:
                 break;
         }
+
+        return false;
     }
 
-    void AttackBonus(BaseEntity _owner)
+    bool AttackBonus(BaseEntity _owner)
     {
+        if (oneTimeUse)
+        {
+            if (_owner.AttackComponent.HasEffect(AbilityID))
+                return false;
+        }
+
         AttackBonusEffect _newEffect = new AttackBonusEffect(AbilityID,hasDuration ? bonusDuration : -1, uniqueEffect, bonusValue,oneTimeUse);
         _owner.AttackComponent.AddEffect(_newEffect);
+
+        return true;
     }
 }

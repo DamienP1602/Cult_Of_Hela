@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0022a03a5535b1e47b22cf3dcdaa6bc8, type: 3}
   m_Name: Test_Spell
   m_EditorClassIdentifier: 
-  AbilityID: 
+  AbilityID: Test_Spell
   AbilityName: Test Spell
   spellAction: 0
   objectReference: {fileID: 0}
-  ressourceCost: 2
+  ressourceCost: 3
   cooldown: 3
   bonusValue: 3
-  hasDuration: 0
-  bonusDuration: 0
+  hasDuration: 1
+  bonusDuration: 3
   oneTimeUse: 1
-  uniqueEffect: 0
+  uniqueEffect: 1
+  hasAnimation: 0
+  animationName: 

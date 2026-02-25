@@ -96,10 +96,15 @@ public class StatsComponent : MonoBehaviour
 {
     public event Action onDeath;
 
-    [Header("Parameters")]
+    [Header("Multiple Stats")]
     public MultipleStat health;
     public MultipleStat ressource;
-    public SingleStat damage;
+    public MultipleStat damages;
+
+    [Header("Unique Stats")]
+    public SingleStat strength;
+    public SingleStat dexterity;
+    public SingleStat intelligence;
 
     public bool IsDead => health.Value <= 0;
     
@@ -111,6 +116,15 @@ public class StatsComponent : MonoBehaviour
         {
             onDeath?.Invoke();
         }
+    }
+
+    public int GetDamageDeal()
+    {
+        int _random = UnityEngine.Random.Range(damages.Value, damages.MaxValue + 1);
+
+        _random += strength.Value / 2;
+
+        return _random;
     }
 
 }
