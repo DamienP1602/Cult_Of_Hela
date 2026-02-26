@@ -52,6 +52,18 @@ public class AnimationComponent : MonoBehaviour
         Invoke(nameof(UnlockAttackAnimation), 0.1f);
     }
 
+    void Anim_EndSpell()
+    {
+        // if no animator => return
+        if (!Animator) return;
+
+        // set the animation value
+        Animator.SetBool("spell", false);
+
+        // unlock the spell animation with 0.1 sec delay => can't block by spamming 
+        Invoke(nameof(UnlockSpellAnimation), 0.1f);
+    }
+
     void Anim_Death()
     {
         StartCoroutine(DownToDespawn());
@@ -82,5 +94,6 @@ public class AnimationComponent : MonoBehaviour
     }
 
     void UnlockAttackAnimation() => blockedAnimations.Remove("attack");
+    void UnlockSpellAnimation() => blockedAnimations.Remove("spell");
 
 }

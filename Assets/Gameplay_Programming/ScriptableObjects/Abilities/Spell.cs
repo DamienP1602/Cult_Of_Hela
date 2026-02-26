@@ -13,11 +13,8 @@ public class Spell : Ability
     public GameObject objectReference;
     public int ressourceCost;
     public int cooldown;
-    public int bonusValue;
-    public bool hasDuration;
-    public int bonusDuration;
-    public bool oneTimeUse;
-    public bool uniqueEffect;
+    public int spellValue;
+    public CustomEffect effect;
     public bool hasAnimation;
     public string animationName;
 
@@ -34,7 +31,7 @@ public class Spell : Ability
                 return AttackBonus(_owner);
 
             case SpellActionType.ThrowProjectile:
-                break;
+                return LaunchProjectile(_owner);
 
             default:
                 break;
@@ -45,14 +42,24 @@ public class Spell : Ability
 
     bool AttackBonus(BaseEntity _owner)
     {
-        if (oneTimeUse)
+        AttackBonusEffect _attackBonus = effect as AttackBonusEffect;
+        if (_attackBonus.OneTimeUse)
         {
-            if (_owner.AttackComponent.HasEffect(AbilityID))
+            if (_owner.AttackComponent.BonusEffects.HasEffect(AbilityID))
                 return false;
         }
 
-        AttackBonusEffect _newEffect = new AttackBonusEffect(AbilityID,hasDuration ? bonusDuration : -1, uniqueEffect, bonusValue,oneTimeUse);
-        _owner.AttackComponent.AddEffect(_newEffect);
+        _owner.AttackComponent.BonusEffects.AddEffect(_attackBonus);
+
+        return true;
+    }
+
+    bool LaunchProjectile(BaseEntity _owner)
+    {
+        Vector3 _startPos = _owner.transform.position + Vector3.up + _owner.transform.forward;
+        GameObject _object = Instantiate(objectReference, _startPos, _owner.transform.rotation);
+        ProjectileEntity _projectile = _object.GetComponent<ProjectileEntity>();
+        _projectile.OnHitComponent.InitOnHitEffects(spellValue, effect);
 
         return true;
     }

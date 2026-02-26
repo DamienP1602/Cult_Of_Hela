@@ -10,18 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0022a03a5535b1e47b22cf3dcdaa6bc8, type: 3}
-  m_Name: Test_Fire_Ball
+  m_Name: Test_Light_Ball
   m_EditorClassIdentifier: 
   AbilityID: Test_Fire_Ball
   AbilityName: Test Fire Ball
   spellAction: 1
-  objectReference: {fileID: 0}
+  objectReference: {fileID: 4564207282487881452, guid: c28230d2aab572048a318fa137c6657b, type: 3}
   ressourceCost: 1
   cooldown: 1
-  bonusValue: 3
-  hasDuration: 1
-  bonusDuration: 3
-  oneTimeUse: 1
-  uniqueEffect: 1
+  spellValue: 2
+  effect: {fileID: 0}
   hasAnimation: 1
   animationName: spell

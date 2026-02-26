@@ -35,4 +35,14 @@ public class PlayerClickComponent : MonoBehaviour
 
         }
     }
+
+    public Vector3 GetMousePositionOnWorld()
+    {
+        if (Physics.Raycast(PointOnScreen,out RaycastHit _hit, 100.0f))
+        {
+            return _hit.point;
+        }
+
+        return Vector3.zero;
+    }
 }

@@ -1,60 +1,34 @@
-using NUnit.Framework.Internal;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class AttackComponent : MonoBehaviour, ICustomBonus<AttackBonusEffect>
+public class AttackComponent : MonoBehaviour
 {
-    AnimationComponent animRef;
+    public event Action OnLaunchAttack;
+
     InteractionComponent interactRef;
     StatsComponent statsRef;
 
     [Header("Parameters")]
     [SerializeField] BaseEntity target;
-    [SerializeField] List<AttackBonusEffect> attackBonuses = new List<AttackBonusEffect>();
+    [SerializeField] CustomEffectInterface<AttackBonusEffect> bonusEffects = new CustomEffectInterface<AttackBonusEffect>();
+
+    public CustomEffectInterface<AttackBonusEffect> BonusEffects => bonusEffects;
 
     public void SetTarget(BaseEntity _entity)
     {
         target = _entity;
-        animRef.SetBool("attack", true);
-        animRef.LockAnimation("attack");
+        OnLaunchAttack?.Invoke();
     }
 
     private void Awake()
     {
-        animRef = GetComponent<AnimationComponent>();
         interactRef = GetComponent<InteractionComponent>();
         statsRef = GetComponent<StatsComponent>();
     }
 
     private void Update()
     {
-        UpdateCustomEffect();
-    }
-
-    public void UpdateCustomEffect()
-    {
-        foreach (AttackBonusEffect _bonus in attackBonuses)
-        {
-            if (_bonus.TimeEffectUpdate())
-            {
-                attackBonuses.Remove(_bonus);
-                return;
-            }
-        }
-    }
-
-    public void AddEffect(AttackBonusEffect _effect) => attackBonuses.Add(_effect);
-
-    public void RemoveEffect(AttackBonusEffect _effect) => attackBonuses.Remove(_effect);
-
-    public bool HasEffect(string _effectID)
-    {
-        foreach (AttackBonusEffect _bonus in attackBonuses)
-        {
-            if (_bonus.effectID == _effectID)
-                return true;
-        }
-        return false;
+        bonusEffects.UpdateCustomEffect();
     }
 
     void Anim_Attack()
@@ -66,28 +40,21 @@ public class AttackComponent : MonoBehaviour, ICustomBonus<AttackBonusEffect>
 
             int _damageDeal = statsRef.GetDamageDeal();
 
-            for (int _i = 0; _i < attackBonuses.Count; _i++)
+            for (int _i = 0; _i < bonusEffects.Count; _i++)
             {
-                AttackBonusEffect _bonus = attackBonuses[_i];
-                _damageDeal += (int)_bonus.ActivateEffect();
+                CustomEffectData<AttackBonusEffect> _data = bonusEffects.GetEffect(_i);
+                _damageDeal += (int)_data.effect.ActivateEffect();
 
-                if (_bonus.OneTimeUse)
+                if (_data.effect.OneTimeUse)
                 {
-                    RemoveEffect(_bonus);
+                    bonusEffects.RemoveEffect(_data);
                     _i--;
                 }
             }
 
             _targetStats.LooseHealth(_damageDeal);
-            if (target is EnemyEntity)
-                WorldWidgetsManager.Instance.SpawnDamageText(_targetPos, _damageDeal);
         }
 
         target = null;
-    }
-
-    void DealDamage(StatsComponent _targetStats, int _value)
-    {
-        _targetStats.LooseHealth(_value);
     }
 }

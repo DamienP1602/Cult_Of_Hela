@@ -89,6 +89,7 @@ public class MovementComponent : MonoBehaviour
         {
             animRef.SetBool("movement", true);
             animRef.SetBool("attack", false);
+            animRef.SetBool("spell", false);
         }
 
         rotateTo = null;
@@ -109,6 +110,7 @@ public class MovementComponent : MonoBehaviour
         {
             animRef.SetBool("movement", true);
             animRef.SetBool("attack", false);
+            animRef.SetBool("spell", false);
         }
 
         if (!target)

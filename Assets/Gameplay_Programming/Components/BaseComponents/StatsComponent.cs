@@ -33,15 +33,15 @@ public class SingleStat
 [Serializable]
 public class MultipleStat
 {
-    public event Action<int,int> onValueChange;
+    public event Action<int, int> onValueChange;
 
     [SerializeField] int value;
     [SerializeField] int maxValue;
-    
+
     public int Value => value;
     public int MaxValue => maxValue;
 
-    public MultipleStat(int _value,int _maxValue)
+    public MultipleStat(int _value, int _maxValue)
     {
         value = _value;
         maxValue = _maxValue;
@@ -52,7 +52,7 @@ public class MultipleStat
         value += _value;
         value = Mathf.Clamp(value, 0, maxValue);
 
-        onValueChange?.Invoke(value,maxValue);
+        onValueChange?.Invoke(value, maxValue);
     }
 
     public void RemoveValue(int _value)
@@ -107,10 +107,13 @@ public class StatsComponent : MonoBehaviour
     public SingleStat intelligence;
 
     public bool IsDead => health.Value <= 0;
-    
+
     public void LooseHealth(int _damage)
     {
         health.RemoveValue(_damage);
+
+        if (GetComponent<EnemyEntity>())
+            WorldWidgetsManager.Instance.SpawnDamageText(transform.position + (Vector3.up * 2.0f), _damage);
 
         if (health.Value <= 0)
         {

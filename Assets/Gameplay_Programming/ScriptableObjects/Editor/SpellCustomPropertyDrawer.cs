@@ -61,42 +61,30 @@ public class SpellCustomPropertyDrawer : Editor
         {
             HorizontalGUI(() =>
             {
-                GUILayout.Label("Damage Bonus", GUILayout.Width(120.0f));
-                _spell.bonusValue = EditorGUILayout.IntField(_spell.bonusValue);
+                GUILayout.Label("Attack Bonus", GUILayout.Width(120.0f));
+                _spell.effect = (CustomEffect)EditorGUILayout.ObjectField(_spell.effect, typeof(CustomEffect),true);
             });
-
-
-            HorizontalGUI(() =>
-            {
-                GUILayout.Label("Has Duration", GUILayout.Width(120.0f));
-                _spell.hasDuration = EditorGUILayout.Toggle(_spell.hasDuration, GUILayout.Width(15.0f));
-
-                if (_spell.hasDuration)
-                {
-                    GUILayout.Label("Duration", GUILayout.Width(75.0f));
-                    _spell.bonusDuration = EditorGUILayout.IntField(_spell.bonusDuration);
-                }
-            });
-
-            HorizontalGUI(() =>
-            {
-                GUILayout.Label("One Time Use", GUILayout.Width(120.0f));
-                _spell.oneTimeUse = EditorGUILayout.Toggle(_spell.oneTimeUse, GUILayout.Width(15.0f));
-            });
-
-            HorizontalGUI(() =>
-            {
-                GUILayout.Label("Unique Effect", GUILayout.Width(120.0f));
-                _spell.uniqueEffect = EditorGUILayout.Toggle(_spell.uniqueEffect, GUILayout.Width(15.0f));
-            });
+            
         }
 
         if (_spell.spellAction == SpellActionType.ThrowProjectile)
         {
             HorizontalGUI(() =>
             {
-                SerializedProperty _object = serializedObject.FindProperty("objectReference");
-                EditorGUILayout.ObjectField(_object);
+                GUILayout.Label("Projectile", GUILayout.Width(120.0f));
+                _spell.objectReference = (GameObject)EditorGUILayout.ObjectField(_spell.objectReference, typeof(GameObject), true);
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Projectile Damages", GUILayout.Width(120.0f));
+                _spell.spellValue = EditorGUILayout.IntField(_spell.spellValue);
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Projectile Effect on Hit", GUILayout.Width(150.0f));
+                _spell.effect = (CustomEffect)EditorGUILayout.ObjectField(_spell.effect, typeof(CustomEffect), true);
             });
         }
 

@@ -1,10 +1,16 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(SphereCollider), typeof(ProjectileMovementComponent),typeof(ProjectileOnHitComponent))]
 public class ProjectileEntity : GameEntity
 {
+    public ProjectileMovementComponent MovementComponent { get; private set; }
+    public ProjectileOnHitComponent OnHitComponent { get; private set; }
 
-
+    private void Awake()
+    {
+        MovementComponent = GetComponent<ProjectileMovementComponent>();
+        OnHitComponent = GetComponent<ProjectileOnHitComponent>();
+    }
 
     protected override void EventAssignation()
     {
@@ -18,16 +24,6 @@ public class ProjectileEntity : GameEntity
 
     private void Update()
     {
-        transform.position += (transform.forward * 2.0f) * Time.deltaTime;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<EnemyEntity>())
-        {
-            Destroy(gameObject);
-        }
 
     }
-
 }

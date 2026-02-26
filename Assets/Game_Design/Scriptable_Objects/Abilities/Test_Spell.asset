@@ -18,10 +18,7 @@ MonoBehaviour:
   objectReference: {fileID: 0}
   ressourceCost: 3
   cooldown: 3
-  bonusValue: 3
-  hasDuration: 1
-  bonusDuration: 3
-  oneTimeUse: 1
-  uniqueEffect: 1
+  spellValue: 0
+  effect: {fileID: 11400000, guid: 003ce84bbd6faf547826e6b2f210177b, type: 2}
   hasAnimation: 0
   animationName: 

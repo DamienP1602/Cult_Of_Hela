@@ -31,6 +31,18 @@ public abstract class BaseEntity : GameEntity
     protected override void EventAssignation()
     {
         StatsComponent.onDeath += EntityDeath;
+
+        SpellBookComponent.OnLaunchSpell += () =>
+        {
+            AnimationComponent.SetBool("spell", true);
+            AnimationComponent.LockAnimation("spell");
+        };
+
+        AttackComponent.OnLaunchAttack += () =>
+        {
+            AnimationComponent.SetBool("attack", true);
+            AnimationComponent.LockAnimation("attack");
+        };
     }
 
     protected virtual void EntityDeath()
