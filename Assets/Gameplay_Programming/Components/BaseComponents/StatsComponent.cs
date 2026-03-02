@@ -105,6 +105,8 @@ public class StatsComponent : MonoBehaviour
     public SingleStat strength;
     public SingleStat dexterity;
     public SingleStat intelligence;
+    public SingleStat vitality;
+    public SingleStat spirit;
 
     public bool IsDead => health.Value <= 0;
 
@@ -129,5 +131,4 @@ public class StatsComponent : MonoBehaviour
 
         return _random;
     }
-
 }

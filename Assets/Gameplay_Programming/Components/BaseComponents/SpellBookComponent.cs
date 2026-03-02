@@ -37,6 +37,7 @@ public class SpellBookComponent : MonoBehaviour
             // Launch spell from animation
             OnLaunchSpell?.Invoke();
 
+            // If were the player, we rotate to the mouse position from screen to world
             if (GetComponent<PlayerEntity>() is PlayerEntity _entity)
             {
                 Vector3 _mousePos = _entity.ClickComponent.GetMousePositionOnWorld();

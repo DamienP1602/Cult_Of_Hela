@@ -7,8 +7,10 @@ public class CustomSlider : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] float sliderSpeed;
 
-    Slider slider;
-    TMP_Text text;
+    [Header("References")]
+    [SerializeField] Slider slider;
+    [SerializeField] TMP_Text text;
+    [SerializeField] Image fillImage;
 
     float currentValue = 1.0f;
     float goalValue;

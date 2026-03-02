@@ -2,7 +2,8 @@ using UnityEngine;
 
 public enum PickUpType
 {
-    PickUpCoin
+    PickUpCoin,
+    PickUpItem
 }
 
 public class PickUpInteractable : InteractableEntity
@@ -10,6 +11,7 @@ public class PickUpInteractable : InteractableEntity
     [Header("Parameters")]
     [SerializeField] PickUpType type;
     [SerializeField] int amount;
+    [SerializeField] Item itemData;
 
     public PickUpType Type => type;
     public int Amount
@@ -23,6 +25,7 @@ public class PickUpInteractable : InteractableEntity
             amount = value;
         }
     }
+    public Item ItemData => itemData;
 
     protected override void Start()
     {

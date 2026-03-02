@@ -6,6 +6,7 @@ public class PlayerInputComponent : MonoBehaviour
     IAA_Player action;
 
     public InputAction LeftClick { get; private set; }
+    public InputAction Inventory { get; private set; }
     public InputAction FirstSpellBinding { get; private set; }
     public InputAction SecondSpellBinding { get; private set; }
 
@@ -28,6 +29,7 @@ public class PlayerInputComponent : MonoBehaviour
     void InitInputs()
     {
         LeftClick = action.Player.LeftClick;
+        Inventory = action.Player.Inventory;
         FirstSpellBinding = action.Player.FirstSpellBinding;
         SecondSpellBinding = action.Player.SecondSpellBinding;
     }
@@ -35,6 +37,7 @@ public class PlayerInputComponent : MonoBehaviour
     public void DisableInputs()
     {
         LeftClick.Disable();
+        Inventory.Disable();
         FirstSpellBinding.Disable();
         SecondSpellBinding.Disable();
     }
@@ -42,6 +45,7 @@ public class PlayerInputComponent : MonoBehaviour
     public void EnableInputs()
     {
         LeftClick.Enable();
+        Inventory.Enable();
         FirstSpellBinding.Enable();
         SecondSpellBinding.Enable();
     }

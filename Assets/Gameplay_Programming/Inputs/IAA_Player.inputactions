@@ -16,6 +16,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "89b9cf65-369a-424f-a6ef-723a0ccd2964",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "FirstSpellBinding",
                     "type": "Button",
                     "id": "a49dc391-e593-4bc2-96dc-c498734c9118",
@@ -65,6 +74,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SecondSpellBinding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eac4e305-52f2-4266-b403-98e681139171",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

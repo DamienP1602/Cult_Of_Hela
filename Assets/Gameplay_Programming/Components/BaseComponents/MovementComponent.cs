@@ -16,6 +16,7 @@ public class MovementComponent : MonoBehaviour
     [Header("Components")]
     [SerializeField] Vector3 destination;
     [SerializeField] bool isAtDestination;
+    [SerializeField] float forceRotationSpeed = 1;
     [SerializeField] GameEntity target;
     [SerializeField] Vector3? rotateTo;
 
@@ -64,7 +65,7 @@ public class MovementComponent : MonoBehaviour
 
         Quaternion _rot = Quaternion.LookRotation(_newLookAt);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, _rot, 2.0f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, _rot, forceRotationSpeed);
     }
 
     void FollowTargetUpdate()
@@ -128,6 +129,8 @@ public class MovementComponent : MonoBehaviour
 
     public void StopMovement()
     {
+        if (!agent.enabled) return;
+
         agent.isStopped = true;
         animRef.SetBool("movement", false);
     }

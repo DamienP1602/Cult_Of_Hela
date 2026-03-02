@@ -21,6 +21,8 @@ public class PlayerEntity : BaseEntity
         InputComponent.LeftClick.started += (_context) => ClickComponent.SetIsClick(true);
         InputComponent.LeftClick.canceled += (_context) => ClickComponent.SetIsClick(false);
 
+        InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.ToggleInventory();
+
         InputComponent.FirstSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(0);
         InputComponent.SecondSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(1);
 
@@ -31,6 +33,9 @@ public class PlayerEntity : BaseEntity
     {
         StatsComponent.health.onValueChange += GameManager.Instance.Hud.Overlay.ChangeHealthBar;
         StatsComponent.ressource.onValueChange += GameManager.Instance.Hud.Overlay.ChangeRessourceBar;
+
+        InventoryComponent.OnAddGold += GameManager.Instance.Hud.Overlay.SetGoldText;
+        GameManager.Instance.Hud.Overlay.OnOpenInventory += InventoryComponent.GetItems;
     }
 
     protected override void Init()

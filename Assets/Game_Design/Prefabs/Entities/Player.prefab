@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4027555410193811223}
   - component: {fileID: 4988506981757607603}
   - component: {fileID: 2496062509223166893}
+  - component: {fileID: 8339556638269489716}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -68,7 +69,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4449485389999455840}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.15
   m_Speed: 6
   m_Acceleration: 50
   avoidancePriority: 50
@@ -96,6 +97,7 @@ MonoBehaviour:
   drawDebug: 0
   destination: {x: 0, y: 0, z: 0}
   isAtDestination: 0
+  forceRotationSpeed: 4
   target: {fileID: 0}
 --- !u!114 &8699481617171016624
 MonoBehaviour:
@@ -152,8 +154,18 @@ MonoBehaviour:
   health:
     value: 10
     maxValue: 10
-  damage:
-    value: 2
+  ressource:
+    value: 10
+    maxValue: 10
+  damages:
+    value: 1
+    maxValue: 1
+  strength:
+    value: 0
+  dexterity:
+    value: 0
+  intelligence:
+    value: 0
 --- !u!114 &2594318685623976530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  bonusEffects:
+    allEffect: []
 --- !u!114 &5400395053343006298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91868a659900e645969c9f1bc36f8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockedAnimations: []
 --- !u!95 &4027555410193811223
 Animator:
   serializedVersion: 7
@@ -230,6 +245,22 @@ MonoBehaviour:
   cameraMoveSpeed: 8
   offset: {x: 3, y: 5, z: 3}
   drawOffset: 1
+--- !u!114 &8339556638269489716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449485389999455840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520b4f5747e78e64ea3f5f72c5b61a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allLearnedAbilities: []
+  bindedSpells:
+  - {fileID: 11400000, guid: 85bfa17cd7c8d2542bede894c6aef681, type: 2}
+  - {fileID: 11400000, guid: 452be430f0cd2564484f8f150fae82f2, type: 2}
 --- !u!1001 &5491775099093296215
 PrefabInstance:
   m_ObjectHideFlags: 0

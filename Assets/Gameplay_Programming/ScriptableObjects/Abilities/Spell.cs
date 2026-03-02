@@ -50,7 +50,6 @@ public class Spell : Ability
         }
 
         _owner.AttackComponent.BonusEffects.AddEffect(_attackBonus);
-
         return true;
     }
 

@@ -16,7 +16,7 @@ public class AnimationComponent : MonoBehaviour
     public void SetBool(string _transitionName, bool _value)
     {
         // if no animator => return
-        if (!Animator) return;
+        if (!Animator || !HasParameter(_transitionName)) return;
 
         // if the animation is locked (name in list and ask to be true) => return
         if (blockedAnimations.Contains(_transitionName) && _value) return;
@@ -31,7 +31,7 @@ public class AnimationComponent : MonoBehaviour
     public void SetTrigger(string _transitionName)
     {
         // if no animator => return
-        if (!Animator) return;
+        if (!Animator || !HasParameter(_transitionName)) return;
 
         // if the animation is locked (name in list and ask to be true) => return
         if (blockedAnimations.Contains(_transitionName)) return;
@@ -95,5 +95,17 @@ public class AnimationComponent : MonoBehaviour
 
     void UnlockAttackAnimation() => blockedAnimations.Remove("attack");
     void UnlockSpellAnimation() => blockedAnimations.Remove("spell");
+
+    bool HasParameter(string _paramName)
+    {
+        AnimatorControllerParameter[] _params = Animator.parameters;
+        foreach (AnimatorControllerParameter _param in _params)
+        {
+            if (_param.name == _paramName)
+                return true;
+        }
+
+        return false;
+    }
 
 }
