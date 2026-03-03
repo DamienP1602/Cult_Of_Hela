@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerClickComponent : MonoBehaviour
 {
@@ -15,9 +14,15 @@ public class PlayerClickComponent : MonoBehaviour
     private void Awake()
     {
         owner = GetComponent<PlayerEntity>();
+        InvokeRepeating(nameof(ClickUpdate), 0.2f,0.2f);
     }
 
     private void Update()
+    {
+
+    }
+
+    void ClickUpdate()
     {
         if (isClick)
         {
@@ -32,7 +37,6 @@ public class PlayerClickComponent : MonoBehaviour
             {
                 owner.MovementComponent.SetDestination(_groundHit.hit.point);
             }
-
         }
     }
 

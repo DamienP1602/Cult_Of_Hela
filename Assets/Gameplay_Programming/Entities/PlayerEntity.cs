@@ -19,6 +19,7 @@ public class PlayerEntity : BaseEntity
         base.EventAssignation();
 
         InputComponent.LeftClick.started += (_context) => ClickComponent.SetIsClick(true);
+
         InputComponent.LeftClick.canceled += (_context) => ClickComponent.SetIsClick(false);
 
         InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.ToggleInventory();

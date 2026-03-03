@@ -22,3 +22,6 @@ MonoBehaviour:
   - objectToDrop: {fileID: 3100514117296731487, guid: 91e0b6050ad68104fb0642ae2480f9a3, type: 3}
     dropAmount: {x: 1, y: 1}
     dropChance: 100
+  - objectToDrop: {fileID: 1981105008558790355, guid: f51d66cfda7bc9042889268dcbf85b02, type: 3}
+    dropAmount: {x: 1, y: 1}
+    dropChance: 100

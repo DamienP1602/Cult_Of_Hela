@@ -58,16 +58,15 @@ public class PlayerInventoryComponent : MonoBehaviour
 
         int _inventoryPos = 0;
 
-        int _itemsSize = items.Count;
         List<ItemInventoryData> _temp = new List<ItemInventoryData>(items);
 
-        for (int _i = 0; _i < _itemsSize; _i++)
+        for (int _i = 0; _i < _temp.Count; _i++)
         {
             ItemInventoryData _data = _temp[_i];
 
             if (_inventoryPos == _data.inventoryPosition)
             {
-                _i = 0;
+                _i = -1;
                 _temp.Remove(_data);
                 _inventoryPos++;
             }

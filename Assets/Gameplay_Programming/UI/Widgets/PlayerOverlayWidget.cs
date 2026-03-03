@@ -18,9 +18,39 @@ public class PlayerOverlayWidget : MonoBehaviour
 
     [SerializeField] List<ItemSlotWidget> allItemSlots;
 
+    [SerializeField] ItemInformationWidget itemInformation;
+
     private void Awake()
     {
         allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
+
+        foreach (ItemSlotWidget _slot in allItemSlots)
+        {
+            Action _hoverAction = () =>
+            {
+                itemInformation.gameObject.SetActive(_slot.IsUsed);
+
+                if (_slot.IsUsed)
+                    itemInformation.Init(_slot.Item);
+            };
+            _slot.Button.AddHoverAction(_hoverAction, 0.1f);
+
+            _slot.Button.AddOnExitAction(() => itemInformation.gameObject.SetActive(false));
+        }
+    }
+
+    void InitEventForSlot(ItemSlotWidget _slot)
+    {
+        Action _hoverAction = () =>
+        {
+            itemInformation.gameObject.SetActive(_slot.IsUsed);
+
+            if (_slot.IsUsed)
+                itemInformation.Init(_slot.Item);
+        };
+        _slot.Button.AddHoverAction(_hoverAction, 0.1f);
+
+        _slot.Button.AddOnExitAction(() => itemInformation.gameObject.SetActive(false));
     }
 
     public void ChangeHealthBar(int _value, int _maxValue)
