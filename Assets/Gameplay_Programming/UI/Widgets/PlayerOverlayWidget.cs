@@ -9,9 +9,12 @@ public class PlayerOverlayWidget : MonoBehaviour
 {
     public event Func<List<ItemInventoryData>> OnOpenInventory;
 
-    [Header("Ressources Parameters")]
+    [Header("Parameters")]
+    PlayerStatsWidget statsWidget;
+
     [SerializeField] CustomSlider healthBar;
     [SerializeField] CustomSlider ressourceBar;
+    [SerializeField] CustomSlider experienceBar;
 
     [SerializeField] GameObject inventory;
     [SerializeField] TMP_Text goldText;
@@ -22,6 +25,8 @@ public class PlayerOverlayWidget : MonoBehaviour
 
     private void Awake()
     {
+        statsWidget = GetComponentInChildren<PlayerStatsWidget>(true);
+
         allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
 
         foreach (ItemSlotWidget _slot in allItemSlots)
@@ -39,37 +44,34 @@ public class PlayerOverlayWidget : MonoBehaviour
         }
     }
 
-    void InitEventForSlot(ItemSlotWidget _slot)
-    {
-        Action _hoverAction = () =>
-        {
-            itemInformation.gameObject.SetActive(_slot.IsUsed);
-
-            if (_slot.IsUsed)
-                itemInformation.Init(_slot.Item);
-        };
-        _slot.Button.AddHoverAction(_hoverAction, 0.1f);
-
-        _slot.Button.AddOnExitAction(() => itemInformation.gameObject.SetActive(false));
-    }
-
     public void ChangeHealthBar(int _value, int _maxValue)
     {
-        healthBar.SetValue(_value, _maxValue);
+        healthBar.SetGoalValue(_value, _maxValue);
     }
 
     public void ChangeRessourceBar(int _value, int _maxValue)
     {
-        ressourceBar.SetValue(_value, _maxValue);
+        ressourceBar.SetGoalValue(_value, _maxValue);
     }
 
-    public void ToggleInventory()
+    public void ChangeExperienceBar(int _value, int _maxValue)
+    {
+        experienceBar.SetGoalValue(_value, _maxValue);
+    }
+
+    public void ToggleInventoryPanel()
     {
         bool _newValue = !inventory.activeInHierarchy;
         inventory.SetActive(_newValue);
 
         if (_newValue)
+        {
             InitInventoryItems();
+
+            statsWidget.RefreshValues();
+        }
+        else
+            GameManager.Instance.Player.ClickComponent.SetCanClick(true);
     }
 
     void InitInventoryItems()

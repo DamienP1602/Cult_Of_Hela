@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 public class PlayerClickComponent : MonoBehaviour
 {
@@ -6,25 +8,27 @@ public class PlayerClickComponent : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] bool isClick;
+    [SerializeField] VisualEffectAsset onClickEffect;
+    [SerializeField] bool canClick = true;
     
     Ray PointOnScreen => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public void SetIsClick(bool _value) => isClick = _value;
+    public void SetCanClick(bool _value) => canClick = _value;
 
     private void Awake()
     {
         owner = GetComponent<PlayerEntity>();
-        InvokeRepeating(nameof(ClickUpdate), 0.2f,0.2f);
     }
 
     private void Update()
     {
-
+        ClickUpdate();
     }
 
     void ClickUpdate()
     {
-        if (isClick)
+        if (isClick && canClick)
         {
             RaycastHit[] _hits = Physics.RaycastAll(PointOnScreen, 100.0f);
             if (_hits.Length == 0) return;
@@ -48,5 +52,19 @@ public class PlayerClickComponent : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public void SpawnClickVFX()
+    {
+        if (!canClick) return;
+
+        bool _hasHit = Physics.Raycast(PointOnScreen, out RaycastHit _hit, 100.0f);
+        if (_hasHit && !_hit.collider.GetComponent<GameEntity>())
+        {
+            VisualEffect _effect = Instantiate(GameManager.Instance.EmptyVisualEffect, _hit.point + Vector3.up * 0.05f, Quaternion.identity);
+
+            _effect.visualEffectAsset = onClickEffect;
+            Destroy(_effect.gameObject, 1.0f);
+        }
     }
 }

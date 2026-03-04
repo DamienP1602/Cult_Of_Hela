@@ -21,7 +21,18 @@ public class SpellCustomPropertyDrawer : Editor
         {
             GUILayout.Label("Ability ID", GUILayout.Width(120.0f));
             _spell.AbilityID = EditorGUILayout.TextField(_spell.AbilityID);
+        });
 
+        HorizontalGUI(() =>
+        {
+            GUILayout.Label("Ability Sprite", GUILayout.Width(120.0f));
+            _spell.abilitySprite = (Sprite)EditorGUILayout.ObjectField(_spell.abilitySprite, typeof(Sprite), true);
+        });
+
+        HorizontalGUI(() =>
+        {
+            GUILayout.Label("Ability Sprite Color", GUILayout.Width(120.0f));
+            _spell.abilitySpriteColor = EditorGUILayout.ColorField(_spell.abilitySpriteColor);
         });
 
         DrawTitle("Spell Parameters");

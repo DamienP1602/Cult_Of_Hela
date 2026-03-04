@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityID: Test_Fire_Ball
   AbilityName: Test Fire Ball
+  AbilityDescription: 
+  abilitySprite: {fileID: 21300000, guid: dc68cdd8ddcb533439d72ffe23b930c9, type: 3}
+  abilitySpriteColor: {r: 0, g: 0, b: 0, a: 0}
   spellAction: 1
   objectReference: {fileID: 4564207282487881452, guid: c28230d2aab572048a318fa137c6657b, type: 3}
   ressourceCost: 1

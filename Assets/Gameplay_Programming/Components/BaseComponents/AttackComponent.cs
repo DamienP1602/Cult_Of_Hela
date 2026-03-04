@@ -9,6 +9,7 @@ public class AttackComponent : MonoBehaviour
     StatsComponent statsRef;
 
     [Header("Parameters")]
+    [SerializeField] BasicAttack basicAttackData;
     [SerializeField] BaseEntity target;
     [SerializeField] CustomEffectInterface<AttackBonusEffect> bonusEffects = new CustomEffectInterface<AttackBonusEffect>();
 
@@ -38,7 +39,9 @@ public class AttackComponent : MonoBehaviour
             StatsComponent _targetStats = target.StatsComponent;
             Vector3 _targetPos = target.transform.position + (Vector3.up * 2.0f);
 
+            // Va devoir changer pour récupérer les dégâts de l'arme
             int _damageDeal = statsRef.GetDamageDeal();
+            _damageDeal += basicAttackData.GetBasicDamages();
 
             for (int _i = 0; _i < bonusEffects.Count; _i++)
             {
@@ -52,7 +55,14 @@ public class AttackComponent : MonoBehaviour
                 }
             }
 
-            _targetStats.LooseHealth(_damageDeal);
+            if (_targetStats.LooseHealth(_damageDeal))
+            {
+                if (GetComponent<PlayerLevelComponent>() is PlayerLevelComponent _playerLevel)
+                {
+                    EnemyEntity _enemy = target as EnemyEntity;
+                    _playerLevel.GainExperience(_enemy.GetExperienceAmount());
+                }
+            }
         }
 
         target = null;

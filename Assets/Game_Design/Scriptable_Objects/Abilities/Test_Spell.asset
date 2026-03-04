@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityID: Test_Spell
   AbilityName: Test Spell
+  AbilityDescription: 
+  abilitySprite: {fileID: 0}
+  abilitySpriteColor: {r: 0, g: 0, b: 0, a: 0}
   spellAction: 0
   objectReference: {fileID: 0}
   ressourceCost: 3

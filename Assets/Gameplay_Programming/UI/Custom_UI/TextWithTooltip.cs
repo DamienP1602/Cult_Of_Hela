@@ -23,6 +23,13 @@ public class TextWithTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         Destroy(tooltipWindow.gameObject);
     }
-   
+
+    private void OnDisable()
+    {
+        if (tooltipWindow)
+        {
+            Destroy(tooltipWindow.gameObject);
+        }
+    }
 
 }

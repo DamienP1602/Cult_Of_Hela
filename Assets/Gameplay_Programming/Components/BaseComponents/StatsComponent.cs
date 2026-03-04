@@ -110,7 +110,12 @@ public class StatsComponent : MonoBehaviour
 
     public bool IsDead => health.Value <= 0;
 
-    public void LooseHealth(int _damage)
+    /// <summary>
+    /// Return true if this entity is dead
+    /// </summary>
+    /// <param name="_damage"></param>
+    /// <returns></returns>
+    public bool LooseHealth(int _damage)
     {
         health.RemoveValue(_damage);
 
@@ -120,7 +125,10 @@ public class StatsComponent : MonoBehaviour
         if (health.Value <= 0)
         {
             onDeath?.Invoke();
+            return true;
         }
+
+        return false;
     }
 
     public int GetDamageDeal()

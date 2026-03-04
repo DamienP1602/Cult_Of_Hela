@@ -7,6 +7,10 @@ public class EnemyEntity : BaseEntity
     public EnemyDetectionComponent DetectionComponent { get; private set; }
     public DropComponent DropComponent { get; private set; }
 
+    [Header("Enemy Parameters")]
+    [SerializeField] int enemyLevel;
+    [SerializeField] int experienceValue;
+
     protected override void Start()
     {
         base.Start();
@@ -44,4 +48,7 @@ public class EnemyEntity : BaseEntity
         if (_collider)
             _collider.enabled = false;
     }
+
+    public int GetExperienceAmount() => experienceValue * enemyLevel;
+
 }

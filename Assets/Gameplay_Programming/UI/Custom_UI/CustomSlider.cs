@@ -18,8 +18,17 @@ public class CustomSlider : MonoBehaviour
 
     private void Awake()
     {
-        slider = GetComponentInChildren<Slider>();
-        text = GetComponentInChildren<TMP_Text>();
+        if (GetComponentInChildren<Slider>(true) is Slider _sliderFounded)
+        {
+            slider = _sliderFounded;
+        }
+
+        if (GetComponentInChildren<TMP_Text>(true) is TMP_Text _textFounded)
+        {
+            text = _textFounded;
+        }
+
+        currentValue = slider.value;
     }
 
     private void Update()
@@ -37,11 +46,21 @@ public class CustomSlider : MonoBehaviour
         }
     }
 
-    public void SetValue(int _current,int _max)
+    public void SetGoalValue(int _current, int _max)
     {
         goalValue = (float)_current / (float)_max;
         needToChange = true;
 
-        text.text = _current.ToString() + "/" + _max.ToString();
+        if (text)
+            text.text = _current.ToString() + "/" + _max.ToString();
+    }
+
+    public void SetValue(int _current, int _max)
+    {
+        goalValue = (float)_current / (float)_max;
+        slider.value = goalValue;
+
+        if (text)
+            text.text = _current.ToString() + "/" + _max.ToString();
     }
 }
