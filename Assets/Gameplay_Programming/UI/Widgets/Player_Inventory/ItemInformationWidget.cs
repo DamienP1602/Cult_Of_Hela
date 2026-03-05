@@ -26,14 +26,14 @@ public class ItemInformationWidget : MonoBehaviour
         
     }
 
-    public void Init(Item _data)
+    public void Init(ItemInventoryData _data)
     {
-        itemIcon.sprite = _data.itemIcon;
-        itemName.text = _data.itemName;
-        itemDescription.text = GenerateDescription(_data);
-        itemMainStat.text = GenerateMainStat(_data);
+        itemIcon.sprite = _data.data.itemIcon;
+        itemName.text = _data.data.itemName;
+        itemDescription.text = GenerateDescription(_data.data);
+        itemMainStat.text = GenerateMainStat(_data.data);
 
-        GenerateSecondStats(_data);
+        GenerateSecondStats(_data.data);
     }
 
     string GenerateDescription(Item _data)

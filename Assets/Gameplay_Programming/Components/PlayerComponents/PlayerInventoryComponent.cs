@@ -4,12 +4,12 @@ using UnityEngine;
 
 public struct ItemInventoryData
 {
-    public Item item;
+    public Item data;
     public int inventoryPosition;
 
     public ItemInventoryData(Item _item, int _position)
     {
-        item = _item;
+        data = _item;
         inventoryPosition = _position;
     }
 }

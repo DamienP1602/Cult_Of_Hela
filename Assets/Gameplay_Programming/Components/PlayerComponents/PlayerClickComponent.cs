@@ -59,7 +59,7 @@ public class PlayerClickComponent : MonoBehaviour
         if (!canClick) return;
 
         bool _hasHit = Physics.Raycast(PointOnScreen, out RaycastHit _hit, 100.0f);
-        if (_hasHit && !_hit.collider.GetComponent<GameEntity>())
+        if (_hasHit && _hit.collider.GetComponent<Terrain>())
         {
             VisualEffect _effect = Instantiate(GameManager.Instance.EmptyVisualEffect, _hit.point + Vector3.up * 0.05f, Quaternion.identity);
 

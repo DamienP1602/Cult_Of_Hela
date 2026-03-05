@@ -17,6 +17,7 @@ MonoBehaviour:
   itemType: 1
   equipmentType: 1
   rarity: 1
+  equipmentSlotType: 1
   damages: {x: 0, y: 0}
   armor: 20
   strength: 1

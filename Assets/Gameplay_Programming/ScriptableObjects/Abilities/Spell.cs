@@ -58,6 +58,7 @@ public class Spell : Ability
         Vector3 _startPos = _owner.transform.position + Vector3.up + _owner.transform.forward;
         GameObject _object = Instantiate(objectReference, _startPos, _owner.transform.rotation);
         ProjectileEntity _projectile = _object.GetComponent<ProjectileEntity>();
+        _projectile.SetOwner(_owner);
         _projectile.OnHitComponent.InitOnHitEffects(spellValue, effect);
 
         return true;

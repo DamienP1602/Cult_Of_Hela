@@ -30,7 +30,15 @@ public class ProjectileOnHitComponent : MonoBehaviour
     {
         if (other.GetComponent<BaseEntity>() is BaseEntity _entity)
         {
-            _entity.StatsComponent.LooseHealth(damageAmount);
+            if (_entity.StatsComponent.LooseHealth(damageAmount))
+            {
+                ProjectileEntity _self = GetComponent<ProjectileEntity>();
+                if (_self.Owner.GetComponent<PlayerLevelComponent>() is PlayerLevelComponent _playerLevel)
+                {
+                    EnemyEntity _enemy = other.GetComponent<EnemyEntity>();
+                    _playerLevel.GainExperience(_enemy.GetExperienceAmount());
+                }
+            }
 
             if (debuffEffect)
             {

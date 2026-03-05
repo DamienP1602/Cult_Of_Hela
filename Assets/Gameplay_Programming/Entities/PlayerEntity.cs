@@ -41,7 +41,7 @@ public class PlayerEntity : BaseEntity
         StatsComponent.ressource.onValueChange += GameManager.Instance.Hud.Overlay.ChangeRessourceBar;
         LevelComponent.OnGainExperience += GameManager.Instance.Hud.Overlay.ChangeExperienceBar;
 
-        InventoryComponent.OnAddGold += GameManager.Instance.Hud.Overlay.SetGoldText;
+        InventoryComponent.OnAddGold += GameManager.Instance.Hud.Overlay.InventoryWidget.SetGoldText;
         GameManager.Instance.Hud.Overlay.OnOpenInventory += InventoryComponent.GetItems;
     }
 

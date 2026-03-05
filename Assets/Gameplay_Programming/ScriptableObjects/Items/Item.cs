@@ -25,6 +25,20 @@ public enum ItemType
     Item_Shield
 }
 
+[Serializable]
+public enum EquipmentSlotType
+{
+    Equipment_Right_Hand,
+    Equipment_Left_Hand,
+    Equipment_Head,
+    Equipment_Body,
+    Equipment_Leggings,
+    Equipment_Boots,
+    Equipment_Necklace,
+    Equipment_Rings,
+    Equipment_Trinket
+}
+
 [CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item/New Item")]
 public class Item : ScriptableObject
 {
@@ -36,6 +50,7 @@ public class Item : ScriptableObject
     public ItemType itemType;
     public EquipmentType equipmentType;
     public ItemRarity rarity;
+    public EquipmentSlotType equipmentSlotType;
 
     [Header("Stats Parameters")]
     public Vector2 damages;

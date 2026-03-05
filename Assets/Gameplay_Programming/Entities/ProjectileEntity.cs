@@ -6,6 +6,12 @@ public class ProjectileEntity : GameEntity
     public ProjectileMovementComponent MovementComponent { get; private set; }
     public ProjectileOnHitComponent OnHitComponent { get; private set; }
 
+    BaseEntity owner;
+
+    public BaseEntity Owner => owner;
+
+    public void SetOwner(BaseEntity _entity) => owner = _entity; 
+
     private void Awake()
     {
         MovementComponent = GetComponent<ProjectileMovementComponent>();

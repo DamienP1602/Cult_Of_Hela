@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -139,15 +139,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 326044863779177605, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 326044863779177605, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 326044863779177605, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4896394972849030848, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
       propertyPath: m_Pivot.x
@@ -240,6 +240,18 @@ PrefabInstance:
     - target: {fileID: 9010812853842851485, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
       propertyPath: hoverScale
       value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010812853842851485, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
+      propertyPath: disabledColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010812853842851485, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
+      propertyPath: disabledColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010812853842851485, guid: 2cdf427957e49ae4499dc3c170d34f53, type: 3}
+      propertyPath: disabledColor.r
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

@@ -1,9 +1,9 @@
 using TMPro;
 using UnityEngine;
-using UnityEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class PlayerOverlayWidget : MonoBehaviour
 {
@@ -12,35 +12,58 @@ public class PlayerOverlayWidget : MonoBehaviour
     [Header("Parameters")]
     PlayerStatsWidget statsWidget;
 
+    /// <summary>
+    /// Put to Stats Widgets
+    /// </summary>
     [SerializeField] CustomSlider healthBar;
     [SerializeField] CustomSlider ressourceBar;
     [SerializeField] CustomSlider experienceBar;
 
     [SerializeField] GameObject inventory;
-    [SerializeField] TMP_Text goldText;
 
-    [SerializeField] List<ItemSlotWidget> allItemSlots;
+    [SerializeField] ItemInformationWidget informationWidget;
+    [SerializeField] PlayerEquipmentWidget equipmentWidget;
+    [SerializeField] PlayerInventoryWidget inventoryWidget;
 
-    [SerializeField] ItemInformationWidget itemInformation;
+    [SerializeField] Image selectedItemIcon;
+    Item selectedItem;
+    bool hasSelectedItem;
+
+    public PlayerInventoryWidget InventoryWidget => inventoryWidget;
+
 
     private void Awake()
     {
         statsWidget = GetComponentInChildren<PlayerStatsWidget>(true);
+        equipmentWidget = GetComponentInChildren<PlayerEquipmentWidget>(true);
+        informationWidget = GetComponentInChildren<ItemInformationWidget>(true);
+        inventoryWidget = GetComponentInChildren<PlayerInventoryWidget>(true);
 
-        allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
+        List<ItemSlotWidget> _allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
 
-        foreach (ItemSlotWidget _slot in allItemSlots)
+        foreach (ItemSlotWidget _slot in _allItemSlots)
         {
             Action _hoverAction = () =>
             {
-                itemInformation.gameObject.SetActive(_slot.IsUsed);
+                informationWidget.gameObject.SetActive(_slot.IsUsed);
 
                 if (_slot.IsUsed)
-                    itemInformation.Init(_slot.Item);
+                    informationWidget.Init(_slot.Item);
             };
             _slot.Button.AddHoverAction(_hoverAction, 0.1f);
+            _slot.Button.AddOnExitAction(() => informationWidget.gameObject.SetActive(false));
+        }
 
-            _slot.Button.AddOnExitAction(() => itemInformation.gameObject.SetActive(false));
+        equipmentWidget.OnGetSelectedItem += () => selectedItem;
+        inventoryWidget.OnSelectWidget += SelectItem;
+
+    }
+
+    private void Update()
+    {
+        if (hasSelectedItem)
+        {
+            selectedItemIcon.transform.position = Input.mousePosition;
         }
     }
 
@@ -67,11 +90,21 @@ public class PlayerOverlayWidget : MonoBehaviour
         if (_newValue)
         {
             InitInventoryItems();
-
             statsWidget.RefreshValues();
+            equipmentWidget.ClearEquipmentInteractable();
         }
         else
+        {
             GameManager.Instance.Player.ClickComponent.SetCanClick(true);
+            ResetSelectedItem();
+        }
+    }
+
+    void ResetSelectedItem()
+    {
+        selectedItem = null;
+        selectedItemIcon.gameObject.SetActive(false);
+        hasSelectedItem = false;
     }
 
     void InitInventoryItems()
@@ -79,18 +112,16 @@ public class PlayerOverlayWidget : MonoBehaviour
         List<ItemInventoryData> _items = OnOpenInventory?.Invoke();
         if (_items == null) return;
 
-        int _size = _items.Count;
-        for (int _i = 0; _i < _size; _i++)
-        {
-            ItemInventoryData _data = _items[_i];
-
-            ItemSlotWidget _slot = allItemSlots[_data.inventoryPosition];
-            _slot.InitSlot(_data);
-        }
+        inventoryWidget.Init(_items);
     }
 
-    public void SetGoldText(int _goldAmount)
+    void SelectItem(ItemSlotWidget _slot)
     {
-        goldText.text = "Gold : " + _goldAmount.ToString();
+        selectedItem = _slot.Item.data;
+        selectedItemIcon.sprite = _slot.Item.data.itemIcon;
+        selectedItemIcon.gameObject.SetActive(true);
+        hasSelectedItem = true;
+
+        equipmentWidget.ChangeEquipmentInteractable(_slot.Item.data);
     }
 }
