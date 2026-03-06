@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public struct ItemInventoryData
 {
     public Item data;
@@ -11,6 +12,16 @@ public struct ItemInventoryData
     {
         data = _item;
         inventoryPosition = _position;
+    }
+
+    public static bool operator ==(ItemInventoryData _self, ItemInventoryData _other)
+    {
+        return _self.data == _other.data && _self.inventoryPosition == _other.inventoryPosition;
+    }
+
+    public static bool operator !=(ItemInventoryData _self, ItemInventoryData _other)
+    {
+        return _self.data != _other.data || _self.inventoryPosition != _other.inventoryPosition;
     }
 }
 
@@ -75,4 +86,25 @@ public class PlayerInventoryComponent : MonoBehaviour
         return _inventoryPos;
     }
 
+    public void MoveItem(ItemInventoryData _itemToMove, int _itemPosition)
+    {
+        ItemInventoryData _tempItem = GetItemFromIndex(_itemPosition);
+        if (_tempItem == _itemToMove) return;
+
+        items.Remove(_itemToMove);
+        if (_tempItem.data != null)
+        {
+            items.Remove(_tempItem);
+            items.Add(new ItemInventoryData(_tempItem.data, _itemToMove.inventoryPosition));
+
+            items.Add(new ItemInventoryData(_itemToMove.data, _tempItem.inventoryPosition));
+        }
+        else
+        {
+            items.Add(new ItemInventoryData(_itemToMove.data, _itemPosition));
+        }
+
+    }
+
+    ItemInventoryData GetItemFromIndex(int _index) => items.Find(_item => _item.inventoryPosition == _index);
 }

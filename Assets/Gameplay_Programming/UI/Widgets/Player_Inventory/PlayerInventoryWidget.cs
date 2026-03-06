@@ -11,28 +11,30 @@ public class PlayerInventoryWidget : MonoBehaviour
     [SerializeField] List<ItemSlotWidget> allItemSlots;
     [SerializeField] TMP_Text goldText;
 
+    public List<ItemSlotWidget> ItemSlots => allItemSlots;
+
     private void Awake()
     {
         allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
 
         foreach (ItemSlotWidget _slot in allItemSlots)
         {
-            _slot.Button.AddLeftClickAction(() => SelectItem(_slot));
+            _slot.Button.AddLeftClickAction(() => SelectSlot(_slot));
         }
     }
 
-    void SelectItem(ItemSlotWidget _slot)
+    void SelectSlot(ItemSlotWidget _slot)
     {
-        if (!_slot.HasItem) return;
-
-        Item _item = _slot.Item.data;
-        _slot.ResetSlot();
-
         OnSelectWidget?.Invoke(_slot);
     }
 
     public void Init(List<ItemInventoryData> _items)
     {
+        foreach (ItemSlotWidget _slot in allItemSlots)
+        {
+            _slot.ResetSlot();
+        }
+
         int _size = _items.Count;
         for (int _i = 0; _i < _size; _i++)
         {
@@ -47,4 +49,6 @@ public class PlayerInventoryWidget : MonoBehaviour
     {
         goldText.text = "Gold : " + _goldAmount.ToString();
     }
+
+    public int GetIndexOfSlot(ItemSlotWidget _slot) => allItemSlots.FindIndex(s => s == _slot);
 }

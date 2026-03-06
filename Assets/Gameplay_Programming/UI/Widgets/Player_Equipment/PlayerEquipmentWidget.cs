@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerEquipmentWidget : MonoBehaviour
 {
-    public event Func<Item> OnGetSelectedItem;
+    public event Func<ItemInventoryData> OnGetSelectedItem;
 
     [Serializable]
     struct EquipmentSlots
@@ -43,8 +43,8 @@ public class PlayerEquipmentWidget : MonoBehaviour
 
     void EquipSelectedItem(ItemSlotWidget _widget)
     {
-        Item _selectedItem = OnGetSelectedItem?.Invoke();
-        if (!_selectedItem) return;
+        ItemInventoryData? _selectedItem = OnGetSelectedItem?.Invoke();
+        if (_selectedItem == null) return;
 
         //_widget.InitSlot(_selectedItem);
     }

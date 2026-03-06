@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class PlayerOverlayWidget : MonoBehaviour
 {
     public event Func<List<ItemInventoryData>> OnOpenInventory;
+    public event Action<ItemInventoryData,int> OnMoveItemInInventory;
 
     [Header("Parameters")]
-    PlayerStatsWidget statsWidget;
 
     /// <summary>
     /// Put to Stats Widgets
@@ -19,14 +19,16 @@ public class PlayerOverlayWidget : MonoBehaviour
     [SerializeField] CustomSlider ressourceBar;
     [SerializeField] CustomSlider experienceBar;
 
-    [SerializeField] GameObject inventory;
+    [SerializeField] GameObject panel;
 
-    [SerializeField] ItemInformationWidget informationWidget;
+    [SerializeField] PlayerStatsWidget statsWidget;
     [SerializeField] PlayerEquipmentWidget equipmentWidget;
     [SerializeField] PlayerInventoryWidget inventoryWidget;
 
+    [SerializeField] ItemInformationWidget informationWidget;
+
     [SerializeField] Image selectedItemIcon;
-    Item selectedItem;
+    ItemInventoryData? selectedItem;
     bool hasSelectedItem;
 
     public PlayerInventoryWidget InventoryWidget => inventoryWidget;
@@ -34,10 +36,6 @@ public class PlayerOverlayWidget : MonoBehaviour
 
     private void Awake()
     {
-        statsWidget = GetComponentInChildren<PlayerStatsWidget>(true);
-        equipmentWidget = GetComponentInChildren<PlayerEquipmentWidget>(true);
-        informationWidget = GetComponentInChildren<ItemInformationWidget>(true);
-        inventoryWidget = GetComponentInChildren<PlayerInventoryWidget>(true);
 
         List<ItemSlotWidget> _allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
 
@@ -54,7 +52,7 @@ public class PlayerOverlayWidget : MonoBehaviour
             _slot.Button.AddOnExitAction(() => informationWidget.gameObject.SetActive(false));
         }
 
-        equipmentWidget.OnGetSelectedItem += () => selectedItem;
+        equipmentWidget.OnGetSelectedItem += () => selectedItem.Value;
         inventoryWidget.OnSelectWidget += SelectItem;
 
     }
@@ -84,8 +82,8 @@ public class PlayerOverlayWidget : MonoBehaviour
 
     public void ToggleInventoryPanel()
     {
-        bool _newValue = !inventory.activeInHierarchy;
-        inventory.SetActive(_newValue);
+        bool _newValue = !panel.activeInHierarchy;
+        panel.SetActive(_newValue);
 
         if (_newValue)
         {
@@ -107,6 +105,16 @@ public class PlayerOverlayWidget : MonoBehaviour
         hasSelectedItem = false;
     }
 
+    void SetSelectedItem(ItemSlotWidget _slot)
+    {
+        selectedItem = _slot.Item;
+        selectedItemIcon.sprite = _slot.Item.data.itemIcon;
+        selectedItemIcon.gameObject.SetActive(true);
+        hasSelectedItem = true;
+
+        equipmentWidget.ChangeEquipmentInteractable(_slot.Item.data);
+    }
+
     void InitInventoryItems()
     {
         List<ItemInventoryData> _items = OnOpenInventory?.Invoke();
@@ -117,11 +125,20 @@ public class PlayerOverlayWidget : MonoBehaviour
 
     void SelectItem(ItemSlotWidget _slot)
     {
-        selectedItem = _slot.Item.data;
-        selectedItemIcon.sprite = _slot.Item.data.itemIcon;
-        selectedItemIcon.gameObject.SetActive(true);
-        hasSelectedItem = true;
+        if (!hasSelectedItem)
+        {
+            if (_slot == null ||_slot.Item.data == null) return;
 
-        equipmentWidget.ChangeEquipmentInteractable(_slot.Item.data);
+            SetSelectedItem(_slot);
+
+            if (_slot.IsUsed)
+                _slot.ResetSlot();
+        }
+        else
+        {
+            OnMoveItemInInventory?.Invoke(selectedItem.Value,inventoryWidget.GetIndexOfSlot(_slot));
+            ResetSelectedItem();
+            InitInventoryItems();
+        }
     }
 }

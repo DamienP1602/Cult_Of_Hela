@@ -43,6 +43,7 @@ public class PlayerEntity : BaseEntity
 
         InventoryComponent.OnAddGold += GameManager.Instance.Hud.Overlay.InventoryWidget.SetGoldText;
         GameManager.Instance.Hud.Overlay.OnOpenInventory += InventoryComponent.GetItems;
+        GameManager.Instance.Hud.Overlay.OnMoveItemInInventory += InventoryComponent.MoveItem;
     }
 
     protected override void Init()
