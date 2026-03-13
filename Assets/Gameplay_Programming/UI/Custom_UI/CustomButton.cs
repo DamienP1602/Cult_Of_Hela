@@ -157,9 +157,6 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
 
         scaleToLerp = Vector3.one * hoverScale;
-
-        //
-        GameManager.Instance.Player.ClickComponent.SetCanClick(false);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -173,9 +170,6 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         InvokeOnExit();
         
         scaleToLerp = Vector3.one;
-
-        //
-        GameManager.Instance.Player.ClickComponent.SetCanClick(true);
     }
 
 

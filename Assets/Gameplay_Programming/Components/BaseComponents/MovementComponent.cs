@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class MovementComponent : MonoBehaviour
@@ -20,7 +20,7 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] GameEntity target;
     [SerializeField] Vector3? rotateTo;
 
-    public bool IsNearDestination() => Vector3.Distance(new Vector3(destination.x, 0.0f, destination.z), new Vector3(transform.position.x, 0.0f, transform.position.z)) < 0.1f;
+    public bool IsNearDestination() => Vector3.Distance(new Vector3(agent.destination.x, 0.0f, agent.destination.z), new Vector3(transform.position.x, 0.0f, transform.position.z)) < 0.1f;
 
     private void Awake()
     {
@@ -73,16 +73,22 @@ public class MovementComponent : MonoBehaviour
         if (!target || !agent.enabled) return;
 
         Vector3 _destination = target.transform.position;
-        bool _succeed = agent.SetDestination(_destination);
-        destination = _destination;
+        bool _succeed = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
+        if (_succeed)
+            agent.SetDestination(_hit.position);
+
+        destination = agent.destination;
     }
 
     public void SetDestination(Vector3 _destination)
     {
         if (!agent.enabled) return;
 
-        bool _succeed = agent.SetDestination(_destination);
-        destination = _destination;
+        bool _succeed  = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
+        if (_succeed)
+            agent.SetDestination(_hit.position);
+
+        destination = agent.destination;
         agent.isStopped = false;
         isAtDestination = false;
 
@@ -102,8 +108,11 @@ public class MovementComponent : MonoBehaviour
         if (!agent.enabled) return;
 
         Vector3 _destination = _entity.transform.position;
-        bool _succeed = agent.SetDestination(_destination);
-        destination = _destination;
+        bool _succeed = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
+        if (_succeed)
+            agent.SetDestination(_hit.position);
+
+        destination = agent.destination;
         agent.isStopped = false;
         isAtDestination = false;
 

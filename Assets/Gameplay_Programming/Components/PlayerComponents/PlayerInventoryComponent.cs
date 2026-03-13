@@ -14,6 +14,18 @@ public struct ItemInventoryData
         inventoryPosition = _position;
     }
 
+    public override bool Equals(object obj)
+    {
+        return obj is ItemInventoryData data &&
+               EqualityComparer<Item>.Default.Equals(this.data, data.data) &&
+               inventoryPosition == data.inventoryPosition;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(data, inventoryPosition);
+    }
+
     public static bool operator ==(ItemInventoryData _self, ItemInventoryData _other)
     {
         return _self.data == _other.data && _self.inventoryPosition == _other.inventoryPosition;
@@ -23,6 +35,8 @@ public struct ItemInventoryData
     {
         return _self.data != _other.data || _self.inventoryPosition != _other.inventoryPosition;
     }
+
+    
 }
 
 public class PlayerInventoryComponent : MonoBehaviour
@@ -62,6 +76,11 @@ public class PlayerInventoryComponent : MonoBehaviour
         }
     }
 
+    public void AddToInventory(Item _item)
+    {
+        items.Add(new ItemInventoryData(_item, GetFirstInventoryPositionAvailable()));
+    }
+
     int GetFirstInventoryPositionAvailable()
     {
         if (items == null)
@@ -84,6 +103,11 @@ public class PlayerInventoryComponent : MonoBehaviour
         }
 
         return _inventoryPos;
+    }
+
+    public void RemoveToInventory(ItemInventoryData _data)
+    {
+        items.Remove(_data);
     }
 
     public void MoveItem(ItemInventoryData _itemToMove, int _itemPosition)

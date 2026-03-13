@@ -32,11 +32,11 @@ public class PlayerOverlayWidget : MonoBehaviour
     bool hasSelectedItem;
 
     public PlayerInventoryWidget InventoryWidget => inventoryWidget;
+    public PlayerEquipmentWidget EquipmentWidget => equipmentWidget;
 
 
     private void Awake()
     {
-
         List<ItemSlotWidget> _allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
 
         foreach (ItemSlotWidget _slot in _allItemSlots)
@@ -52,7 +52,7 @@ public class PlayerOverlayWidget : MonoBehaviour
             _slot.Button.AddOnExitAction(() => informationWidget.gameObject.SetActive(false));
         }
 
-        equipmentWidget.OnGetSelectedItem += () => selectedItem.Value;
+        equipmentWidget.OnGetSelectedItem += () => selectedItem;
         inventoryWidget.OnSelectWidget += SelectItem;
 
     }
@@ -87,6 +87,8 @@ public class PlayerOverlayWidget : MonoBehaviour
 
         if (_newValue)
         {
+            GameManager.Instance.Player.ClickComponent.SetCanClick(false);
+
             InitInventoryItems();
             statsWidget.RefreshValues();
             equipmentWidget.ClearEquipmentInteractable();
@@ -94,6 +96,7 @@ public class PlayerOverlayWidget : MonoBehaviour
         else
         {
             GameManager.Instance.Player.ClickComponent.SetCanClick(true);
+
             ResetSelectedItem();
         }
     }
@@ -103,6 +106,8 @@ public class PlayerOverlayWidget : MonoBehaviour
         selectedItem = null;
         selectedItemIcon.gameObject.SetActive(false);
         hasSelectedItem = false;
+
+        equipmentWidget.ClearEquipmentInteractable();
     }
 
     void SetSelectedItem(ItemSlotWidget _slot)
@@ -123,7 +128,14 @@ public class PlayerOverlayWidget : MonoBehaviour
         inventoryWidget.Init(_items);
     }
 
-    void SelectItem(ItemSlotWidget _slot)
+    public void ReinitializeInventory()
+    {
+        ResetSelectedItem();
+        InitInventoryItems();
+        statsWidget.RefreshValues();
+    }
+
+    public void SelectItem(ItemSlotWidget _slot)
     {
         if (!hasSelectedItem)
         {
@@ -137,8 +149,7 @@ public class PlayerOverlayWidget : MonoBehaviour
         else
         {
             OnMoveItemInInventory?.Invoke(selectedItem.Value,inventoryWidget.GetIndexOfSlot(_slot));
-            ResetSelectedItem();
-            InitInventoryItems();
+            ReinitializeInventory();
         }
     }
 }

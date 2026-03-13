@@ -42,8 +42,32 @@ public class PlayerEntity : BaseEntity
         LevelComponent.OnGainExperience += GameManager.Instance.Hud.Overlay.ChangeExperienceBar;
 
         InventoryComponent.OnAddGold += GameManager.Instance.Hud.Overlay.InventoryWidget.SetGoldText;
+
         GameManager.Instance.Hud.Overlay.OnOpenInventory += InventoryComponent.GetItems;
         GameManager.Instance.Hud.Overlay.OnMoveItemInInventory += InventoryComponent.MoveItem;
+
+        GameManager.Instance.Hud.Overlay.EquipmentWidget.OnItemEquiped += (_item, _slot) =>
+        {
+            Item _returnedItem = EquipmentComponent.EquipItem(_item.data, _slot);
+
+            InventoryComponent.RemoveToInventory(_item);
+            StatsComponent.AddBonuses(_item.data);
+
+            if (_returnedItem)
+            {
+                StatsComponent.RemoveBonuses(_returnedItem);
+                InventoryComponent.AddToInventory(_returnedItem);
+            }
+
+            GameManager.Instance.Hud.Overlay.ReinitializeInventory();
+        };
+        GameManager.Instance.Hud.Overlay.EquipmentWidget.OnSelectWidget += (_item, _slot) =>
+        {
+            StatsComponent.RemoveBonuses(_item.Item.data);
+            EquipmentComponent.DesequipItem(_item.Item.data, _slot);
+
+            GameManager.Instance.Hud.Overlay.SelectItem(_item);
+        };
     }
 
     protected override void Init()
@@ -56,5 +80,6 @@ public class PlayerEntity : BaseEntity
         CameraComponent = GetComponent<PlayerCameraComponent>();
         LevelComponent = GetComponent<PlayerLevelComponent>();
         VisualEquipmentComponent = GetComponent<PlayerVisualEquipmentComponent>();
+        EquipmentComponent = GetComponent<PlayerEquipmentComponent>();
     }
 }

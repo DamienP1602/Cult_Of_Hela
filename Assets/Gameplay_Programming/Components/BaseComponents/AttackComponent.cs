@@ -14,6 +14,7 @@ public class AttackComponent : MonoBehaviour
     [SerializeField] CustomEffectInterface<AttackBonusEffect> bonusEffects = new CustomEffectInterface<AttackBonusEffect>();
 
     public CustomEffectInterface<AttackBonusEffect> BonusEffects => bonusEffects;
+    public BasicAttack BasicAttack => basicAttackData;
 
     public void SetTarget(BaseEntity _entity)
     {

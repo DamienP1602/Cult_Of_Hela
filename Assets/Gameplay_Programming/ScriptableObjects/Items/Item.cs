@@ -22,6 +22,7 @@ public enum EquipmentType
 public enum ItemType
 {
     Item_Sword,
+    Item_Great_Axe,
     Item_Shield
 }
 
@@ -51,6 +52,7 @@ public class Item : ScriptableObject
     public EquipmentType equipmentType;
     public ItemRarity rarity;
     public EquipmentSlotType equipmentSlotType;
+    public bool twoHandItem;
 
     [Header("Stats Parameters")]
     public Vector2 damages;

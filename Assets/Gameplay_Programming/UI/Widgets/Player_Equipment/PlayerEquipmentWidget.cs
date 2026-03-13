@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class PlayerEquipmentWidget : MonoBehaviour
 {
-    public event Func<ItemInventoryData> OnGetSelectedItem;
+    public event Func<ItemInventoryData?> OnGetSelectedItem;
+    public event Action<ItemSlotWidget,EquipmentSlotType> OnSelectWidget;
+    public event Action<ItemInventoryData, EquipmentSlotType> OnItemEquiped;
 
     [Serializable]
     struct EquipmentSlots
@@ -20,7 +22,7 @@ public class PlayerEquipmentWidget : MonoBehaviour
     {
         foreach (EquipmentSlots _slot in slots)
         {
-            _slot.widget.Button.AddLeftClickAction(() => EquipSelectedItem(_slot.widget));
+            _slot.widget.Button.AddLeftClickAction(() => SelectSlot(_slot));
         }
     }
 
@@ -41,11 +43,19 @@ public class PlayerEquipmentWidget : MonoBehaviour
         }
     }
 
-    void EquipSelectedItem(ItemSlotWidget _widget)
+    void SelectSlot(EquipmentSlots _slot)
     {
         ItemInventoryData? _selectedItem = OnGetSelectedItem?.Invoke();
-        if (_selectedItem == null) return;
+        if (_selectedItem == null)
+        {
+            if (_slot.widget.IsUsed)
+            {
+                OnSelectWidget?.Invoke(_slot.widget,_slot.type);
+            }
+            return;
+        }
 
-        //_widget.InitSlot(_selectedItem);
+        _slot.widget.InitSlot(_selectedItem.Value);
+        OnItemEquiped?.Invoke(_selectedItem.Value, _slot.type);
     }
 }

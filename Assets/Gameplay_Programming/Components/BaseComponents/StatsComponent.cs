@@ -71,23 +71,21 @@ public class MultipleStat
 
     public void AddMaxValue(int _value)
     {
-        value += _value;
-        value = Mathf.Clamp(value, 0, maxValue);
+        maxValue += _value;
 
         onValueChange?.Invoke(value, maxValue);
     }
 
     public void RemoveMaxValue(int _value)
     {
-        value -= _value;
-        value = Mathf.Clamp(value, 0, maxValue);
+        maxValue -= _value;
 
         onValueChange?.Invoke(value, maxValue);
     }
 
     public void SetMaxValue(int _value)
     {
-        value = _value;
+        maxValue = _value;
         onValueChange?.Invoke(value, maxValue);
     }
 }
@@ -107,6 +105,7 @@ public class StatsComponent : MonoBehaviour
     public SingleStat intelligence;
     public SingleStat vitality;
     public SingleStat spirit;
+    public SingleStat armor;
 
     public bool IsDead => health.Value <= 0;
 
@@ -138,5 +137,33 @@ public class StatsComponent : MonoBehaviour
         _random += strength.Value / 2;
 
         return _random;
+    }
+
+    public void AddBonuses(Item _item)
+    {
+        damages.AddMaxValue((int)_item.damages.y);
+        damages.AddValue((int)_item.damages.x);
+
+        strength.AddValue(_item.strength);
+        intelligence.AddValue(_item.intelligence);
+        dexterity.AddValue(_item.dexterity);
+        vitality.AddValue(_item.vitality);
+        spirit.AddValue(_item.spirit);
+
+        armor.AddValue(_item.armor);
+    }
+
+    public void RemoveBonuses(Item _item)
+    {
+        damages.RemoveMaxValue((int)_item.damages.y);
+        damages.RemoveValue((int)_item.damages.x);
+
+        strength.RemoveValue(_item.strength);
+        intelligence.RemoveValue(_item.intelligence);
+        dexterity.RemoveValue(_item.dexterity);
+        vitality.RemoveValue(_item.vitality);
+        spirit.RemoveValue(_item.spirit);
+
+        armor.RemoveValue(_item.armor);
     }
 }

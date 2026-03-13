@@ -41,7 +41,17 @@ public class ItemInformationWidget : MonoBehaviour
         string _s = "";
 
         _s += _data.rarity.ToString().Split('_')[1] + " " ;
-        _s += _data.itemType.ToString().Split('_')[1];
+
+        string[] _itemType = _data.itemType.ToString().Split('_');
+        int _length = _itemType.Length;
+
+        for (int _i = 1; _i < _length; _i++)
+        {
+            _s += _itemType[_i];
+
+            if (_i + 1 < _length)
+                _s += " ";
+        }
 
         return _s;
     }
