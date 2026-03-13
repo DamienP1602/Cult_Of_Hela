@@ -670,6 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emptyVisualEffect: {fileID: 257953539513068247, guid: 796ef6b6b9b8d3c46984d5f6c328d67b, type: 3}
+  emptyItemMesh: {fileID: 1000705304262713524, guid: 2e07604b743941241ac1f1e885a98874, type: 3}
 --- !u!114 &803063886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,10 +1317,6 @@ PrefabInstance:
       propertyPath: currentCamera
       value: 
       objectReference: {fileID: 330585545}
-    - target: {fileID: 2594318685623976530, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
-      propertyPath: basicAttackData
-      value: 
-      objectReference: {fileID: 11400000, guid: 49d33ad13970c0a43bb47c077f563104, type: 2}
     - target: {fileID: 3675799141449721626, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.13

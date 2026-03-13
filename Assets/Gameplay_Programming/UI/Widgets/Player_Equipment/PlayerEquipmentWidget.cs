@@ -6,8 +6,9 @@ using UnityEngine;
 public class PlayerEquipmentWidget : MonoBehaviour
 {
     public event Func<ItemInventoryData?> OnGetSelectedItem;
-    public event Action<ItemSlotWidget,EquipmentSlotType> OnSelectWidget;
+    public event Action<ItemSlotWidget, EquipmentSlotType> OnSelectWidget;
     public event Action<ItemInventoryData, EquipmentSlotType> OnItemEquiped;
+    public event Action<ItemInventoryData, EquipmentSlotType> OnItemDesequip;
 
     [Serializable]
     struct EquipmentSlots
@@ -15,7 +16,7 @@ public class PlayerEquipmentWidget : MonoBehaviour
         public EquipmentSlotType type;
         public ItemSlotWidget widget;
     }
-    
+
     [SerializeField] List<EquipmentSlots> slots = new List<EquipmentSlots>();
 
     private void Awake()
@@ -31,7 +32,7 @@ public class PlayerEquipmentWidget : MonoBehaviour
         foreach (EquipmentSlots _slot in slots)
         {
             bool _isGoodEquipmentSlot = _slot.type == _itemSelected.equipmentSlotType;
-            _slot.widget.Button.SetInteractable(_isGoodEquipmentSlot);
+            _slot.widget.SetButtonInteractable(_isGoodEquipmentSlot);
         }
     }
 
@@ -39,23 +40,60 @@ public class PlayerEquipmentWidget : MonoBehaviour
     {
         foreach (EquipmentSlots _slot in slots)
         {
-            _slot.widget.Button.SetInteractable(true);
+            _slot.widget.SetButtonInteractable(true);
         }
     }
 
     void SelectSlot(EquipmentSlots _slot)
     {
         ItemInventoryData? _selectedItem = OnGetSelectedItem?.Invoke();
-        if (_selectedItem == null)
+        if (_slot.widget.IsUsed)
         {
-            if (_slot.widget.IsUsed)
+            if (_selectedItem == null)
             {
-                OnSelectWidget?.Invoke(_slot.widget,_slot.type);
+                OnSelectWidget?.Invoke(_slot.widget, _slot.type);
+                return;
             }
+
+            ItemInventoryData _temp = _slot.widget.Item;
+            EquipItem(_selectedItem.Value, _slot);
+            OnItemDesequip?.Invoke(_temp, _slot.type);
             return;
         }
 
-        _slot.widget.InitSlot(_selectedItem.Value);
-        OnItemEquiped?.Invoke(_selectedItem.Value, _slot.type);
+        if (_selectedItem != null)
+            EquipItem(_selectedItem.Value, _slot);
+    }
+
+    void EquipItem(ItemInventoryData _selectedItem, EquipmentSlots _slot)
+    {
+        _slot.widget.InitSlot(_selectedItem);
+
+        // if two hand is true => desactivate slot & put item in inventory
+        // if two hand is false => activate the slot
+        SetSecondHandStatus(_selectedItem.data.twoHandItem);
+
+        OnItemEquiped?.Invoke(_selectedItem, _slot.type);
+    }
+
+    void SetSecondHandStatus(bool _value)
+    {
+        foreach (EquipmentSlots _slot in slots)
+        {
+            if (_slot.type == EquipmentSlotType.Equipment_Left_Hand)
+            {
+                if (_slot.widget.IsUsed)
+                {
+                    if (_value)
+                    {
+                        OnItemDesequip?.Invoke(_slot.widget.Item, EquipmentSlotType.Equipment_Left_Hand);
+                        _slot.widget.ResetSlot();
+                    }
+                }
+
+                _slot.widget.SetCloseValue(_value);
+                return;
+            }
+        }
     }
 }

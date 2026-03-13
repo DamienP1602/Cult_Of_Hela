@@ -9,11 +9,13 @@ public class GameManager : Singleton<GameManager>
     PlayerEntity player;
 
     [SerializeField] VisualEffect emptyVisualEffect;
+    [SerializeField] VisualEquipmentComponent emptyItemMesh;
 
     public PlayerEntity Player => player;
     public HUD Hud => hud;
 
     public VisualEffect EmptyVisualEffect => emptyVisualEffect;
+    public VisualEquipmentComponent EmptyItemMesh => emptyItemMesh;
 
     protected override void Awake()
     {

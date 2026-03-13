@@ -48,23 +48,31 @@ public class PlayerEntity : BaseEntity
 
         GameManager.Instance.Hud.Overlay.EquipmentWidget.OnItemEquiped += (_item, _slot) =>
         {
-            Item _returnedItem = EquipmentComponent.EquipItem(_item.data, _slot);
-
             InventoryComponent.RemoveToInventory(_item);
             StatsComponent.AddBonuses(_item.data);
 
-            if (_returnedItem)
-            {
-                StatsComponent.RemoveBonuses(_returnedItem);
-                InventoryComponent.AddToInventory(_returnedItem);
-            }
+            VisualEquipmentComponent.AddMeshOnSlot(_item.data, _slot);
 
             GameManager.Instance.Hud.Overlay.ReinitializeInventory();
         };
+
+        GameManager.Instance.Hud.Overlay.EquipmentWidget.OnItemDesequip += (_item, _slot) =>
+        {
+            StatsComponent.RemoveBonuses(_item.data);
+            EquipmentComponent.DesequipItem(_item.data, _slot);
+            InventoryComponent.AddToInventory(_item.data);
+
+            VisualEquipmentComponent.RemoveMeshOnSlot(_slot);
+
+            GameManager.Instance.Hud.Overlay.ReinitializeInventory();
+        };
+
         GameManager.Instance.Hud.Overlay.EquipmentWidget.OnSelectWidget += (_item, _slot) =>
         {
             StatsComponent.RemoveBonuses(_item.Item.data);
             EquipmentComponent.DesequipItem(_item.Item.data, _slot);
+
+            VisualEquipmentComponent.RemoveMeshOnSlot(_slot);
 
             GameManager.Instance.Hud.Overlay.SelectItem(_item);
         };

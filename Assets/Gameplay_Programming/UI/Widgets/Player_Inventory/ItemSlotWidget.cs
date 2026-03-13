@@ -8,6 +8,7 @@ public class ItemSlotWidget : MonoBehaviour
     [SerializeField] Image itemIcon;
     [SerializeField] ItemInventoryData item;
     [SerializeField] bool isUsed;
+    [SerializeField] bool isClosed;
 
     public CustomButton Button => button;
     public bool IsUsed => isUsed;
@@ -27,5 +28,18 @@ public class ItemSlotWidget : MonoBehaviour
         itemIcon.color = Color.clear;
         isUsed = false;
         item = new ItemInventoryData();
+    }
+
+    public void SetCloseValue(bool _isClosed)
+    {
+        isClosed = _isClosed;
+    }
+
+    public void SetButtonInteractable(bool _value)
+    {
+        if (isClosed)
+            button.SetInteractable(false);
+        else
+            button.SetInteractable(_value);
     }
 }

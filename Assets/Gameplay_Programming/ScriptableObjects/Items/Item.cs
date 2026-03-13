@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -47,6 +48,10 @@ public class Item : ScriptableObject
     public string itemName;
     public Sprite itemIcon;
 
+    [Header("Graphic Parameters")]
+    public Mesh mesh;
+    public List<Material> materials;
+
     [Header("Item Parameters")]
     public ItemType itemType;
     public EquipmentType equipmentType;
@@ -61,5 +66,5 @@ public class Item : ScriptableObject
     public int intelligence;
     public int dexterity;
     public int vitality;
-    public int spirit;   
+    public int spirit;
 }
