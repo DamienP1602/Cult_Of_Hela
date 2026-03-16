@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_Wooden_Shield_Steel
+  m_Name: MAT_Wooden_Object_Steel
   m_Shader: {fileID: -6465566751694194690, guid: 82afd41a086986147ae6eeb178e9abf8, type: 3}
   m_Parent: {fileID: 2100000, guid: c5296f2820c5b57439a0bcbcd25cbff8, type: 2}
   m_ModifiedSerializedProperties: 0

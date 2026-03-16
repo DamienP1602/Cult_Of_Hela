@@ -9,5 +9,6 @@ public class VisualEquipmentComponent : MonoBehaviour
     {
         filter.mesh = _item.mesh;
         render.materials = _item.materials.ToArray();
+        transform.localScale = Vector3.one * _item.scale;
     }
 }

@@ -33,8 +33,30 @@ public class AttackComponent : MonoBehaviour
         bonusEffects.UpdateCustomEffect();
     }
 
+    public void ForceLaunchAttack()
+    {
+        OnLaunchAttack?.Invoke();
+
+        AnimationComponent _animComp = GetComponent<AnimationComponent>();
+        if (_animComp)
+        {
+            _animComp.SetBool("spell", false);
+        }
+
+        MovementComponent _movement = GetComponent<MovementComponent>();
+        if (_movement)
+        {
+            _movement.StopMovement();
+        }
+    }
+
     void Anim_Attack()
     {
+        if (!target)
+        {
+            SearchTargetInFront();
+        }
+
         if (interactRef.IsInRange(target))
         {
             StatsComponent _targetStats = target.StatsComponent;
@@ -67,5 +89,14 @@ public class AttackComponent : MonoBehaviour
         }
 
         target = null;
+    }
+
+    void SearchTargetInFront()
+    {
+        RaycastHit[] _results = Physics.RaycastAll(transform.position + Vector3.up, transform.forward, interactRef.Range);
+        SearchHitResult<EnemyEntity>? _search = Macro.GetComponentFromHit<EnemyEntity>(_results);
+
+        if (_search.HasValue)
+            target = _search.Value.component;
     }
 }

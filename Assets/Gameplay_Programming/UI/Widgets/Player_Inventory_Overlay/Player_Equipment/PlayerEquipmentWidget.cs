@@ -24,6 +24,7 @@ public class PlayerEquipmentWidget : MonoBehaviour
         foreach (EquipmentSlots _slot in slots)
         {
             _slot.widget.Button.AddLeftClickAction(() => SelectSlot(_slot));
+            _slot.widget.Button.AddRightClickAction(() => AutoDesequipItem(_slot));
         }
     }
 
@@ -46,21 +47,35 @@ public class PlayerEquipmentWidget : MonoBehaviour
 
     void SelectSlot(EquipmentSlots _slot)
     {
+        // Check if we have a selected item
         ItemInventoryData? _selectedItem = OnGetSelectedItem?.Invoke();
+
+        // if the slot we clicked on has already an item
         if (_slot.widget.IsUsed)
         {
+            // if there's no item selected, we select the currently equiped item
             if (_selectedItem == null)
             {
+                // if we have equiped a 2 hand weapon, we want to clear the second hand slot
+                if (_slot.widget.Item.data.twoHandItem)
+                    SetSecondHandStatus(false);
+
                 OnSelectWidget?.Invoke(_slot.widget, _slot.type);
                 return;
             }
 
+            // here we have a selected item => put in a temp value the equiped item
             ItemInventoryData _temp = _slot.widget.Item;
+
+            // we equip the new item
             EquipItem(_selectedItem.Value, _slot);
+
+            // we desequip the ancient equiped item
             OnItemDesequip?.Invoke(_temp, _slot.type);
             return;
         }
 
+        // the slot here don't have an item, if we have a selected item we equip it
         if (_selectedItem != null)
             EquipItem(_selectedItem.Value, _slot);
     }
@@ -94,6 +109,39 @@ public class PlayerEquipmentWidget : MonoBehaviour
                 _slot.widget.SetCloseValue(_value);
                 return;
             }
+        }
+    }
+
+    public void AutoEquipItem(ItemSlotWidget _slot)
+    {
+        EquipmentSlots? _equipmentSlot = SearchSlot(_slot.Item.data.equipmentSlotType);
+        if (_equipmentSlot != null && !_equipmentSlot.Value.widget.IsClosed)
+        {
+            SelectSlot(_equipmentSlot.Value);
+        }
+    }
+
+    EquipmentSlots? SearchSlot(EquipmentSlotType _type)
+    {
+        foreach (EquipmentSlots _slot in slots)
+        {
+            if (_slot.type == _type)
+                return _slot;
+        }
+
+        return null;
+    }
+
+    void AutoDesequipItem(EquipmentSlots _slot)
+    {
+        if (_slot.widget.IsUsed)
+        {
+            // if we have equiped a 2 hand weapon, we want to clear the second hand slot
+            if (_slot.widget.Item.data.twoHandItem)
+                SetSecondHandStatus(false);
+
+            OnItemDesequip(_slot.widget.Item, _slot.type);
+            _slot.widget.ResetSlot();
         }
     }
 }

@@ -12,6 +12,7 @@ public class ItemSlotWidget : MonoBehaviour
 
     public CustomButton Button => button;
     public bool IsUsed => isUsed;
+    public bool IsClosed => isClosed;
     public ItemInventoryData Item => item;
 
     public void InitSlot(ItemInventoryData _data)

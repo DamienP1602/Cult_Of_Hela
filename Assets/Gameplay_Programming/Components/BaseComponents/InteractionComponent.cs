@@ -15,6 +15,7 @@ public class InteractionComponent : MonoBehaviour
     bool canInteract = true;
 
     public GameEntity Target => target;
+    public float Range => interactionDistance;
 
     private void Awake()
     {

@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Great Axe
   itemIcon: {fileID: 21300000, guid: af53613c969d23d45b66e6e1585231a3, type: 3}
-  mesh: {fileID: 350253629432683169, guid: e7c14ba924c48ea4a8e2963aab6808e4, type: 3}
-  materials: []
+  mesh: {fileID: -5644186742931682995, guid: 7865b4d4cc2bc9347b791b2849391b92, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 92f94c42c4d75174f9e54210f60936b9, type: 2}
+  - {fileID: 2100000, guid: bf49c4ca52f0ea34787cd43fdddc7ebf, type: 2}
+  scale: 0.5
   itemType: 1
   equipmentType: 0
   rarity: 0

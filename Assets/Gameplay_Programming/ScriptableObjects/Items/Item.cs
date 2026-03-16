@@ -51,6 +51,7 @@ public class Item : ScriptableObject
     [Header("Graphic Parameters")]
     public Mesh mesh;
     public List<Material> materials;
+    public float scale;
 
     [Header("Item Parameters")]
     public ItemType itemType;

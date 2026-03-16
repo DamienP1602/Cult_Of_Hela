@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e7c14ba924c48ea4a8e2963aab6808e4
+guid: 7865b4d4cc2bc9347b791b2849391b92
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_Wood
-    second: {fileID: 2100000, guid: c1576b7b8cc2f8d43aef2a3eaf3c2ced, type: 2}
+    second: {fileID: 2100000, guid: be7f76280be146f4c8740e21c03f9fb8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mat_Steel
-    second: {fileID: 2100000, guid: 3430727174cfa484dbaeb201363b931f, type: 2}
+    second: {fileID: 2100000, guid: 997f0215fb888344480f43ec70e1221f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -75,7 +75,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60

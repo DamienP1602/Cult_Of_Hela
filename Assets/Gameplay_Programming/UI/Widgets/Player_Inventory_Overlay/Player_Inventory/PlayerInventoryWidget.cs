@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerInventoryWidget : MonoBehaviour
 {
     public event Action<ItemSlotWidget> OnSelectWidget;
+    public event Action<ItemSlotWidget> OnAutoEquipItem;
 
     [SerializeField] List<ItemSlotWidget> allItemSlots;
     [SerializeField] TMP_Text goldText;
@@ -19,13 +20,9 @@ public class PlayerInventoryWidget : MonoBehaviour
 
         foreach (ItemSlotWidget _slot in allItemSlots)
         {
-            _slot.Button.AddLeftClickAction(() => SelectSlot(_slot));
+            _slot.Button.AddLeftClickAction(() => OnSelectWidget?.Invoke(_slot));
+            _slot.Button.AddRightClickAction(() => OnAutoEquipItem?.Invoke(_slot));
         }
-    }
-
-    void SelectSlot(ItemSlotWidget _slot)
-    {
-        OnSelectWidget?.Invoke(_slot);
     }
 
     public void Init(List<ItemInventoryData> _items)

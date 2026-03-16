@@ -27,55 +27,10 @@ public class PlayerEntity : BaseEntity
 
         InputComponent.LeftClick.canceled += (_context) => ClickComponent.SetIsClick(false);
 
-        InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.ToggleInventoryPanel();
+        InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.InventoryOverlay.ToggleInventory();
 
         InputComponent.FirstSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(0);
         InputComponent.SecondSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(1);
-
-        UIEvent();
-    }
-
-    void UIEvent()
-    {
-        StatsComponent.health.onValueChange += GameManager.Instance.Hud.Overlay.ChangeHealthBar;
-        StatsComponent.ressource.onValueChange += GameManager.Instance.Hud.Overlay.ChangeRessourceBar;
-        LevelComponent.OnGainExperience += GameManager.Instance.Hud.Overlay.ChangeExperienceBar;
-
-        InventoryComponent.OnAddGold += GameManager.Instance.Hud.Overlay.InventoryWidget.SetGoldText;
-
-        GameManager.Instance.Hud.Overlay.OnOpenInventory += InventoryComponent.GetItems;
-        GameManager.Instance.Hud.Overlay.OnMoveItemInInventory += InventoryComponent.MoveItem;
-
-        GameManager.Instance.Hud.Overlay.EquipmentWidget.OnItemEquiped += (_item, _slot) =>
-        {
-            InventoryComponent.RemoveToInventory(_item);
-            StatsComponent.AddBonuses(_item.data);
-
-            VisualEquipmentComponent.AddMeshOnSlot(_item.data, _slot);
-
-            GameManager.Instance.Hud.Overlay.ReinitializeInventory();
-        };
-
-        GameManager.Instance.Hud.Overlay.EquipmentWidget.OnItemDesequip += (_item, _slot) =>
-        {
-            StatsComponent.RemoveBonuses(_item.data);
-            EquipmentComponent.DesequipItem(_item.data, _slot);
-            InventoryComponent.AddToInventory(_item.data);
-
-            VisualEquipmentComponent.RemoveMeshOnSlot(_slot);
-
-            GameManager.Instance.Hud.Overlay.ReinitializeInventory();
-        };
-
-        GameManager.Instance.Hud.Overlay.EquipmentWidget.OnSelectWidget += (_item, _slot) =>
-        {
-            StatsComponent.RemoveBonuses(_item.Item.data);
-            EquipmentComponent.DesequipItem(_item.Item.data, _slot);
-
-            VisualEquipmentComponent.RemoveMeshOnSlot(_slot);
-
-            GameManager.Instance.Hud.Overlay.SelectItem(_item);
-        };
     }
 
     protected override void Init()
@@ -89,5 +44,12 @@ public class PlayerEntity : BaseEntity
         LevelComponent = GetComponent<PlayerLevelComponent>();
         VisualEquipmentComponent = GetComponent<PlayerVisualEquipmentComponent>();
         EquipmentComponent = GetComponent<PlayerEquipmentComponent>();
+
+        InitUI();
+    }
+
+    void InitUI()
+    {
+        GameManager.Instance.Hud.Overlay.InitPlayerOverlay(this);
     }
 }
