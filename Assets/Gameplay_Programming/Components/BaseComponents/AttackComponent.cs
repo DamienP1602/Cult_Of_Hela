@@ -62,18 +62,17 @@ public class AttackComponent : MonoBehaviour
             StatsComponent _targetStats = target.StatsComponent;
             Vector3 _targetPos = target.transform.position + (Vector3.up * 2.0f);
 
-            // Va devoir changer pour récupérer les dégâts de l'arme
             int _damageDeal = statsRef.GetDamageDeal();
             _damageDeal += basicAttackData.GetBasicDamages();
 
             for (int _i = 0; _i < bonusEffects.Count; _i++)
             {
                 CustomEffectData<AttackBonusEffect> _data = bonusEffects.GetEffect(_i);
-                _damageDeal += (int)_data.effect.ActivateEffect();
+                _damageDeal += (int)_data.effect.ActivateEffect(GetComponent<StatsComponent>(), GetComponent<PlayerLevelComponent>());
 
                 if (_data.effect.OneTimeUse)
                 {
-                    bonusEffects.RemoveEffect(_data);
+                    bonusEffects.RemoveEffect(_data.effect.effectID);
                     _i--;
                 }
             }

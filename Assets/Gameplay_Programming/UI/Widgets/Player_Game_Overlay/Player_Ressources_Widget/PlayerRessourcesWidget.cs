@@ -32,4 +32,11 @@ public class PlayerRessourcesWidget : MonoBehaviour
     {
         experienceBar.SetGoalValue(_value, _maxValue);
     }
+
+    public void InitValues(StatsComponent _stats, PlayerLevelComponent _level)
+    {
+        healthBar.SetValue(_stats.health.Value, _stats.health.MaxValue);
+        ressourceBar.SetValue(_stats.ressource.Value, _stats.ressource.MaxValue);
+        experienceBar.SetValue(_level.Experience, _level.ExperienceCap);
+    }
 }

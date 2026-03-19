@@ -101,6 +101,15 @@ MonoBehaviour:
   isAtDestination: 0
   forceRotationSpeed: 4
   target: {fileID: 0}
+  isDashing: 0
+  dashPower: 3
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashTime: 0.5
 --- !u!114 &3759124105329339815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health:
-    value: 6
-    maxValue: 6
+    value: 10
+    maxValue: 10
   ressource:
     value: 0
     maxValue: 0
@@ -161,6 +170,8 @@ MonoBehaviour:
   vitality:
     value: 0
   spirit:
+    value: 0
+  armor:
     value: 0
 --- !u!114 &7924133527447769230
 MonoBehaviour:

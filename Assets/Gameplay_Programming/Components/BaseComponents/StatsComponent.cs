@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 [Serializable]
 public class SingleStat
@@ -107,7 +108,19 @@ public class StatsComponent : MonoBehaviour
     public SingleStat spirit;
     public SingleStat armor;
 
+    [Header("Parameters")]
+    [SerializeField] CustomEffectInterface<BonusStatsEffect> bonusEffects = new CustomEffectInterface<BonusStatsEffect>();
+
     public bool IsDead => health.Value <= 0;
+    public int BonusAttack => strength.Value / 2;
+    public int BonusSpell => intelligence.Value / 2;
+
+    public CustomEffectInterface<BonusStatsEffect> StatsBonuses => bonusEffects;
+
+    private void Update()
+    {
+        bonusEffects.UpdateCustomEffect(RemoveBonuses);
+    }
 
     /// <summary>
     /// Return true if this entity is dead
@@ -116,7 +129,11 @@ public class StatsComponent : MonoBehaviour
     /// <returns></returns>
     public bool LooseHealth(int _damage)
     {
-        health.RemoveValue(_damage);
+        float _percentReduction = (armor.Value / 10.0f) / 100.0f;
+        _percentReduction = Math.Clamp(_percentReduction, 0.0f, 0.75f);
+
+        int _newDamageAmount = (int)(_damage * _percentReduction);
+        health.RemoveValue(_damage - _newDamageAmount);
 
         if (GetComponent<EnemyEntity>())
             WorldWidgetsManager.Instance.SpawnDamageText(transform.position + (Vector3.up * 2.0f), _damage);
@@ -134,7 +151,7 @@ public class StatsComponent : MonoBehaviour
     {
         int _random = UnityEngine.Random.Range(damages.Value, damages.MaxValue + 1);
 
-        _random += strength.Value / 2;
+        _random += BonusAttack;
 
         return _random;
     }
@@ -151,6 +168,24 @@ public class StatsComponent : MonoBehaviour
         spirit.AddValue(_item.spirit);
 
         armor.AddValue(_item.armor);
+
+        InitStats();
+    }
+
+    public void AddBonuses(BonusStatsEffect _effect)
+    {
+        int _bonusValue = (int)_effect.ActivateEffect(this, GetComponent<PlayerLevelComponent>());
+
+        switch (_effect.statToBoost)
+        {
+            case StatBonus.BonusStrength:
+                strength.AddValue(_bonusValue);
+                break;
+        }
+
+        bonusEffects.AddEffect(_effect);
+
+        InitStats();
     }
 
     public void RemoveBonuses(Item _item)
@@ -165,5 +200,41 @@ public class StatsComponent : MonoBehaviour
         spirit.RemoveValue(_item.spirit);
 
         armor.RemoveValue(_item.armor);
+
+        InitStats();
+    }
+
+    public void RemoveBonuses(BonusStatsEffect _effect)
+    {
+        int _bonusValue = (int)_effect.ActivateEffect(this, GetComponent<PlayerLevelComponent>());
+
+        switch (_effect.statToBoost)
+        {
+            case StatBonus.BonusStrength:
+                strength.RemoveValue(_bonusValue);
+                break;
+        }
+
+        InitStats();
+    }
+
+    public void InitStats()
+    {
+        health.SetMaxValue(10 + vitality.Value * 3);
+        health.SetValue(10 + vitality.Value * 3);
+
+        ressource.SetMaxValue(10 + spirit.Value * 2);
+        ressource.SetValue(10 + spirit.Value * 2);
+    }
+
+    public void LevelUpStats()
+    {
+        strength.AddValue(1);
+        intelligence.AddValue(1);
+        dexterity.AddValue(1);
+        vitality.AddValue(1);
+        spirit.AddValue(1);
+
+        InitStats();
     }
 }

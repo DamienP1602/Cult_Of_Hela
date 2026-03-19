@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,9 +15,18 @@ public class MovementComponent : MonoBehaviour
     [Header("Components")]
     [SerializeField] Vector3 destination;
     [SerializeField] bool isAtDestination;
-    [SerializeField] float forceRotationSpeed = 1;
+    [SerializeField] float forceRotationSpeed = 1.0f;
     [SerializeField] GameEntity target;
     [SerializeField] Vector3? rotateTo;
+
+    [Header("Dash Parameters")]
+    [SerializeField] bool isDashing = false;
+    [SerializeField] float dashPower = 3.0f;
+    [SerializeField] AnimationCurve curve;
+    [SerializeField] float dashTime = 0.5f;
+    float currentDashTime;
+
+    public bool AtDestination => isAtDestination;
 
     public bool IsNearDestination() => Vector3.Distance(new Vector3(agent.destination.x, 0.0f, agent.destination.z), new Vector3(transform.position.x, 0.0f, transform.position.z)) < 0.1f;
 
@@ -34,6 +42,24 @@ public class MovementComponent : MonoBehaviour
 
         ReachDestinationUpdate();
         RotationUpdate();
+
+        if (isDashing)
+        {
+            DashUpdate();
+        }
+    }
+
+    void DashUpdate()
+    {
+        currentDashTime += Time.deltaTime;
+        float _value = curve.Evaluate(currentDashTime) * dashPower * Time.deltaTime;
+        transform.position += transform.forward * _value;
+
+        if (currentDashTime >= dashTime)
+        {
+            animRef.SetBool("dash", false);
+            isDashing = false;
+        }
     }
 
     public void SetRotationTarget(Vector3 _target)
@@ -77,37 +103,15 @@ public class MovementComponent : MonoBehaviour
         if (_succeed)
             agent.SetDestination(_hit.position);
 
+        isAtDestination = false;
+
         destination = agent.destination;
     }
 
     public void SetDestination(Vector3 _destination)
     {
-        if (!agent.enabled) return;
+        if (!agent.enabled || isDashing) return;
 
-        bool _succeed  = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
-        if (_succeed)
-            agent.SetDestination(_hit.position);
-
-        destination = agent.destination;
-        agent.isStopped = false;
-        isAtDestination = false;
-
-        if (_succeed)
-        {
-            animRef.SetBool("movement", true);
-            animRef.SetBool("attack", false);
-            animRef.SetBool("spell", false);
-        }
-
-        rotateTo = null;
-        target = null;
-    }
-
-    public void SetTarget(GameEntity _entity)
-    {
-        if (!agent.enabled) return;
-
-        Vector3 _destination = _entity.transform.position;
         bool _succeed = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
         if (_succeed)
             agent.SetDestination(_hit.position);
@@ -120,7 +124,30 @@ public class MovementComponent : MonoBehaviour
         {
             animRef.SetBool("movement", true);
             animRef.SetBool("attack", false);
-            animRef.SetBool("spell", false);
+            animRef.SetBool(animRef.CurrentSpellAnimName, false);
+        }
+
+        rotateTo = null;
+        target = null;
+    }
+
+    public void SetTarget(GameEntity _entity)
+    {
+        if (!agent.enabled || isDashing) return;
+
+        Vector3 _destination = _entity.transform.position;
+        bool _succeed = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
+        if (_succeed)
+            agent.SetDestination(_hit.position);
+
+        destination = agent.destination;
+        agent.isStopped = false;
+
+        if (_succeed)
+        {
+            animRef.SetBool("movement", true);
+            animRef.SetBool("attack", false);
+            animRef.SetBool(animRef.CurrentSpellAnimName, false);
         }
 
         if (!target)
@@ -142,6 +169,22 @@ public class MovementComponent : MonoBehaviour
 
         agent.isStopped = true;
         animRef.SetBool("movement", false);
+    }
+
+    public void SetJump()
+    {
+        if (isDashing) return;
+
+        ResetTarget();
+        agent.isStopped = true;
+        isAtDestination = true;
+        isDashing = true;
+        currentDashTime = 0.0f;
+
+        animRef.SetBool("dash", true);
+        animRef.SetBool("movement", false);
+        animRef.SetBool("attack", false);
+        animRef.SetBool(animRef.CurrentSpellAnimName, false);
     }
 
     private void OnDrawGizmos()

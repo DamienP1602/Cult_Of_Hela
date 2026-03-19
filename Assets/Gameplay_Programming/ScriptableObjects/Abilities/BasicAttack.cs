@@ -9,4 +9,9 @@ public class BasicAttack : Ability
     {
         return baseDamages;
     }
+
+    public override bool Requirement(BaseEntity _owner)
+    {
+        return true;
+    }
 }

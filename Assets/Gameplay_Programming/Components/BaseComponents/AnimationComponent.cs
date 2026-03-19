@@ -8,13 +8,24 @@ public class AnimationComponent : MonoBehaviour
 
     [SerializeField] List<string> blockedAnimations = new List<string>();
 
+    string currentSpellAnimName = "";
+
+    public string CurrentSpellAnimName => currentSpellAnimName;
+
+    bool lockAnimationState = false;
+
     private void Awake()
     {
         Animator = GetComponentInChildren<Animator>();
     }
 
+    public void SetCurrentAnimName(string _animName) => currentSpellAnimName = _animName;
+    public void SetLockAnimationState(bool _value) => lockAnimationState = _value;
+
     public void SetBool(string _transitionName, bool _value)
     {
+        if (lockAnimationState) return;
+
         // if no animator => return
         if (!Animator || !HasParameter(_transitionName)) return;
 
@@ -52,13 +63,13 @@ public class AnimationComponent : MonoBehaviour
         Invoke(nameof(UnlockAttackAnimation), 0.1f);
     }
 
-    void Anim_EndSpell()
+    void Anim_EndSpell(string _animName)
     {
         // if no animator => return
         if (!Animator) return;
 
         // set the animation value
-        Animator.SetBool("spell", false);
+        Animator.SetBool(_animName, false);
 
         // unlock the spell animation with 0.1 sec delay => can't block by spamming 
         Invoke(nameof(UnlockSpellAnimation), 0.1f);
@@ -94,7 +105,7 @@ public class AnimationComponent : MonoBehaviour
     }
 
     void UnlockAttackAnimation() => blockedAnimations.Remove("attack");
-    void UnlockSpellAnimation() => blockedAnimations.Remove("spell");
+    void UnlockSpellAnimation() => blockedAnimations.Remove(currentSpellAnimName);
 
     bool HasParameter(string _paramName)
     {

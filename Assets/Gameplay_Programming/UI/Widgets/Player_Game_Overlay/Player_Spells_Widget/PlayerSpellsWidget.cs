@@ -19,31 +19,40 @@ public class PlayerSpellsWidget : MonoBehaviour
 
     }
 
-    public void InitButtonSpells(PlayerEntity _player)
+    public void InitButtonSpells(PlayerEntity _player, SpellDescriptionWidget _spellDescriptionWidget)
     {
-        int _spellIndex = 0;
-        foreach (SpellButtonWidget _widget in spellButtons)
+        int _count = spellButtons.Count;
+        List<Spell> _playerSpells = _player.SpellBookComponent.Spells;
+
+        for (int _i = 0; _i < _count; _i++)
         {
+            SpellButtonWidget _widget =spellButtons[_i];
+
             _widget.Button.AddOnEnterAction(() => _player.ClickComponent.SetCanClick(false));
             _widget.Button.AddOnExitAction(() => _player.ClickComponent.SetCanClick(true));
+            
 
-            Action _buttonAction;
-            if (_spellIndex <= 3)
+            // _i = 0/1/2/3 is for spells
+            // _spellCount > _i verify if there's a spell in this slot
+            if (_i <= 3 && _playerSpells.Count > _i)
             {
-                _buttonAction = () => _player.SpellBookComponent.LaunchAbility(_spellIndex);
-            }
-            else
-            {
-                _buttonAction = () => _player.AttackComponent.ForceLaunchAttack();
-            }
-            _widget.Button.AddLeftClickAction(_buttonAction);
+                Spell _spell = _player.SpellBookComponent.Spells[_i];
 
-            _spellIndex++;
+                _widget.Init(_spell.abilitySprite, _spell.abilitySpriteColor,_i);
+                _widget.Button.AddLeftClickAction(() => _player.SpellBookComponent.LaunchAbility(_widget.Index));
+
+                _widget.Button.AddOnExitAction(() => _spellDescriptionWidget.HideSpellDescription());
+                _widget.Button.AddHoverAction(() => _spellDescriptionWidget.ShowSpellDescription(_spell),0.5f);
+            }
+
+            // _i = 4 is for basic attack
+            else if (_i == 4)
+            {
+                BasicAttack _attack = _player.AttackComponent.BasicAttack;
+
+                _widget.Init(_attack.abilitySprite, _attack.abilitySpriteColor, 0);
+                _widget.Button.AddLeftClickAction (() => _player.AttackComponent.ForceLaunchAttack());
+            }
         }
-        // Spells
-
-        Image _basicAttackSprite = spellButtons[4].SpellIcon;
-        _basicAttackSprite.sprite = _player.AttackComponent.BasicAttack.abilitySprite;
-        _basicAttackSprite.color = _player.AttackComponent.BasicAttack.abilitySpriteColor;
     }
 }

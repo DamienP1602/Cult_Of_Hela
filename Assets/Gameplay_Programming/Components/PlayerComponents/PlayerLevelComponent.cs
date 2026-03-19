@@ -25,8 +25,10 @@ public class PlayerLevelComponent : MonoBehaviour
             currentLevel++;
 
             OnGainLevel?.Invoke(currentLevel);
-            currentExperience = _remainingExperience;
             CalculateExperienceCap();
+            currentExperience = 0;
+            GainExperience(_remainingExperience);
+            return;
         }
 
         OnGainExperience?.Invoke(currentExperience, experienceCap);

@@ -26,16 +26,21 @@ public abstract class BaseEntity : GameEntity
         AttackComponent = GetComponent<AttackComponent>();
         AnimationComponent = GetComponent<AnimationComponent>();
         SpellBookComponent = GetComponent<SpellBookComponent>();
+
+        StatsComponent.InitStats();
     }
 
     protected override void EventAssignation()
     {
         StatsComponent.onDeath += EntityDeath;
 
-        SpellBookComponent.OnLaunchSpell += () =>
+        SpellBookComponent.OnLaunchSpell += (_spell) =>
         {
-            AnimationComponent.SetBool("spell", true);
-            AnimationComponent.LockAnimation("spell");
+            string _animName = _spell.animationName;
+
+            AnimationComponent.SetBool(_animName, true);
+            AnimationComponent.SetCurrentAnimName(_animName);
+            AnimationComponent.LockAnimation(_animName);
         };
 
         AttackComponent.OnLaunchAttack += () =>

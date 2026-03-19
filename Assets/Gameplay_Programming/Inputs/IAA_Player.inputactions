@@ -25,6 +25,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "fc880476-718e-4ad9-95c5-ca311fc948e5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "FirstSpellBinding",
                     "type": "Button",
                     "id": "a49dc391-e593-4bc2-96dc-c498734c9118",
@@ -37,6 +46,24 @@
                     "name": "SecondSpellBinding",
                     "type": "Button",
                     "id": "a4e3adc6-bfb1-4cbf-8f88-2700bb6277d1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThirdSpellBinding",
+                    "type": "Button",
+                    "id": "1220ffc6-5b38-45e6-b226-47e6d8f20b71",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FourthSpellBinding",
+                    "type": "Button",
+                    "id": "acbf91fa-27cb-4ac3-8b40-8880b0f6cd33",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -58,7 +85,7 @@
                 {
                     "name": "",
                     "id": "41900cea-85c8-49c2-aa0f-d533d3a25329",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -69,11 +96,33 @@
                 {
                     "name": "",
                     "id": "59cb852c-8b58-48db-94b7-579677389798",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "SecondSpellBinding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79160e75-50e5-4805-aa5d-45e49684476b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThirdSpellBinding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bed5810d-5dc6-4a0a-9d0b-7bfdc2ddcdd9",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FourthSpellBinding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -85,6 +134,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9fc97e1a-7d9b-454a-9dff-2cd72adeb677",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

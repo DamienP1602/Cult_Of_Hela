@@ -10,11 +10,13 @@ public class PlayerClickComponent : MonoBehaviour
     [SerializeField] bool isClick;
     [SerializeField] VisualEffectAsset onClickEffect;
     [SerializeField] bool canClick = true;
+    [SerializeField] bool isInUI = false;
     
     Ray PointOnScreen => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public void SetIsClick(bool _value) => isClick = _value;
     public void SetCanClick(bool _value) => canClick = _value;
+    public void SetIsInUI(bool _value) => isInUI = _value;
 
     private void Awake()
     {
@@ -28,7 +30,7 @@ public class PlayerClickComponent : MonoBehaviour
 
     void ClickUpdate()
     {
-        if (isClick && canClick)
+        if (isClick && canClick && !isInUI)
         {
             RaycastHit[] _hits = Physics.RaycastAll(PointOnScreen, 100.0f);
             if (_hits.Length == 0) return;
@@ -56,7 +58,7 @@ public class PlayerClickComponent : MonoBehaviour
 
     public void SpawnClickVFX()
     {
-        if (!canClick) return;
+        if (!canClick || isInUI) return;
 
         bool _hasHit = Physics.Raycast(PointOnScreen, out RaycastHit _hit, 100.0f);
         if (_hasHit && _hit.collider.GetComponent<Terrain>())

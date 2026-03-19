@@ -9,6 +9,9 @@ public class PlayerInputComponent : MonoBehaviour
     public InputAction Inventory { get; private set; }
     public InputAction FirstSpellBinding { get; private set; }
     public InputAction SecondSpellBinding { get; private set; }
+    public InputAction ThirdSpellBinding { get; private set; }
+    public InputAction FourthSpellBinding { get; private set; }
+    public InputAction Jump { get; private set; }
 
     private void Awake()
     {
@@ -30,23 +33,32 @@ public class PlayerInputComponent : MonoBehaviour
     {
         LeftClick = action.Player.LeftClick;
         Inventory = action.Player.Inventory;
+        Jump = action.Player.Jump;
         FirstSpellBinding = action.Player.FirstSpellBinding;
         SecondSpellBinding = action.Player.SecondSpellBinding;
+        ThirdSpellBinding = action.Player.ThirdSpellBinding;
+        FourthSpellBinding = action.Player.FourthSpellBinding;
     }
 
     public void DisableInputs()
     {
         LeftClick.Disable();
         Inventory.Disable();
+        Jump.Disable();
         FirstSpellBinding.Disable();
         SecondSpellBinding.Disable();
+        ThirdSpellBinding.Disable();
+        FourthSpellBinding.Disable();
     }
 
     public void EnableInputs()
     {
         LeftClick.Enable();
         Inventory.Enable();
+        Jump.Enable();
         FirstSpellBinding.Enable();
         SecondSpellBinding.Enable();
+        ThirdSpellBinding.Enable();
+        FourthSpellBinding.Enable();
     }
 }

@@ -9,4 +9,6 @@ public abstract class Ability : ScriptableObject
 
     public Sprite abilitySprite;
     public Color abilitySpriteColor;
+
+    public abstract bool Requirement(BaseEntity _owner);
 }

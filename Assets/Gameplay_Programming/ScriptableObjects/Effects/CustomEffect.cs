@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public abstract class CustomEffect : ScriptableObject
 {
+    [Header("Base Effect Parameters")]
     public string effectID;
 
     public bool hasDuration;
@@ -17,5 +18,5 @@ public abstract class CustomEffect : ScriptableObject
         uniqueEffect = _uniqueEffect;
     }
 
-    public abstract float ActivateEffect();
+    public abstract float ActivateEffect(StatsComponent _statOwner, PlayerLevelComponent _level);
 }

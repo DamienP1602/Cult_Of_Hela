@@ -6,6 +6,7 @@ public class PlayerGameOverlayWidget : MonoBehaviour
     [SerializeField] PlayerRessourcesWidget ressourcesWidget;
     [SerializeField] PlayerSpellsWidget spellsWidget;
     [SerializeField] PlayerAccessWidget accessWidget;
+    [SerializeField] SpellDescriptionWidget spellDescriptionWidget;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,6 +26,10 @@ public class PlayerGameOverlayWidget : MonoBehaviour
         _player.StatsComponent.ressource.onValueChange += ressourcesWidget.ChangeRessourceBar;
         _player.LevelComponent.OnGainExperience += ressourcesWidget.ChangeExperienceBar;
 
-        spellsWidget.InitButtonSpells(_player);
+        _player.SpellBookComponent.OnLearnSpell += () => spellsWidget.InitButtonSpells(_player,spellDescriptionWidget);
+
+        spellsWidget.InitButtonSpells(_player, spellDescriptionWidget);
+        ressourcesWidget.InitValues(_player.StatsComponent, _player.LevelComponent);
+        accessWidget.Init(_player);
     }
 }

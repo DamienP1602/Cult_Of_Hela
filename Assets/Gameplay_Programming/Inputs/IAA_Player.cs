@@ -111,6 +111,15 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc880476-718e-4ad9-95c5-ca311fc948e5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""FirstSpellBinding"",
                     ""type"": ""Button"",
                     ""id"": ""a49dc391-e593-4bc2-96dc-c498734c9118"",
@@ -123,6 +132,24 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                     ""name"": ""SecondSpellBinding"",
                     ""type"": ""Button"",
                     ""id"": ""a4e3adc6-bfb1-4cbf-8f88-2700bb6277d1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThirdSpellBinding"",
+                    ""type"": ""Button"",
+                    ""id"": ""1220ffc6-5b38-45e6-b226-47e6d8f20b71"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FourthSpellBinding"",
+                    ""type"": ""Button"",
+                    ""id"": ""acbf91fa-27cb-4ac3-8b40-8880b0f6cd33"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -144,7 +171,7 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""41900cea-85c8-49c2-aa0f-d533d3a25329"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -155,11 +182,33 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""59cb852c-8b58-48db-94b7-579677389798"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SecondSpellBinding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79160e75-50e5-4805-aa5d-45e49684476b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThirdSpellBinding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bed5810d-5dc6-4a0a-9d0b-7bfdc2ddcdd9"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FourthSpellBinding"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -173,6 +222,17 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fc97e1a-7d9b-454a-9dff-2cd72adeb677"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -183,8 +243,11 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_LeftClick = m_Player.FindAction("LeftClick", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_FirstSpellBinding = m_Player.FindAction("FirstSpellBinding", throwIfNotFound: true);
         m_Player_SecondSpellBinding = m_Player.FindAction("SecondSpellBinding", throwIfNotFound: true);
+        m_Player_ThirdSpellBinding = m_Player.FindAction("ThirdSpellBinding", throwIfNotFound: true);
+        m_Player_FourthSpellBinding = m_Player.FindAction("FourthSpellBinding", throwIfNotFound: true);
     }
 
     ~@IAA_Player()
@@ -267,8 +330,11 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_LeftClick;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_FirstSpellBinding;
     private readonly InputAction m_Player_SecondSpellBinding;
+    private readonly InputAction m_Player_ThirdSpellBinding;
+    private readonly InputAction m_Player_FourthSpellBinding;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -289,6 +355,10 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         /// <summary>
+        /// Provides access to the underlying input action "Player/Jump".
+        /// </summary>
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        /// <summary>
         /// Provides access to the underlying input action "Player/FirstSpellBinding".
         /// </summary>
         public InputAction @FirstSpellBinding => m_Wrapper.m_Player_FirstSpellBinding;
@@ -296,6 +366,14 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/SecondSpellBinding".
         /// </summary>
         public InputAction @SecondSpellBinding => m_Wrapper.m_Player_SecondSpellBinding;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ThirdSpellBinding".
+        /// </summary>
+        public InputAction @ThirdSpellBinding => m_Wrapper.m_Player_ThirdSpellBinding;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/FourthSpellBinding".
+        /// </summary>
+        public InputAction @FourthSpellBinding => m_Wrapper.m_Player_FourthSpellBinding;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -328,12 +406,21 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
             @FirstSpellBinding.started += instance.OnFirstSpellBinding;
             @FirstSpellBinding.performed += instance.OnFirstSpellBinding;
             @FirstSpellBinding.canceled += instance.OnFirstSpellBinding;
             @SecondSpellBinding.started += instance.OnSecondSpellBinding;
             @SecondSpellBinding.performed += instance.OnSecondSpellBinding;
             @SecondSpellBinding.canceled += instance.OnSecondSpellBinding;
+            @ThirdSpellBinding.started += instance.OnThirdSpellBinding;
+            @ThirdSpellBinding.performed += instance.OnThirdSpellBinding;
+            @ThirdSpellBinding.canceled += instance.OnThirdSpellBinding;
+            @FourthSpellBinding.started += instance.OnFourthSpellBinding;
+            @FourthSpellBinding.performed += instance.OnFourthSpellBinding;
+            @FourthSpellBinding.canceled += instance.OnFourthSpellBinding;
         }
 
         /// <summary>
@@ -351,12 +438,21 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
             @FirstSpellBinding.started -= instance.OnFirstSpellBinding;
             @FirstSpellBinding.performed -= instance.OnFirstSpellBinding;
             @FirstSpellBinding.canceled -= instance.OnFirstSpellBinding;
             @SecondSpellBinding.started -= instance.OnSecondSpellBinding;
             @SecondSpellBinding.performed -= instance.OnSecondSpellBinding;
             @SecondSpellBinding.canceled -= instance.OnSecondSpellBinding;
+            @ThirdSpellBinding.started -= instance.OnThirdSpellBinding;
+            @ThirdSpellBinding.performed -= instance.OnThirdSpellBinding;
+            @ThirdSpellBinding.canceled -= instance.OnThirdSpellBinding;
+            @FourthSpellBinding.started -= instance.OnFourthSpellBinding;
+            @FourthSpellBinding.performed -= instance.OnFourthSpellBinding;
+            @FourthSpellBinding.canceled -= instance.OnFourthSpellBinding;
         }
 
         /// <summary>
@@ -412,6 +508,13 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnJump(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "FirstSpellBinding" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -425,5 +528,19 @@ public partial class @IAA_Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSecondSpellBinding(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ThirdSpellBinding" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnThirdSpellBinding(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FourthSpellBinding" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFourthSpellBinding(InputAction.CallbackContext context);
     }
 }

@@ -45,9 +45,16 @@ public class CustomEffectInterface<T> where T : CustomEffect
     /// Remove effect in list
     /// </summary>
     /// <param name="_data"></param>
-    public void RemoveEffect(CustomEffectData<T> _data)
+    public void RemoveEffect(string _effectID)
     {
-        allEffect.Remove(_data);
+        foreach (CustomEffectData<T> _data in allEffect)
+        {
+            if (_data.effect.effectID == _effectID)
+            {
+                allEffect.Remove(_data);
+                return;
+            }
+        }
     }
 
     /// <summary>
@@ -81,7 +88,7 @@ public class CustomEffectInterface<T> where T : CustomEffect
     /// <summary>
     /// Update list, will remove effect if the time limit is reached
     /// </summary>
-    public void UpdateCustomEffect()
+    public void UpdateCustomEffect(Action<T> _effectOnDestroy = null)
     {
         for (int _i = 0; _i < EffectList.Count; _i++)
         {
@@ -91,7 +98,8 @@ public class CustomEffectInterface<T> where T : CustomEffect
                 _data.currentDuration += Time.deltaTime;
                 if (_data.currentDuration >= _data.effect.duration)
                 {
-                    RemoveEffect(_data);
+                    RemoveEffect(_data.effect.effectID);
+                    _effectOnDestroy?.Invoke(_data.effect);
                     _i--;
                 }
             }

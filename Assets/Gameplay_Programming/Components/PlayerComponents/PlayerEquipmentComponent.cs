@@ -60,4 +60,15 @@ public class PlayerEquipmentComponent : MonoBehaviour
             }
         }
     }
+
+    public bool HasEquipmentAt(EquipmentSlotType _slot)
+    {
+        foreach (ItemEquiped _equipedItem in equipedItems)
+        {
+            if (_equipedItem.type == _slot)
+                return _equipedItem.item;
+        }
+
+        return false;
+    }
 }

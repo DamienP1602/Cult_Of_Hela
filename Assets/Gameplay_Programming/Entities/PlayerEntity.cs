@@ -27,10 +27,17 @@ public class PlayerEntity : BaseEntity
 
         InputComponent.LeftClick.canceled += (_context) => ClickComponent.SetIsClick(false);
 
-        InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.InventoryOverlay.ToggleInventory();
+        InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.ToggleMenuOverlay();
 
         InputComponent.FirstSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(0);
         InputComponent.SecondSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(1);
+        InputComponent.ThirdSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(2);
+        InputComponent.FourthSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(3);
+
+        InputComponent.Jump.started += (_context) => MovementComponent.SetJump();
+
+        LevelComponent.OnGainLevel += (_level) => StatsComponent.LevelUpStats();
+        LevelComponent.OnGainLevel += SpellBookComponent.CheckLevelToLearn;
     }
 
     protected override void Init()

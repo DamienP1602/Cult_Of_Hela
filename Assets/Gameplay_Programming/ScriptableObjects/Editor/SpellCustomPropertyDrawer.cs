@@ -35,6 +35,12 @@ public class SpellCustomPropertyDrawer : Editor
             _spell.abilitySpriteColor = EditorGUILayout.ColorField(_spell.abilitySpriteColor);
         });
 
+        HorizontalGUI(() =>
+        {
+            GUILayout.Label("Description", GUILayout.Width(120.0f));
+            _spell.AbilityDescription = EditorGUILayout.TextField(_spell.AbilityDescription);
+        });
+
         DrawTitle("Spell Parameters");
 
         HorizontalGUI(() =>
@@ -58,8 +64,21 @@ public class SpellCustomPropertyDrawer : Editor
                 GUILayout.Label("Animation Name", GUILayout.Width(100.0f));
                 _spell.animationName = EditorGUILayout.TextField(_spell.animationName);
             }
-
         });
+
+        DrawTitle("Spell Requirement");
+        HorizontalGUI(() =>
+        {
+            GUILayout.Label("Has Requirement", GUILayout.Width(120.0f));
+            _spell.hasRequirement = EditorGUILayout.Toggle(_spell.hasRequirement, GUILayout.Width(15.0f));
+
+            if (_spell.hasRequirement)
+            {
+                GUILayout.Label("Need to Have", GUILayout.Width(90.0f));
+                _spell.EquipmentRequirement = (EquipmentSlotType)EditorGUILayout.EnumPopup(_spell.EquipmentRequirement);
+            }
+        });
+
 
         DrawTitle("Spell Action");
         HorizontalGUI(() =>
@@ -96,6 +115,69 @@ public class SpellCustomPropertyDrawer : Editor
             {
                 GUILayout.Label("Projectile Effect on Hit", GUILayout.Width(150.0f));
                 _spell.effect = (CustomEffect)EditorGUILayout.ObjectField(_spell.effect, typeof(CustomEffect), true);
+            });
+        }
+
+        if (_spell.spellAction == SpellActionType.MeleeAttack)
+        {
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Strength Percent", GUILayout.Width(160.0f));
+                _spell.strengthPercent = EditorGUILayout.FloatField(_spell.strengthPercent);
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Attack Bonus Percent", GUILayout.Width(160.0f));
+                _spell.bonusAttackPercent = EditorGUILayout.FloatField(_spell.bonusAttackPercent);
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Spell Bonus Percent", GUILayout.Width(160.0f));
+                _spell.bonusSpellPercent = EditorGUILayout.FloatField(_spell.bonusSpellPercent);
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Mono Target", GUILayout.Width(120.0f));
+                _spell.monoTarget = EditorGUILayout.Toggle(_spell.monoTarget, GUILayout.Width(15.0f));
+
+                if (!_spell.monoTarget)
+                {
+                    GUILayout.Label("Area of Effect (m)", GUILayout.Width(120.0f));
+                    _spell.areaOfEffect = EditorGUILayout.FloatField(_spell.areaOfEffect);
+                }
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("In Front Only", GUILayout.Width(120.0f));
+                _spell.inFront = EditorGUILayout.Toggle(_spell.inFront, GUILayout.Width(15.0f));
+            });
+        }
+
+        if (_spell.spellAction == SpellActionType.StatsBonus)
+        {
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Bonus Effect", GUILayout.Width(120.0f));
+                _spell.effect = (CustomEffect)EditorGUILayout.ObjectField(_spell.effect, typeof(CustomEffect), true);
+            });
+        }
+
+        if (_spell.spellAction == SpellActionType.SpecialAttack)
+        {
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Damages", GUILayout.Width(120.0f));
+                _spell.effect = (CustomEffect)EditorGUILayout.ObjectField(_spell.effect, typeof(CustomEffect), true);
+            });
+
+            HorizontalGUI(() =>
+            {
+                GUILayout.Label("Special Object", GUILayout.Width(120.0f));
+                _spell.specialObjectToSpawn = (GameObject)EditorGUILayout.ObjectField(_spell.specialObjectToSpawn, typeof(GameObject), true);
             });
         }
 
