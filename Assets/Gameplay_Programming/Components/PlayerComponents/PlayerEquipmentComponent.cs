@@ -71,4 +71,15 @@ public class PlayerEquipmentComponent : MonoBehaviour
 
         return false;
     }
+
+    public Item GetItemAt(EquipmentSlotType _slot)
+    {
+        foreach (ItemEquiped _equipedItem in equipedItems)
+        {
+            if (_equipedItem.type == _slot)
+                return _equipedItem.item;
+        }
+
+        return null;
+    }
 }

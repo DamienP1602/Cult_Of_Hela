@@ -27,7 +27,8 @@ public class PlayerEntity : BaseEntity
 
         InputComponent.LeftClick.canceled += (_context) => ClickComponent.SetIsClick(false);
 
-        InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.ToggleMenuOverlay();
+        InputComponent.Inventory.started += (_context) => GameManager.Instance.Hud.Overlay.ToggleInventoryOverlay();
+        InputComponent.Abilities.started += (_context) => GameManager.Instance.Hud.Overlay.ToggleAbilitiesOverlay();
 
         InputComponent.FirstSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(0);
         InputComponent.SecondSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(1);

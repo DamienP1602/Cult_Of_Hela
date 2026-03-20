@@ -27,6 +27,6 @@ public class PlayerAccessWidget : MonoBehaviour
         }
 
         // Open Inventory
-        buttons[0].Button.AddLeftClickAction(() => GameManager.Instance.Hud.Overlay.ToggleMenuOverlay());
+        buttons[0].Button.AddLeftClickAction(() => GameManager.Instance.Hud.Overlay.ToggleInventoryOverlay());
     }
 }

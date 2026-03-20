@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using System;
-using System.Collections.Generic;
 
 public class PlayerOverlayWidget : MonoBehaviour
 {
@@ -20,7 +18,7 @@ public class PlayerOverlayWidget : MonoBehaviour
     private void Update()
     {
 
-    }  
+    }
 
     public void InitPlayerOverlay(PlayerEntity _player)
     {
@@ -28,11 +26,35 @@ public class PlayerOverlayWidget : MonoBehaviour
         menuWidget.InitMenuOverlay(_player);
     }
 
-    public void ToggleMenuOverlay()
+    public void ToggleInventoryOverlay()
     {
-        bool _newValue = !menuWidget.isActiveAndEnabled;
+        bool _newValue = !menuWidget.InventoryOverlayWidget.isActiveAndEnabled;
+
+        if (_newValue)
+            menuWidget.ShowInventory();
+        else
+            menuWidget.gameObject.SetActive(false);
+
+        GameManager.Instance.Player.ClickComponent.SetIsInUI(_newValue);
+        menuWidget.InventoryOverlayWidget.SetInventoryUsage(_newValue);
+
         menuWidget.gameObject.SetActive(_newValue);
 
-        menuWidget.InventoryOverlayWidget.SetInventoryUsage(_newValue);
+    }
+
+    public void ToggleAbilitiesOverlay()
+    {
+        bool _newValue = !menuWidget.PlayerAbilitiesWidget.isActiveAndEnabled;
+
+        if (_newValue)
+        {
+            menuWidget.ShowAbilities();
+            menuWidget.PlayerAbilitiesWidget.UpdateSpells();
+        }
+        else
+            menuWidget.gameObject.SetActive(false);
+
+        GameManager.Instance.Player.ClickComponent.SetIsInUI(_newValue);
+        menuWidget.gameObject.SetActive(_newValue);
     }
 }

@@ -21,6 +21,7 @@ public class SpellBookComponent : MonoBehaviour
     Spell currentSpell;
 
     public List<Spell> Spells => bindedSpells;
+    public List<SpellLearnedData> LearnableSpells => learnableSpells;
 
     void Start()
     {
@@ -103,5 +104,32 @@ public class SpellBookComponent : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void AddSpell(Spell _spell)
+    {
+        if (bindedSpells.Count < 4)
+        {
+            bindedSpells.Add(_spell);
+            OnLearnSpell?.Invoke();
+        }
+    }
+
+    public void RemoveSpell(Spell _spell)
+    {
+        bindedSpells.Remove(_spell);
+        OnLearnSpell?.Invoke();
+    }
+
+    public bool ParseSpell(out Spell _spell, int _index)
+    {
+        if (_index < 0 || _index > bindedSpells.Count)
+        {
+            _spell = null;
+            return false;
+        }
+
+        _spell = bindedSpells[_index];
+        return true;
     }
 }

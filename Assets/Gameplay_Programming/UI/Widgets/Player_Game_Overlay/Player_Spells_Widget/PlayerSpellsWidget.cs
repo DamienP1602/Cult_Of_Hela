@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerSpellsWidget : MonoBehaviour
 {
@@ -26,32 +27,59 @@ public class PlayerSpellsWidget : MonoBehaviour
 
         for (int _i = 0; _i < _count; _i++)
         {
-            SpellButtonWidget _widget =spellButtons[_i];
+            SpellButtonWidget _widget = spellButtons[_i];
 
             _widget.Button.AddOnEnterAction(() => _player.ClickComponent.SetCanClick(false));
             _widget.Button.AddOnExitAction(() => _player.ClickComponent.SetCanClick(true));
-            
 
             // _i = 0/1/2/3 is for spells
             // _spellCount > _i verify if there's a spell in this slot
-            if (_i <= 3 && _playerSpells.Count > _i)
-            {
-                Spell _spell = _player.SpellBookComponent.Spells[_i];
 
-                _widget.Init(_spell.abilitySprite, _spell.abilitySpriteColor,_i);
+            Action _hoverAction = () =>
+            {
+                bool _hasSpell = _player.SpellBookComponent.ParseSpell(out Spell _spell, _i);
+                if (!_hasSpell) return;
+
+                _spellDescriptionWidget.ShowSpellDescription(_spell);
+            };
+            if (_i <= 3)
+            {
+                _widget.SetIndex(_i);
+
                 _widget.Button.AddLeftClickAction(() => _player.SpellBookComponent.LaunchAbility(_widget.Index));
 
+                _widget.Button.AddHoverAction(_hoverAction, 0.5f);
                 _widget.Button.AddOnExitAction(() => _spellDescriptionWidget.HideSpellDescription());
-                _widget.Button.AddHoverAction(() => _spellDescriptionWidget.ShowSpellDescription(_spell),0.5f);
             }
 
             // _i = 4 is for basic attack
-            else if (_i == 4)
+            if (_i == 4)
             {
                 BasicAttack _attack = _player.AttackComponent.BasicAttack;
 
-                _widget.Init(_attack.abilitySprite, _attack.abilitySpriteColor, 0);
-                _widget.Button.AddLeftClickAction (() => _player.AttackComponent.ForceLaunchAttack());
+                _widget.Init(_attack.abilitySprite, _attack.abilitySpriteColor);
+                _widget.Button.AddLeftClickAction(() => _player.AttackComponent.ForceLaunchAttack());
+                continue;
+            }
+        }
+    }
+
+    public void UpdateSpellsOnWidget(PlayerEntity _player)
+    {
+        List<Spell> _playerSpells = _player.SpellBookComponent.Spells;
+
+        for (int _i = 0; _i < 4; _i++)
+        {
+            SpellButtonWidget _widget = spellButtons[_i];
+
+            if (_playerSpells.Count > _i)
+            {
+                Spell _spell = _playerSpells[_i];
+                _widget.Init(_spell.abilitySprite, _spell.abilitySpriteColor);
+            }
+            else
+            {
+                _widget.Clear();
             }
         }
     }

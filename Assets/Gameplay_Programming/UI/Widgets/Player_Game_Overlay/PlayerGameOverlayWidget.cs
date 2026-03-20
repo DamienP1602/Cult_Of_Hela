@@ -26,7 +26,7 @@ public class PlayerGameOverlayWidget : MonoBehaviour
         _player.StatsComponent.ressource.onValueChange += ressourcesWidget.ChangeRessourceBar;
         _player.LevelComponent.OnGainExperience += ressourcesWidget.ChangeExperienceBar;
 
-        _player.SpellBookComponent.OnLearnSpell += () => spellsWidget.InitButtonSpells(_player,spellDescriptionWidget);
+        _player.SpellBookComponent.OnLearnSpell += () => spellsWidget.UpdateSpellsOnWidget(_player);
 
         spellsWidget.InitButtonSpells(_player, spellDescriptionWidget);
         ressourcesWidget.InitValues(_player.StatsComponent, _player.LevelComponent);

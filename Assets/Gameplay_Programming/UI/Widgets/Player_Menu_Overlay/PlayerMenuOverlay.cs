@@ -8,6 +8,7 @@ public class PlayerMenuOverlay : MonoBehaviour
     [SerializeField] MenuSelectorWidget menuSelectorWidget;
 
     public PlayerInventoryOverlayWidget InventoryOverlayWidget => inventoryOverlayWidget;
+    public PlayerAbilitiesWidget PlayerAbilitiesWidget => playerAbilitiesWidget;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +25,6 @@ public class PlayerMenuOverlay : MonoBehaviour
     public void InitMenuOverlay(PlayerEntity _player)
     {
         SwitchButton(menuSelectorWidget.InventoryButton, menuSelectorWidget.AbilitiesButton);
-        inventoryOverlayWidget.InitInventoryOverlay(_player);
 
         menuSelectorWidget.AbilitiesButton.AddLeftClickAction(() =>
         {
@@ -41,6 +41,9 @@ public class PlayerMenuOverlay : MonoBehaviour
 
             SwitchButton(menuSelectorWidget.InventoryButton, menuSelectorWidget.AbilitiesButton);
         });
+
+        inventoryOverlayWidget.InitInventoryOverlay(_player);
+        playerAbilitiesWidget.InitAbilitiesWidget(_player);
     }
 
     void SwitchButton(CustomButton _buttonToDesactivate, CustomButton _buttonToActivate)
@@ -50,5 +53,21 @@ public class PlayerMenuOverlay : MonoBehaviour
 
         _buttonToActivate.SetInteractable(true);
         _buttonToActivate.ButtonText.color = Color.gray;
+    }
+
+    public void ShowInventory()
+    {
+        inventoryOverlayWidget.gameObject.SetActive(true);
+        playerAbilitiesWidget.gameObject.SetActive(false);
+
+        SwitchButton(menuSelectorWidget.InventoryButton, menuSelectorWidget.AbilitiesButton);
+    }
+
+    public void ShowAbilities()
+    {
+        playerAbilitiesWidget.gameObject.SetActive(true);
+        inventoryOverlayWidget.gameObject.SetActive(false);
+
+        SwitchButton(menuSelectorWidget.AbilitiesButton, menuSelectorWidget.InventoryButton);
     }
 }

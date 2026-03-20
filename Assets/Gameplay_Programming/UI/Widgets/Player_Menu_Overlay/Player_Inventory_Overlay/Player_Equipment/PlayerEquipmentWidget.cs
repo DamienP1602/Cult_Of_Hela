@@ -21,6 +21,11 @@ public class PlayerEquipmentWidget : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    public void Init()
+    {
         foreach (EquipmentSlots _slot in slots)
         {
             _slot.widget.Button.AddLeftClickAction(() => SelectSlot(_slot));
@@ -67,11 +72,11 @@ public class PlayerEquipmentWidget : MonoBehaviour
             // here we have a selected item => put in a temp value the equiped item
             ItemInventoryData _temp = _slot.widget.Item;
 
-            // we equip the new item
-            EquipItem(_selectedItem.Value, _slot);
-
             // we desequip the ancient equiped item
             OnItemDesequip?.Invoke(_temp, _slot.type);
+
+            // we equip the new item
+            EquipItem(_selectedItem.Value, _slot);
             return;
         }
 

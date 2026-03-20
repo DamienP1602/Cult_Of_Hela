@@ -7,6 +7,7 @@ public class PlayerInputComponent : MonoBehaviour
 
     public InputAction LeftClick { get; private set; }
     public InputAction Inventory { get; private set; }
+    public InputAction Abilities { get; private set; }
     public InputAction FirstSpellBinding { get; private set; }
     public InputAction SecondSpellBinding { get; private set; }
     public InputAction ThirdSpellBinding { get; private set; }
@@ -33,6 +34,7 @@ public class PlayerInputComponent : MonoBehaviour
     {
         LeftClick = action.Player.LeftClick;
         Inventory = action.Player.Inventory;
+        Abilities = action.Player.Abilities;
         Jump = action.Player.Jump;
         FirstSpellBinding = action.Player.FirstSpellBinding;
         SecondSpellBinding = action.Player.SecondSpellBinding;
@@ -44,6 +46,7 @@ public class PlayerInputComponent : MonoBehaviour
     {
         LeftClick.Disable();
         Inventory.Disable();
+        Abilities.Disable();
         Jump.Disable();
         FirstSpellBinding.Disable();
         SecondSpellBinding.Disable();
@@ -55,6 +58,7 @@ public class PlayerInputComponent : MonoBehaviour
     {
         LeftClick.Enable();
         Inventory.Enable();
+        Abilities.Enable();
         Jump.Enable();
         FirstSpellBinding.Enable();
         SecondSpellBinding.Enable();

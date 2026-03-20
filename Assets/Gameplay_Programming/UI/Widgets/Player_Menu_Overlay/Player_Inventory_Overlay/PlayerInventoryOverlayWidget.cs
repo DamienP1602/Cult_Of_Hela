@@ -94,22 +94,21 @@ public class PlayerInventoryOverlayWidget : MonoBehaviour
 
             SelectItem(_item);
         };
+
+        equipmentWidget.Init();
+        inventoryWidget.Init();
     }
 
     public void SetInventoryUsage(bool _value)
     {
         if (_value)
         {
-            GameManager.Instance.Player.ClickComponent.SetIsInUI(true);
-
             InitInventoryItems();
             statsWidget.RefreshValues();
             equipmentWidget.ClearEquipmentInteractable();
         }
         else
         {
-            GameManager.Instance.Player.ClickComponent.SetIsInUI(false);
-
             ResetSelectedItem();
         }
     }
@@ -138,7 +137,7 @@ public class PlayerInventoryOverlayWidget : MonoBehaviour
         List<ItemInventoryData> _items = OnOpenInventory?.Invoke();
         if (_items == null) return;
 
-        inventoryWidget.Init(_items);
+        inventoryWidget.InitSlots(_items);
     }
 
     public void ReinitializeInventory()
@@ -147,7 +146,7 @@ public class PlayerInventoryOverlayWidget : MonoBehaviour
         InitInventoryItems();
         statsWidget.RefreshValues();
     }
-    
+
     public void SelectItem(ItemSlotWidget _slot)
     {
         if (!hasSelectedItem)
@@ -169,7 +168,7 @@ public class PlayerInventoryOverlayWidget : MonoBehaviour
     void AutoEquipItem(ItemSlotWidget _slot)
     {
         if (_slot.IsUsed)
-        {            
+        {
             SetSelectedItem(_slot);
             equipmentWidget.AutoEquipItem(_slot);
             ResetSelectedItem();

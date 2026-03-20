@@ -19,14 +19,23 @@ public class SpellDescriptionWidget : MonoBehaviour
         
     }
 
-    public void ShowSpellDescription(Spell _spell)
+    public void ShowSpellDescription(Ability _ability)
     {
         gameObject.SetActive(true);
 
-        spellName.text = _spell.AbilityName;
-        spellDescription.text = GetSpellDescription(_spell);
-        spellRessourceCost.text = "Ressource Cost : " + _spell.ressourceCost.ToString();
-        spellCooldown.text = "Cooldown : " + _spell.cooldown.ToString();
+        spellName.text = _ability.AbilityName;
+        if (_ability is Spell _spell)
+        {
+            spellDescription.text = GetSpellDescription(_spell);
+            spellRessourceCost.text = "Ressource Cost : " + _spell.ressourceCost.ToString();
+            spellCooldown.text = "Cooldown : " + _spell.cooldown.ToString();
+        }
+        else if (_ability is BasicAttack _attack)
+        {
+            spellDescription.text = GetBasicAttackDescription(_attack);
+            spellRessourceCost.text = "";
+            spellCooldown.text = "";
+        }
     }
 
     public void HideSpellDescription()
@@ -48,4 +57,12 @@ public class SpellDescriptionWidget : MonoBehaviour
         return _description;
     }
 
+    string GetBasicAttackDescription(BasicAttack _attack)
+    {
+        PlayerEntity _player = GameManager.Instance.Player;
+
+        int _damageAmount = _attack.baseDamages + _player.StatsComponent.BonusAttack;
+
+        return "Deals " + _damageAmount.ToString() + " Damages.";
+    }
 }

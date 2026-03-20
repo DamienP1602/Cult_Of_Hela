@@ -1039,6 +1039,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8339556638269489716, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
+      propertyPath: bindedSpells.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339556638269489716, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
+      propertyPath: 'bindedSpells.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e92b35b07400fa044a132fe97df5f9f4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

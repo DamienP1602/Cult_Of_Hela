@@ -16,6 +16,11 @@ public class PlayerInventoryWidget : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    public void Init()
+    {
         allItemSlots = GetComponentsInChildren<ItemSlotWidget>(true).ToList();
 
         foreach (ItemSlotWidget _slot in allItemSlots)
@@ -25,7 +30,7 @@ public class PlayerInventoryWidget : MonoBehaviour
         }
     }
 
-    public void Init(List<ItemInventoryData> _items)
+    public void InitSlots(List<ItemInventoryData> _items)
     {
         foreach (ItemSlotWidget _slot in allItemSlots)
         {

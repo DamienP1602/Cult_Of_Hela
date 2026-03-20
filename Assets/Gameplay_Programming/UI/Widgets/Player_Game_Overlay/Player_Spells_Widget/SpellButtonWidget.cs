@@ -23,10 +23,18 @@ public class SpellButtonWidget : MonoBehaviour
         
     }
 
-    public void Init(Sprite _sprite,Color _color, int _index)
+    public void SetIndex(int _index) => spellIndex = _index;
+
+    public void Init(Sprite _sprite, Color _color)
     {
         spellIcon.sprite = _sprite;
         spellIcon.color = _color;
-        spellIndex = _index;
+    }
+
+    public void Clear()
+    {
+        spellIcon.sprite = null;
+        spellIcon.color = Color.clear;
+        spellIndex = 0;
     }
 }
