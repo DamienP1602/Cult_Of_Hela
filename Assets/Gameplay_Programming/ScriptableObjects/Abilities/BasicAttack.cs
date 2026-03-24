@@ -5,9 +5,12 @@ public class BasicAttack : Ability
 {
     public int baseDamages;
 
-    public int GetBasicDamages()
+    public int bonusAttackPercent;
+
+    public int GetBasicDamages(BaseEntity _owner)
     {
-        return baseDamages;
+        float _attackBonusValue = (bonusAttackPercent * _owner.StatsComponent.BonusAttack) / 100.0f;
+        return baseDamages + (int)_attackBonusValue;
     }
 
     public override bool Requirement(BaseEntity _owner)

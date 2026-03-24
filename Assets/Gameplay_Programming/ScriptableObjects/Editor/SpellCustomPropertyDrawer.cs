@@ -1,6 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [CustomEditor(typeof(Spell))]
 public class SpellCustomPropertyDrawer : Editor
@@ -52,6 +53,11 @@ public class SpellCustomPropertyDrawer : Editor
         {
             GUILayout.Label("Cooldown", GUILayout.Width(120.0f));
             _spell.cooldown = EditorGUILayout.IntField(_spell.cooldown);
+        });
+        HorizontalGUI(() =>
+        {
+            GUILayout.Label("Visual Effect", GUILayout.Width(120.0f));
+            _spell.visualEffect = (VisualEffectAsset)EditorGUILayout.ObjectField(_spell.visualEffect, typeof(VisualEffectAsset), true);
         });
 
         HorizontalGUI(() =>

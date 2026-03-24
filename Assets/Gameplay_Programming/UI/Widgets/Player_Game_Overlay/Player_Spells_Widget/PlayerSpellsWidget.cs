@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerSpellsWidget : MonoBehaviour
 {
@@ -35,9 +33,9 @@ public class PlayerSpellsWidget : MonoBehaviour
             // _i = 0/1/2/3 is for spells
             // _spellCount > _i verify if there's a spell in this slot
 
-            Action _hoverAction = () =>
+            Action<int> _hoverAction = (_index) =>
             {
-                bool _hasSpell = _player.SpellBookComponent.ParseSpell(out Spell _spell, _i);
+                bool _hasSpell = _player.SpellBookComponent.ParseSpell(out Spell _spell, _index);
                 if (!_hasSpell) return;
 
                 _spellDescriptionWidget.ShowSpellDescription(_spell);
@@ -48,7 +46,7 @@ public class PlayerSpellsWidget : MonoBehaviour
 
                 _widget.Button.AddLeftClickAction(() => _player.SpellBookComponent.LaunchAbility(_widget.Index));
 
-                _widget.Button.AddHoverAction(_hoverAction, 0.5f);
+                _widget.Button.AddHoverAction(() => _hoverAction(_widget.Index), 0.5f);
                 _widget.Button.AddOnExitAction(() => _spellDescriptionWidget.HideSpellDescription());
             }
 
@@ -62,6 +60,8 @@ public class PlayerSpellsWidget : MonoBehaviour
                 continue;
             }
         }
+
+        _player.SpellBookComponent.OnStartCooldown += (_spell,_index) => spellButtons[_index].SetIsInCooldown(_spell.cooldown);
     }
 
     public void UpdateSpellsOnWidget(PlayerEntity _player)

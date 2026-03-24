@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(MovementComponent),typeof(InteractionComponent), typeof(StatsComponent))]
 [RequireComponent(typeof(AttackComponent), typeof(AnimationComponent),typeof(SpellBookComponent))]
+[RequireComponent(typeof(VisualEffectComponent))]
 public abstract class BaseEntity : GameEntity
 {
     public MovementComponent MovementComponent { get; private set; }
@@ -11,6 +12,7 @@ public abstract class BaseEntity : GameEntity
     public AttackComponent AttackComponent { get; private set; }
     public AnimationComponent AnimationComponent { get; private set; }
     public SpellBookComponent SpellBookComponent { get; private set; }
+    public VisualEffectComponent VisualEffectComponent { get; private set; }
 
     protected override void Start()
     {
@@ -26,6 +28,7 @@ public abstract class BaseEntity : GameEntity
         AttackComponent = GetComponent<AttackComponent>();
         AnimationComponent = GetComponent<AnimationComponent>();
         SpellBookComponent = GetComponent<SpellBookComponent>();
+        VisualEffectComponent = GetComponent<VisualEffectComponent>();
 
         StatsComponent.InitStats();
     }

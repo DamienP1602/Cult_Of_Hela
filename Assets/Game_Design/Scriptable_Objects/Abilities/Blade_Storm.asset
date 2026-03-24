@@ -19,7 +19,7 @@ MonoBehaviour:
   abilitySpriteColor: {r: 0, g: 0, b: 0, a: 1}
   spellAction: 4
   objectReference: {fileID: 0}
-  ressourceCost: 1
+  ressourceCost: 15
   cooldown: 25
   spellValue: 0
   effect: {fileID: 11400000, guid: cb49b61066724f0478116ad7fbe89395, type: 2}

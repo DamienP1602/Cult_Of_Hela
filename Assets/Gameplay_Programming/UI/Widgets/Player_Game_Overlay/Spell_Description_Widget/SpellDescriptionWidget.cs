@@ -21,6 +21,8 @@ public class SpellDescriptionWidget : MonoBehaviour
 
     public void ShowSpellDescription(Ability _ability)
     {
+        if (!_ability) return; 
+
         gameObject.SetActive(true);
 
         spellName.text = _ability.AbilityName;
@@ -61,7 +63,7 @@ public class SpellDescriptionWidget : MonoBehaviour
     {
         PlayerEntity _player = GameManager.Instance.Player;
 
-        int _damageAmount = _attack.baseDamages + _player.StatsComponent.BonusAttack;
+        int _damageAmount = _attack.GetBasicDamages(_player) + _player.StatsComponent.BonusAttack;
 
         return "Deals " + _damageAmount.ToString() + " Damages.";
     }

@@ -57,4 +57,16 @@ public class PlayerVisualEquipmentComponent : MonoBehaviour
             }
         }
     }
+
+    public Transform GetTransformFromSlot(EquipmentSlotType _slotType)
+    {
+        foreach (VisualEquipmentData _data in equipmentSockets)
+        {
+            if (_data.slotType == _slotType)
+            {
+                return _data.transform;
+            }
+        }
+        return null;
+    }
 }

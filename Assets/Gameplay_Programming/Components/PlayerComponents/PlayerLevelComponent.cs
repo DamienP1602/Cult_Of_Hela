@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerLevelComponent : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerLevelComponent : MonoBehaviour
     [SerializeField] int currentLevel;
     [SerializeField] int currentExperience;
     [SerializeField] int experienceCap;
+    [SerializeField] VisualEffectAsset levelUpEffect;
 
     public int Level => currentLevel;
     public int Experience => currentExperience;
@@ -28,6 +30,7 @@ public class PlayerLevelComponent : MonoBehaviour
             CalculateExperienceCap();
             currentExperience = 0;
             GainExperience(_remainingExperience);
+            SpawnVisualEffect();
             return;
         }
 
@@ -37,5 +40,12 @@ public class PlayerLevelComponent : MonoBehaviour
     void CalculateExperienceCap()
     {
         experienceCap = (currentLevel * 2) * (currentLevel * 5);
+    }
+
+    void SpawnVisualEffect()
+    {
+        VisualEffect _newEffect = Instantiate(GameManager.Instance.EmptyVisualEffect,transform.position,Quaternion.identity);
+        _newEffect.visualEffectAsset = levelUpEffect;
+        Destroy(_newEffect.gameObject,2.0f);
     }
 }

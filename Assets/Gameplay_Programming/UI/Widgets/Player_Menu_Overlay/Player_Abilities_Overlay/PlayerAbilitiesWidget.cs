@@ -11,8 +11,8 @@ public class PlayerAbilitiesWidget : MonoBehaviour
     [Header("Spell Description Parameters")]
     [SerializeField] SpellDescriptionWidget descriptionWidget;
 
-    [Header("Passifs Parameters")]
-    [SerializeField] List<SpecialisationPanelWidget> specialisationWidgets;
+    [Header("Specialisations Parameters")]
+    [SerializeField] Transform specialisationPanel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,6 +29,7 @@ public class PlayerAbilitiesWidget : MonoBehaviour
     public void InitAbilitiesWidget(PlayerEntity _player)
     {
         InitBasicSpells(_player);
+        InitSpecialisationsPanel(_player);
     }
 
     void InitBasicSpells(PlayerEntity _player)
@@ -121,5 +122,16 @@ public class PlayerAbilitiesWidget : MonoBehaviour
         {
             _player.SpellBookComponent.AddSpell(_spell);
         }
+    }
+
+    void InitSpecialisationsPanel(PlayerEntity _player)
+    {
+        specialisationPanel.gameObject.SetActive(_player.LevelComponent.Level >= 10);
+    }
+
+    public void UpdateSpecialisations()
+    {
+        PlayerEntity _player = GameManager.Instance.Player;
+        specialisationPanel.gameObject.SetActive(_player.LevelComponent.Level >= 10);
     }
 }

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 4380852937905122962}
   - component: {fileID: 3152110668607826468}
   - component: {fileID: 2997168236302575464}
+  - component: {fileID: 1282763448082835549}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   initialized: 0
   hasBeenDestroyed: 0
   enemyLevel: 1
-  experienceValue: 6
+  experienceValue: 4
 --- !u!195 &5704978393942924173
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -173,6 +174,8 @@ MonoBehaviour:
     value: 0
   armor:
     value: 0
+  bonusEffects:
+    allEffect: []
 --- !u!114 &7924133527447769230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +292,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allLearnedAbilities: []
   bindedSpells: []
+  learnableSpells: []
+  cooldowns: []
+--- !u!114 &1282763448082835549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3203650074338727904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c617d21bd5cb1249889171adf6e85e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  createdVisualEffect: []
 --- !u!1001 &70039885162356997
 PrefabInstance:
   m_ObjectHideFlags: 0

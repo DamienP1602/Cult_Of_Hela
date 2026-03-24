@@ -13,18 +13,9 @@ MonoBehaviour:
   m_Name: Chest_LootTable
   m_EditorClassIdentifier: 
   allDroppedObjects:
-  - objectToDrop: {fileID: 5177519624558407451, guid: 280ffd3d4f9f6cc44b7b6af46943d5e8, type: 3}
-    dropAmount: {x: 2, y: 10}
-    dropChance: 100
   - objectToDrop: {fileID: 7974651069335570469, guid: 027733a679823684bb78b84bfd198b15, type: 3}
     dropAmount: {x: 1, y: 1}
     dropChance: 100
   - objectToDrop: {fileID: 3100514117296731487, guid: 91e0b6050ad68104fb0642ae2480f9a3, type: 3}
-    dropAmount: {x: 1, y: 1}
-    dropChance: 100
-  - objectToDrop: {fileID: 1981105008558790355, guid: f51d66cfda7bc9042889268dcbf85b02, type: 3}
-    dropAmount: {x: 1, y: 1}
-    dropChance: 100
-  - objectToDrop: {fileID: 6108500309017720172, guid: 8fbb5d898022880449e9c5b8182d9c26, type: 3}
     dropAmount: {x: 1, y: 1}
     dropChance: 100

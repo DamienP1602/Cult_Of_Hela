@@ -50,6 +50,7 @@ public class PlayerOverlayWidget : MonoBehaviour
         {
             menuWidget.ShowAbilities();
             menuWidget.PlayerAbilitiesWidget.UpdateSpells();
+            menuWidget.PlayerAbilitiesWidget.UpdateSpecialisations();
         }
         else
             menuWidget.gameObject.SetActive(false);

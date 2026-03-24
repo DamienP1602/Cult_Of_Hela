@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class SpellBookComponent : MonoBehaviour
 {
@@ -11,13 +12,29 @@ public class SpellBookComponent : MonoBehaviour
         public Spell spellToUnlock;
     }
 
+    [Serializable]
+    public class BindedSpellsData
+    {
+        public Spell spell;
+        public float currentCooldown;
+        public float spellCooldown;
+
+        public BindedSpellsData(Spell _spell, float _cooldown)
+        {
+            spell = _spell;
+            spellCooldown = _cooldown;
+        }
+    }
+
     public event Action<Spell> OnLaunchSpell;
+    public event Action<Spell,int> OnStartCooldown;
     public event Action OnLearnSpell;
 
     [Header("Parameters")]
     [SerializeField] List<Ability> allLearnedAbilities = new List<Ability>();
     [SerializeField] List<Spell> bindedSpells = new List<Spell>();
     [SerializeField] List<SpellLearnedData> learnableSpells = new List<SpellLearnedData>();
+    [SerializeField] List<BindedSpellsData> cooldowns;
     Spell currentSpell;
 
     public List<Spell> Spells => bindedSpells;
@@ -30,13 +47,41 @@ public class SpellBookComponent : MonoBehaviour
 
     void Update()
     {
-        
+        CooldownUpdate();
+    }
+
+    void CooldownUpdate()
+    {
+        foreach (BindedSpellsData _data in cooldowns)
+        {
+            _data.currentCooldown += Time.deltaTime;
+
+            if (_data.currentCooldown >= _data.spellCooldown)
+            {
+                cooldowns.Remove(_data);
+                return;
+            }
+        }
+    }
+
+    bool IsSpellInCooldown(Spell _spell)
+    {
+        foreach (BindedSpellsData _data in cooldowns)
+        {
+            if (_data.spell == _spell) return true;
+        }
+        return false;
     }
 
     public void LaunchAbility(int _index)
     {
         // Don't have the selected spell
         if (_index >= bindedSpells.Count) return;
+
+        // If spell is in cooldown
+        if (IsSpellInCooldown(bindedSpells[_index]))
+            return;
+
         currentSpell = bindedSpells[_index];
 
         BaseEntity _owner = GetComponent<BaseEntity>();
@@ -67,12 +112,11 @@ public class SpellBookComponent : MonoBehaviour
         }
         else
         {
-            if (currentSpell.LaunchSpell(_owner))
-            {
-                // Consume ressource
-                _ownerStats.ressource.RemoveValue(currentSpell.ressourceCost);
-            }
+            LaunchSpell(_owner);
         }
+
+        cooldowns.Add(new BindedSpellsData(currentSpell,currentSpell.cooldown));
+        OnStartCooldown?.Invoke(currentSpell,_index);
     }
 
     void Anim_StartSpell()
@@ -80,10 +124,22 @@ public class SpellBookComponent : MonoBehaviour
         StatsComponent _ownerStats = GetComponent<StatsComponent>();
 
         BaseEntity _owner = GetComponent<BaseEntity>();
-        if (currentSpell.LaunchSpell(_owner))
+        LaunchSpell(_owner);
+    }
+
+    void LaunchSpell(BaseEntity _entity)
+    {
+        if (currentSpell.LaunchSpell(_entity))
         {
+            StatsComponent _ownerStats = _entity.StatsComponent;
             // Consume ressource
             _ownerStats.ressource.RemoveValue(currentSpell.ressourceCost);
+
+            if (currentSpell.visualEffect)
+            {
+                VisualEffectComponent _effectComp = GetComponent<VisualEffectComponent>();
+                _effectComp.CreateVisualEffect(currentSpell.visualEffect, currentSpell.EquipmentRequirement, 2.0f);
+            }
         }
     }
 
@@ -123,7 +179,7 @@ public class SpellBookComponent : MonoBehaviour
 
     public bool ParseSpell(out Spell _spell, int _index)
     {
-        if (_index < 0 || _index > bindedSpells.Count)
+        if (_index < 0 || _index >= bindedSpells.Count)
         {
             _spell = null;
             return false;

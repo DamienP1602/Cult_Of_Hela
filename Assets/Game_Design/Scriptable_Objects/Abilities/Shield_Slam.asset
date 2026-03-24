@@ -34,3 +34,4 @@ MonoBehaviour:
   areaOfEffect: 0
   inFront: 0
   specialObjectToSpawn: {fileID: 0}
+  visualEffect: {fileID: 8926484042661614526, guid: da5d84fa78a6d9e47a5fc986cfc13034, type: 3}

@@ -11,7 +11,7 @@ public class PlayerClickComponent : MonoBehaviour
     [SerializeField] VisualEffectAsset onClickEffect;
     [SerializeField] bool canClick = true;
     [SerializeField] bool isInUI = false;
-    
+
     Ray PointOnScreen => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public void SetIsClick(bool _value) => isClick = _value;
@@ -37,7 +37,8 @@ public class PlayerClickComponent : MonoBehaviour
 
             if (Macro.GetComponentFromHit<GameEntity>(_hits) is SearchHitResult<GameEntity> _enemyHit)
             {
-                owner.InteractionComponent.SetTarget(_enemyHit.component);
+                if (_enemyHit.component != owner)
+                    owner.InteractionComponent.SetTarget(_enemyHit.component);
             }
             else if (Macro.GetComponentFromHit<Terrain>(_hits) is SearchHitResult<Terrain> _groundHit)
             {
@@ -48,7 +49,7 @@ public class PlayerClickComponent : MonoBehaviour
 
     public Vector3 GetMousePositionOnWorld()
     {
-        if (Physics.Raycast(PointOnScreen,out RaycastHit _hit, 100.0f))
+        if (Physics.Raycast(PointOnScreen, out RaycastHit _hit, 100.0f))
         {
             return _hit.point;
         }

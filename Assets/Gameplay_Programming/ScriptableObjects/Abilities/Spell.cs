@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public enum SpellActionType
 {
@@ -33,6 +34,8 @@ public class Spell : Ability
     public bool inFront;
 
     public GameObject specialObjectToSpawn;
+
+    public VisualEffectAsset visualEffect;
 
     /// <summary>
     /// if true, it means the spell has been casted

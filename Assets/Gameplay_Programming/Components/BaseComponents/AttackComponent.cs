@@ -63,7 +63,7 @@ public class AttackComponent : MonoBehaviour
             Vector3 _targetPos = target.transform.position + (Vector3.up * 2.0f);
 
             int _damageDeal = statsRef.GetDamageDeal();
-            _damageDeal += basicAttackData.GetBasicDamages();
+            _damageDeal += basicAttackData.GetBasicDamages(GetComponent<BaseEntity>());
 
             for (int _i = 0; _i < bonusEffects.Count; _i++)
             {
