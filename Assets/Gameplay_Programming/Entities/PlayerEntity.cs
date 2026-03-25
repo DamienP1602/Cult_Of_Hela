@@ -35,7 +35,7 @@ public class PlayerEntity : BaseEntity
         InputComponent.ThirdSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(2);
         InputComponent.FourthSpellBinding.started += (_context) => SpellBookComponent.LaunchAbility(3);
 
-        InputComponent.Jump.started += (_context) => MovementComponent.SetJump();
+        InputComponent.Jump.started += (_context) => MovementComponent.SetDash();
 
         LevelComponent.OnGainLevel += (_level) => StatsComponent.LevelUpStats();
         LevelComponent.OnGainLevel += SpellBookComponent.CheckLevelToLearn;

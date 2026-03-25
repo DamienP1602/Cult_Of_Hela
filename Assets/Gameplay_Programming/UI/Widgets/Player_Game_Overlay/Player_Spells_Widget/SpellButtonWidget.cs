@@ -58,7 +58,6 @@ public class SpellButtonWidget : MonoBehaviour
     {
         spellIcon.sprite = null;
         spellIcon.color = Color.clear;
-        spellIndex = 0;
     }
 
     public void SetIsInCooldown(float _cooldown)

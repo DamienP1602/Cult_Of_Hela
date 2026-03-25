@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
 public class PlayerClickComponent : MonoBehaviour
@@ -35,10 +35,9 @@ public class PlayerClickComponent : MonoBehaviour
             RaycastHit[] _hits = Physics.RaycastAll(PointOnScreen, 100.0f);
             if (_hits.Length == 0) return;
 
-            if (Macro.GetComponentFromHit<GameEntity>(_hits) is SearchHitResult<GameEntity> _enemyHit)
+            if (Macro.GetComponentFromHit<GameEntity>(_hits, new List<GameEntity>() { owner}) is SearchHitResult<GameEntity> _enemyHit)
             {
-                if (_enemyHit.component != owner)
-                    owner.InteractionComponent.SetTarget(_enemyHit.component);
+                owner.InteractionComponent.SetTarget(_enemyHit.component);
             }
             else if (Macro.GetComponentFromHit<Terrain>(_hits) is SearchHitResult<Terrain> _groundHit)
             {

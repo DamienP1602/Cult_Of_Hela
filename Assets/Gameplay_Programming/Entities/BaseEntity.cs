@@ -17,7 +17,6 @@ public abstract class BaseEntity : GameEntity
     protected override void Start()
     {
         base.Start();
-
     }
 
     protected override void Init()

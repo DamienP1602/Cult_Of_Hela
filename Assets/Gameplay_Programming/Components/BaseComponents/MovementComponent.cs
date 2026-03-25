@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class MovementComponent : MonoBehaviour
@@ -24,6 +25,7 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] float dashPower = 3.0f;
     [SerializeField] AnimationCurve curve;
     [SerializeField] float dashTime = 0.5f;
+    [field:SerializeField] public bool CanDash = true;
     float currentDashTime;
 
     public bool AtDestination => isAtDestination;
@@ -52,14 +54,27 @@ public class MovementComponent : MonoBehaviour
     void DashUpdate()
     {
         currentDashTime += Time.deltaTime;
-        float _value = curve.Evaluate(currentDashTime) * dashPower * Time.deltaTime;
-        transform.position += transform.forward * _value;
-
         if (currentDashTime >= dashTime)
         {
             animRef.SetBool("dash", false);
             isDashing = false;
         }
+
+        if (!FoundObstacle())
+        {
+            float _value = curve.Evaluate(currentDashTime) * dashPower * Time.deltaTime;
+            transform.position += transform.forward * _value;
+        }
+    }
+
+    bool FoundObstacle()
+    {
+        RaycastHit[] _hits = Physics.RaycastAll(new Ray(transform.position + Vector3.up * 0.5f,transform.forward),1.0f);
+
+        if (Macro.GetComponentFromHit<GameEntity>(_hits, new List<GameEntity>() { GetComponent<GameEntity>() }) is SearchHitResult<GameEntity> _obstacle)
+                return true;
+
+        return false;
     }
 
     public void SetRotationTarget(Vector3 _target)
@@ -171,9 +186,9 @@ public class MovementComponent : MonoBehaviour
         animRef.SetBool("movement", false);
     }
 
-    public void SetJump()
+    public void SetDash()
     {
-        if (isDashing) return;
+        if (isDashing || !CanDash) return;
 
         ResetTarget();
         agent.isStopped = true;

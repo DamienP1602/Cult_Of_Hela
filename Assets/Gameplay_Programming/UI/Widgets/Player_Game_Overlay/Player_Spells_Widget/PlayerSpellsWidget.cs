@@ -61,7 +61,7 @@ public class PlayerSpellsWidget : MonoBehaviour
             }
         }
 
-        _player.SpellBookComponent.OnStartCooldown += (_spell,_index) => spellButtons[_index].SetIsInCooldown(_spell.cooldown);
+        _player.SpellBookComponent.OnStartCooldown += (_spell, _index) => spellButtons[_index].SetIsInCooldown(_spell.cooldown);
     }
 
     public void UpdateSpellsOnWidget(PlayerEntity _player)

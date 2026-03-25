@@ -106,7 +106,7 @@ public class Spell : Ability
         else
         {
             List<BaseEntity> _targets = new List<BaseEntity>();
-            RaycastHit[] _multiHits = Physics.SphereCastAll(new Ray(_owner.transform.position, _owner.transform.forward), _owner.InteractionComponent.Range);
+            RaycastHit[] _multiHits = Physics.SphereCastAll(new Ray(_owner.transform.position + Vector3.up, _owner.transform.forward), _owner.InteractionComponent.Range / 2.0f);
             foreach (RaycastHit _hit in _multiHits)
             {
                 if (_hit.collider.GetComponent<BaseEntity>() is BaseEntity _entity)

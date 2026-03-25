@@ -208,9 +208,9 @@ MonoBehaviour:
   - title: Burst
     position:
       serializedVersion: 2
-      x: 1312
+      x: 1313
       y: -591
-      width: 475
+      width: 474
       height: 2461
     contents:
     - model: {fileID: 8926484042661614604}
@@ -902,7 +902,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":1.0,"inTangent":1.0,"outTangent":1.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":2.0,"inTangent":1.0,"outTangent":1.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.5,"inTangent":0.5,"outTangent":0.5,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":1.0,"inTangent":0.5,"outTangent":0.5,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Size
@@ -1190,7 +1190,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614619}
   - {fileID: 8926484042661614772}
   - {fileID: 8926484042661614784}
-  m_UIPosition: {x: 1337, y: -151}
+  m_UIPosition: {x: 1338, y: -152}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1673,7 +1673,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614652}
   - {fileID: 8926484042661614657}
   dataType: 0
-  capacity: 64
+  capacity: 32
   stripCapacity: 1
   particlePerStripCount: 32
   needsComputeBounds: 0
@@ -2080,7 +2080,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":6.615680694580078,"outTangent":6.615680694580078,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.10000000149011612,"value":1.5,"inTangent":0.06686528027057648,"outTangent":0.06686528027057648,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":0.0,"inTangent":-1.6666667461395264,"outTangent":-1.6666667461395264,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":6.615680694580078,"outTangent":6.615680694580078,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.10000000149011612,"value":0.5,"inTangent":0.06686528027057648,"outTangent":0.06686528027057648,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":0.0,"inTangent":-0.5555555820465088,"outTangent":-0.5555555820465088,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Size
@@ -2818,7 +2818,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 4
+      m_SerializableObject: 2
     m_Space: -1
   m_Property:
     name: MaxSpeed

@@ -14,23 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityID: Hammering
   AbilityName: Hammering
-  AbilityDescription: Your next Basic Attack will do #D# bonus damage.
+  AbilityDescription: Hit the ground and deals #D# to all enemies around.
   abilitySprite: {fileID: 21300000, guid: 5a98567effc61384c8ed05a4e384c479, type: 3}
   abilitySpriteColor: {r: 0, g: 0, b: 0, a: 1}
-  spellAction: 0
+  spellAction: 2
   objectReference: {fileID: 0}
   ressourceCost: 2
-  cooldown: 2
+  cooldown: 4
   spellValue: 0
   effect: {fileID: 11400000, guid: 003ce84bbd6faf547826e6b2f210177b, type: 2}
-  hasAnimation: 0
-  animationName: 
+  hasAnimation: 1
+  animationName: hammering
   hasRequirement: 1
   EquipmentRequirement: 0
-  strengthPercent: 0
+  strengthPercent: 30
   bonusAttackPercent: 0
-  bonusSpellPercent: 0
+  bonusSpellPercent: 20
   monoTarget: 0
-  areaOfEffect: 0
+  areaOfEffect: 3
   inFront: 0
   specialObjectToSpawn: {fileID: 0}
+  visualEffect: {fileID: 8926484042661614526, guid: 62c6b5f424551324faea9d3f37b726ab, type: 3}

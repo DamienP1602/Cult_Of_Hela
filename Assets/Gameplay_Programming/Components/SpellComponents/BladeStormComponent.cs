@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 public class BladeStormComponent : MonoBehaviour
 {
@@ -68,6 +66,8 @@ public class BladeStormComponent : MonoBehaviour
         owner = _owner;
         areaOfEffect.radius = _range;
         owner.AnimationComponent.SetLockAnimationState(true);
+        owner.SpellBookComponent.CanLaunchSpell = false;
+        owner.MovementComponent.CanDash = false;
 
         Invoke(nameof(StopAbility), 6.0f);
     }
@@ -75,7 +75,7 @@ public class BladeStormComponent : MonoBehaviour
     void OnTriggerEnter(Collider _other)
     {
         BaseEntity _entity = _other.GetComponent<BaseEntity>();
-        if (_entity)
+        if (_entity && _entity != owner)
             enemiesInArea.Add(new BladeStormData(_entity));
     }
 
@@ -103,6 +103,8 @@ public class BladeStormComponent : MonoBehaviour
         Destroy(gameObject);
         owner.AnimationComponent.SetLockAnimationState(false);
         owner.AnimationComponent.SetBool(owner.AnimationComponent.CurrentSpellAnimName,false);
+        owner.SpellBookComponent.CanLaunchSpell = true;
+        owner.MovementComponent.CanDash = true;
 
         if (!owner.MovementComponent.AtDestination)
         {

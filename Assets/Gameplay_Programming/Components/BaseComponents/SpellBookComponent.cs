@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class SpellBookComponent : MonoBehaviour
 {
@@ -37,6 +36,7 @@ public class SpellBookComponent : MonoBehaviour
     [SerializeField] List<BindedSpellsData> cooldowns;
     Spell currentSpell;
 
+    [field: SerializeField] public bool CanLaunchSpell { get; set; } = true;
     public List<Spell> Spells => bindedSpells;
     public List<SpellLearnedData> LearnableSpells => learnableSpells;
 
@@ -75,6 +75,8 @@ public class SpellBookComponent : MonoBehaviour
 
     public void LaunchAbility(int _index)
     {
+        if (!CanLaunchSpell) return;
+
         // Don't have the selected spell
         if (_index >= bindedSpells.Count) return;
 
@@ -156,8 +158,6 @@ public class SpellBookComponent : MonoBehaviour
                     bindedSpells.Add(_data.spellToUnlock);
                     OnLearnSpell?.Invoke();
                 }
-
-                return;
             }
         }
     }
@@ -187,5 +187,23 @@ public class SpellBookComponent : MonoBehaviour
 
         _spell = bindedSpells[_index];
         return true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (currentSpell)
+        {
+            Gizmos.color = Color.blue;
+            if (currentSpell.monoTarget)
+            {
+                Gizmos.DrawLine(transform.position, transform.position + transform.forward * GetComponent<InteractionComponent>().Range);
+            }
+            else
+            {
+
+                Gizmos.DrawWireSphere(transform.position,GetComponent<InteractionComponent>().Range);
+            }
+            Gizmos.color = Color.white;
+        }
     }
 }

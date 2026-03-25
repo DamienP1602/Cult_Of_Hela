@@ -26,21 +26,8 @@ public class PlayerMenuOverlay : MonoBehaviour
     {
         SwitchButton(menuSelectorWidget.InventoryButton, menuSelectorWidget.AbilitiesButton);
 
-        menuSelectorWidget.AbilitiesButton.AddLeftClickAction(() =>
-        {
-            playerAbilitiesWidget.gameObject.SetActive(true);
-            inventoryOverlayWidget.gameObject.SetActive(false);
-
-            SwitchButton(menuSelectorWidget.AbilitiesButton, menuSelectorWidget.InventoryButton);
-        });
-
-        menuSelectorWidget.InventoryButton.AddLeftClickAction(() =>
-        {
-            playerAbilitiesWidget.gameObject.SetActive(false);
-            inventoryOverlayWidget.gameObject.SetActive(true);
-
-            SwitchButton(menuSelectorWidget.InventoryButton, menuSelectorWidget.AbilitiesButton);
-        });
+        menuSelectorWidget.AbilitiesButton.AddLeftClickAction(ShowAbilities);
+        menuSelectorWidget.InventoryButton.AddLeftClickAction(ShowInventory);
 
         inventoryOverlayWidget.InitInventoryOverlay(_player);
         playerAbilitiesWidget.InitAbilitiesWidget(_player);
@@ -69,5 +56,7 @@ public class PlayerMenuOverlay : MonoBehaviour
         inventoryOverlayWidget.gameObject.SetActive(false);
 
         SwitchButton(menuSelectorWidget.AbilitiesButton, menuSelectorWidget.InventoryButton);
+        playerAbilitiesWidget.UpdateSpells();
+        playerAbilitiesWidget.UpdateSpecialisations();
     }
 }

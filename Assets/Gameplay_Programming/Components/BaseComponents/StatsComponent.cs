@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 [Serializable]
 public class SingleStat
@@ -108,6 +107,12 @@ public class StatsComponent : MonoBehaviour
     public SingleStat spirit;
     public SingleStat armor;
 
+    [Header("Bonus Stats")]
+    [SerializeField] bool canRegenerate;
+    public SingleStat healthRegeneration;
+    public SingleStat ressourceRegeneration;
+    float currentTimeRegeneration;
+
     [Header("Parameters")]
     [SerializeField] CustomEffectInterface<BonusStatsEffect> bonusEffects = new CustomEffectInterface<BonusStatsEffect>();
 
@@ -120,6 +125,30 @@ public class StatsComponent : MonoBehaviour
     private void Update()
     {
         bonusEffects.UpdateCustomEffect(RemoveBonuses);
+
+        if (canRegenerate)
+            RegenerationUpdate();
+    }
+
+    void RegenerationUpdate()
+    {
+        currentTimeRegeneration += Time.deltaTime;
+        if (currentTimeRegeneration >= 3.0f)
+        {
+            PassifRegeneration();
+            currentTimeRegeneration = 0.0f;
+        }
+    }
+
+    void PassifRegeneration()
+    {
+        float _healthValue = health.Value / (healthRegeneration.Value * 100.0f);
+        _healthValue = Mathf.Clamp(_healthValue, 1.0f, float.MaxValue);
+        health.AddValue((int)_healthValue);
+
+        float _ressourceValue = ressource.Value / (ressourceRegeneration.Value * 100.0f);
+        _ressourceValue = Mathf.Clamp(_ressourceValue, 1.0f, float.MaxValue);
+        ressource.AddValue((int)_ressourceValue);
     }
 
     /// <summary>
@@ -169,7 +198,7 @@ public class StatsComponent : MonoBehaviour
 
         armor.AddValue(_item.armor);
 
-        InitStats();
+        CalculMaxStats();
     }
 
     public void AddBonuses(BonusStatsEffect _effect)
@@ -185,7 +214,7 @@ public class StatsComponent : MonoBehaviour
 
         bonusEffects.AddEffect(_effect);
 
-        InitStats();
+        CalculMaxStats();
     }
 
     public void RemoveBonuses(Item _item)
@@ -201,7 +230,7 @@ public class StatsComponent : MonoBehaviour
 
         armor.RemoveValue(_item.armor);
 
-        InitStats();
+        CalculMaxStats();
     }
 
     public void RemoveBonuses(BonusStatsEffect _effect)
@@ -215,7 +244,7 @@ public class StatsComponent : MonoBehaviour
                 break;
         }
 
-        InitStats();
+        CalculMaxStats();
     }
 
     public void InitStats()
@@ -225,6 +254,13 @@ public class StatsComponent : MonoBehaviour
 
         ressource.SetMaxValue(10 + spirit.Value * 2);
         ressource.SetValue(10 + spirit.Value * 2);
+    }
+
+    public void CalculMaxStats()
+    {
+        health.SetMaxValue(10 + vitality.Value * 3);
+
+        ressource.SetMaxValue(10 + spirit.Value * 2);
     }
 
     public void LevelUpStats()

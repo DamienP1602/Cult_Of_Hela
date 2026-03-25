@@ -56,6 +56,8 @@ GameObject:
   - component: {fileID: 5545339395610170404}
   - component: {fileID: 1549141889476991364}
   - component: {fileID: 5863738672885945397}
+  - component: {fileID: 7752504931135559976}
+  - component: {fileID: 4595149407743314487}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -245,6 +247,11 @@ MonoBehaviour:
     value: 2
   armor:
     value: 0
+  canRegenerate: 1
+  healthRegeneration:
+    value: 1
+  ressourceRegeneration:
+    value: 5
   bonusEffects:
     allEffect: []
 --- !u!114 &2594318685623976530
@@ -345,14 +352,15 @@ MonoBehaviour:
   learnableSpells:
   - levelRequired: 2
     spellToUnlock: {fileID: 11400000, guid: f761f9b249843cf4898bf1b051e0c020, type: 2}
-  - levelRequired: 4
+  - levelRequired: 2
     spellToUnlock: {fileID: 11400000, guid: f0b6dc03f95bd9d4b9afa6d735f51d43, type: 2}
-  - levelRequired: 6
+  - levelRequired: 3
     spellToUnlock: {fileID: 11400000, guid: 67f0e1bffcda75846b748e28d463773d, type: 2}
-  - levelRequired: 8
+  - levelRequired: 3
     spellToUnlock: {fileID: 11400000, guid: 3c972fc1959ba144a94dbb8b37aa1c94, type: 2}
-  - levelRequired: 10
+  - levelRequired: 4
     spellToUnlock: {fileID: 11400000, guid: e92b35b07400fa044a132fe97df5f9f4, type: 2}
+  cooldowns: []
 --- !u!114 &5545339395610170404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +376,7 @@ MonoBehaviour:
   currentLevel: 1
   currentExperience: 0
   experienceCap: 10
+  levelUpEffect: {fileID: 8926484042661614526, guid: 8a0e7f871c628b148bbe3c95982d206a, type: 3}
 --- !u!114 &1549141889476991364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +407,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equipedItems: []
+--- !u!114 &7752504931135559976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449485389999455840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c617d21bd5cb1249889171adf6e85e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  createdVisualEffect: []
+--- !u!136 &4595149407743314487
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449485389999455840}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8310644488251898894
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +725,18 @@ PrefabInstance:
     - target: {fileID: -3480699329000672020, guid: 7cf7ce31cac2d2a409222df8e24abbdf, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.07790605
+      objectReference: {fileID: 0}
+    - target: {fileID: -3432401550182100168, guid: 7cf7ce31cac2d2a409222df8e24abbdf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.000000034488046
+      objectReference: {fileID: 0}
+    - target: {fileID: -3432401550182100168, guid: 7cf7ce31cac2d2a409222df8e24abbdf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.12607889
+      objectReference: {fileID: 0}
+    - target: {fileID: -3432401550182100168, guid: 7cf7ce31cac2d2a409222df8e24abbdf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000000029802322
       objectReference: {fileID: 0}
     - target: {fileID: -2072040086291044643, guid: 7cf7ce31cac2d2a409222df8e24abbdf, type: 3}
       propertyPath: m_LocalPosition.x
