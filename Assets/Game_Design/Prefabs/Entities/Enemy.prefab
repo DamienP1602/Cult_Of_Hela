@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 3152110668607826468}
   - component: {fileID: 2997168236302575464}
   - component: {fileID: 1282763448082835549}
+  - component: {fileID: 6248515904159817512}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -62,7 +63,7 @@ MonoBehaviour:
   initialized: 0
   hasBeenDestroyed: 0
   enemyLevel: 1
-  experienceValue: 4
+  experienceValue: 10
 --- !u!195 &5704978393942924173
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -102,6 +103,7 @@ MonoBehaviour:
   isAtDestination: 0
   forceRotationSpeed: 4
   target: {fileID: 0}
+  canMove: 1
   isDashing: 0
   dashPower: 3
   curve:
@@ -111,6 +113,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dashTime: 0.5
+  CanDash: 1
 --- !u!114 &3759124105329339815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0dfd0379f0a77448c3a2b20957a29e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawRange: 1
+  drawRange: 0
   detectionRange: 3
   target: {fileID: 0}
 --- !u!114 &6451311420013893334
@@ -138,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cccb8171c7ffb5947b2fff50937a4a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebug: 1
+  showDebug: 0
   interactionDistance: 1.5
   target: {fileID: 0}
 --- !u!114 &6731228960179860213
@@ -173,6 +176,11 @@ MonoBehaviour:
   spirit:
     value: 0
   armor:
+    value: 0
+  canRegenerate: 0
+  healthRegeneration:
+    value: 0
+  ressourceRegeneration:
     value: 0
   bonusEffects:
     allEffect: []
@@ -294,6 +302,7 @@ MonoBehaviour:
   bindedSpells: []
   learnableSpells: []
   cooldowns: []
+  <CanLaunchSpell>k__BackingField: 1
 --- !u!114 &1282763448082835549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +316,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createdVisualEffect: []
+--- !u!54 &6248515904159817512
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3203650074338727904}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &70039885162356997
 PrefabInstance:
   m_ObjectHideFlags: 0

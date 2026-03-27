@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpellBookComponent : MonoBehaviour
 {
@@ -110,6 +111,7 @@ public class SpellBookComponent : MonoBehaviour
                     _movement.SetRotationTarget(_mousePos);
                 }
             }
+            _movement.SetCanMove(false);
             _movement.StopMovement();
         }
         else
@@ -123,9 +125,10 @@ public class SpellBookComponent : MonoBehaviour
 
     void Anim_StartSpell()
     {
-        StatsComponent _ownerStats = GetComponent<StatsComponent>();
-
         BaseEntity _owner = GetComponent<BaseEntity>();
+
+        _owner.MovementComponent.SetCanMove(true);
+
         LaunchSpell(_owner);
     }
 

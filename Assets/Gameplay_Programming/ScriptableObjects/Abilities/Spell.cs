@@ -105,20 +105,17 @@ public class Spell : Ability
         }
         else
         {
+            Macro.CustomPhysics.LineSphereAll(out List<BaseEntity> _hits, _owner.transform, areaOfEffect, 50);
             List<BaseEntity> _targets = new List<BaseEntity>();
-            RaycastHit[] _multiHits = Physics.SphereCastAll(new Ray(_owner.transform.position + Vector3.up, _owner.transform.forward), _owner.InteractionComponent.Range / 2.0f);
-            foreach (RaycastHit _hit in _multiHits)
+            foreach (BaseEntity _entity in _hits)
             {
-                if (_hit.collider.GetComponent<BaseEntity>() is BaseEntity _entity)
+                if (inFront)
                 {
-                    if (inFront)
-                    {
-                        float _dotValue = Vector3.Dot(_owner.transform.forward, _entity.transform.forward);
+                    float _dotValue = Vector3.Dot(_owner.transform.forward, _entity.transform.forward);
 
-                        if (_dotValue > 0.0f) continue;
-                    }
-                    _targets.Add(_entity);
+                    if (_dotValue > 0.0f) continue;
                 }
+                _targets.Add(_entity);
             }
             DealDamageTo(_owner, _targets);
         }

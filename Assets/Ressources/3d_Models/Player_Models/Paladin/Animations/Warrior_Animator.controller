@@ -86,7 +86,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Warrior_Hammering
-  m_Speed: 1.5
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6007425354264073625}
@@ -177,9 +177,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.87288135
+  m_ExitTime: 0.8728813
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -336,9 +336,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.037047744
   m_TransitionOffset: 0
-  m_ExitTime: 0.7580645
+  m_ExitTime: 0.75806445
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -439,7 +439,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.87288135
   m_HasExitTime: 0
@@ -464,7 +464,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.047619045
   m_TransitionOffset: 0
   m_ExitTime: 0.6428572
   m_HasExitTime: 0
@@ -650,7 +650,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0cb99418e5c585647a8d7009f5db6612, type: 2}
+  m_Motion: {fileID: 1869177495587320720}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -922,6 +922,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: Blend
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1103,6 +1109,21 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!206 &1869177495587320720
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blend Tree
+  m_Childs: []
+  m_BlendParameter: Blend
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1101 &3687901120775521264
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1120,9 +1141,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.006952405
   m_TransitionOffset: 0
-  m_ExitTime: 0.87288135
+  m_ExitTime: 0.8728813
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1164,44 +1185,44 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1791417900030912707}
-    m_Position: {x: 330, y: 110, z: 0}
+    m_Position: {x: -350, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5318676842165139632}
-    m_Position: {x: 570, y: -530, z: 0}
+    m_Position: {x: 630, y: -590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2790573007863077381}
-    m_Position: {x: 220, y: -260, z: 0}
+    m_Position: {x: -230, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5026180078873462348}
     m_Position: {x: 2030, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -591807971140052668}
-    m_Position: {x: 1140, y: -520, z: 0}
+    m_Position: {x: 1360, y: -580, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7958603387314189393}
     m_Position: {x: 1590, y: -410, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2220406422164298478}
-    m_Position: {x: 490, y: 430, z: 0}
+    m_Position: {x: -80, y: 590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5391698348988127460}
-    m_Position: {x: 820, y: 500, z: 0}
+    m_Position: {x: 530, y: 760, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1065019728194838388}
-    m_Position: {x: 1210, y: 580, z: 0}
+    m_Position: {x: 1100, y: 960, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3290319523311473906}
-    m_Position: {x: 1550, y: 650, z: 0}
+    m_Position: {x: 1540, y: 1120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8783148023360171051}
-    m_Position: {x: 1900, y: 700, z: 0}
+    m_Position: {x: 1950, y: 1080, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_AnyStatePosition: {x: -540, y: -40, z: 0}
+  m_EntryPosition: {x: -540, y: 60, z: 0}
   m_ExitPosition: {x: 280, y: -510, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1791417900030912707}
@@ -1222,7 +1243,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.87288135
   m_HasExitTime: 0
@@ -1238,7 +1259,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Warrior_Attack
-  m_Speed: 1.75
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7091189068955208752}
@@ -1428,7 +1449,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.87288135
   m_HasExitTime: 0
@@ -1453,7 +1474,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.87288135
   m_HasExitTime: 0

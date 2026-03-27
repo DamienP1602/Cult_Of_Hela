@@ -727,6 +727,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Movement_Tuto_Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 7085262884328367150, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

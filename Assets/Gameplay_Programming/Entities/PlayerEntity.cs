@@ -60,4 +60,5 @@ public class PlayerEntity : BaseEntity
     {
         GameManager.Instance.Hud.Overlay.InitPlayerOverlay(this);
     }
+
 }

@@ -19,6 +19,7 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] float forceRotationSpeed = 1.0f;
     [SerializeField] GameEntity target;
     [SerializeField] Vector3? rotateTo;
+    [SerializeField] bool canMove = true;
 
     [Header("Dash Parameters")]
     [SerializeField] bool isDashing = false;
@@ -31,6 +32,9 @@ public class MovementComponent : MonoBehaviour
     public bool AtDestination => isAtDestination;
 
     public bool IsNearDestination() => Vector3.Distance(new Vector3(agent.destination.x, 0.0f, agent.destination.z), new Vector3(transform.position.x, 0.0f, transform.position.z)) < 0.1f;
+
+
+    public void SetCanMove(bool _value) => canMove = _value;
 
     private void Awake()
     {
@@ -113,6 +117,8 @@ public class MovementComponent : MonoBehaviour
     {
         if (!target || !agent.enabled) return;
 
+        if (!canMove) return;
+
         Vector3 _destination = target.transform.position;
         bool _succeed = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
         if (_succeed)
@@ -126,6 +132,8 @@ public class MovementComponent : MonoBehaviour
     public void SetDestination(Vector3 _destination)
     {
         if (!agent.enabled || isDashing) return;
+
+        if (!canMove) return;
 
         bool _succeed = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);
         if (_succeed)
@@ -149,6 +157,8 @@ public class MovementComponent : MonoBehaviour
     public void SetTarget(GameEntity _entity)
     {
         if (!agent.enabled || isDashing) return;
+
+        if (!canMove) return;
 
         Vector3 _destination = _entity.transform.position;
         bool _succeed = NavMesh.SamplePosition(_destination, out NavMeshHit _hit, 100.0f, -1);

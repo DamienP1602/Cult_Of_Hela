@@ -133,8 +133,9 @@ MonoBehaviour:
   drawDebug: 0
   destination: {x: 0, y: 0, z: 0}
   isAtDestination: 0
-  forceRotationSpeed: 6
+  forceRotationSpeed: 15
   target: {fileID: 0}
+  canMove: 1
   isDashing: 0
   dashPower: 8
   curve:
@@ -171,6 +172,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dashTime: 1.05
+  CanDash: 1
 --- !u!114 &8699481617171016624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cccb8171c7ffb5947b2fff50937a4a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebug: 1
+  showDebug: 0
   interactionDistance: 1.5
   target: {fileID: 0}
 --- !u!114 &230368330440433178
@@ -361,6 +363,7 @@ MonoBehaviour:
   - levelRequired: 4
     spellToUnlock: {fileID: 11400000, guid: e92b35b07400fa044a132fe97df5f9f4, type: 2}
   cooldowns: []
+  <CanLaunchSpell>k__BackingField: 1
 --- !u!114 &5545339395610170404
 MonoBehaviour:
   m_ObjectHideFlags: 0
