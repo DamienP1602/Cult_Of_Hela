@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class EnemyBrainComponent : MonoBehaviour
 {
+    enum BrainType
+    {
+        BaseEnemyBrain,
+        BossBrain
+    }
+
+    [SerializeField] BrainType brainType;
     [SerializeField] FSM fsm;
     [SerializeField] bool isFsmInitialized;
 
@@ -13,6 +20,19 @@ public class EnemyBrainComponent : MonoBehaviour
     }
 
     State GenerateStates(EnemyEntity _owner)
+    {
+        switch (brainType)
+        {
+            case BrainType.BaseEnemyBrain:
+                return GenerateBaseState(_owner);
+            case BrainType.BossBrain:
+                return GenerateBossState(_owner);
+        }
+
+        return null;
+    }
+
+    State GenerateBaseState(EnemyEntity _owner)
     {
         // Get all Components we need
         EnemyDetectionComponent _detectionComponent = _owner.DetectionComponent;
@@ -28,9 +48,39 @@ public class EnemyBrainComponent : MonoBehaviour
         };
         _idleState.allTransitions = _idleTransitions;
 
-        List<Transition> _chaseTransitions = new List<Transition>() 
+        List<Transition> _chaseTransitions = new List<Transition>()
         {
             new Transition(_idleState, () => !_detectionComponent.IsPlayerInDetectionRange())
+        };
+        _chaseState.allTransitions = _chaseTransitions;
+
+        // Return the first State
+        return _idleState;
+    }
+
+    State GenerateBossState(EnemyEntity _owner)
+    {
+        // Get all Components we need
+        EnemyDetectionComponent _detectionComponent = _owner.DetectionComponent;
+        SpellBookComponent _spellBookComponent = _owner.SpellBookComponent;
+        InteractionComponent _interactionComponent = _owner.InteractionComponent;
+
+        // Create all States
+        State _idleState = new IdleState("Idle State");
+        State _chaseState = new ChaseState("Chase State");
+        State _spellState = new SpellState("Spell State");
+
+        // Create all transitions then give them to the states
+        List<Transition> _idleTransitions = new List<Transition>()
+        {
+            new Transition(_chaseState,_detectionComponent.IsPlayerInDetectionRange)
+        };
+        _idleState.allTransitions = _idleTransitions;
+
+        List<Transition> _chaseTransitions = new List<Transition>()
+        {
+            new Transition(_idleState, () => !_detectionComponent.IsPlayerInDetectionRange()),
+            new Transition(_spellState, () => _interactionComponent.IsTargetInInteractionRange())
         };
         _chaseState.allTransitions = _chaseTransitions;
 

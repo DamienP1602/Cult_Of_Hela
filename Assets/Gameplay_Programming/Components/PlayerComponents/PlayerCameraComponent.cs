@@ -10,6 +10,8 @@ public class PlayerCameraComponent : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool drawOffset;
 
+    public Vector3 Offset => offset;
+
     private void Awake()
     {
         currentCamera = Camera.main;
@@ -27,6 +29,8 @@ public class PlayerCameraComponent : MonoBehaviour
         FollowTarget();
         LookAtTarget();
     }
+
+    public void SetNewCameraOffset(Vector3 _offset) => offset= _offset;
 
     void FollowTarget()
     {

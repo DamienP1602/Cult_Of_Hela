@@ -192,21 +192,5 @@ public class SpellBookComponent : MonoBehaviour
         return true;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (currentSpell)
-        {
-            Gizmos.color = Color.blue;
-            if (currentSpell.monoTarget)
-            {
-                Gizmos.DrawLine(transform.position, transform.position + transform.forward * GetComponent<InteractionComponent>().Range);
-            }
-            else
-            {
 
-                Gizmos.DrawWireSphere(transform.position,GetComponent<InteractionComponent>().Range);
-            }
-            Gizmos.color = Color.white;
-        }
-    }
 }
