@@ -123,6 +123,7 @@ public class SpellBookComponent : MonoBehaviour
 
         cooldowns.Add(new BindedSpellsData(currentSpell, currentSpell.cooldown));
         OnStartCooldown?.Invoke(currentSpell, _index);
+        CanLaunchSpell = false;
     }
 
     void Anim_StartSpell()
@@ -151,6 +152,8 @@ public class SpellBookComponent : MonoBehaviour
                 else
                     _effectComp.CreateVisualEffect(currentSpell.visualEffect,2.0f);
             }
+
+            CanLaunchSpell = true;
         }
     }
 

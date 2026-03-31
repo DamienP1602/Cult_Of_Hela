@@ -30,10 +30,30 @@ public class ItemInformationWidget : MonoBehaviour
     {
         itemIcon.sprite = _data.data.itemIcon;
         itemName.text = _data.data.itemName;
+        SetNameColor(_data.data);
         itemDescription.text = GenerateDescription(_data.data);
         itemMainStat.text = GenerateMainStat(_data.data);
 
         GenerateSecondStats(_data.data);
+    }
+
+    void SetNameColor(Item _data)
+    {
+        switch (_data.rarity)
+        {
+            case ItemRarity.Item_Common:
+                itemName.color = Color.white;
+                break;
+            case ItemRarity.Item_Rare:
+                itemName.color = new Color(0.3f, 0.3f, 1.0f);
+                break;
+            case ItemRarity.Item_Epic:
+                itemName.color = Color.magenta;
+                break;
+            case ItemRarity.Item_Legendary:
+                itemName.color = Color.yellow;
+                break;
+        }
     }
 
     string GenerateDescription(Item _data)
@@ -51,6 +71,11 @@ public class ItemInformationWidget : MonoBehaviour
 
             if (_i + 1 < _length)
                 _s += " ";
+        }
+
+        if (_data.equipmentSlotType == EquipmentSlotType.Equipment_Right_Hand)
+        {
+            _s += "\n" + " " + (_data.twoHandItem ? "Two-Handed Weapon" : "One-Handed Weapon");
         }
 
         return _s;

@@ -259,8 +259,10 @@ public class StatsComponent : MonoBehaviour
     public void CalculMaxStats()
     {
         health.SetMaxValue(10 + vitality.Value * 3);
+        health.SetValue(health.Value);
 
         ressource.SetMaxValue(10 + spirit.Value * 2);
+        ressource.SetValue(ressource.Value);
     }
 
     public void LevelUpStats()

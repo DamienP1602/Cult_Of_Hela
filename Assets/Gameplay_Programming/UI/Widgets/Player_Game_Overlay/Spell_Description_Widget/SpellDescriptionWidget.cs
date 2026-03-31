@@ -5,6 +5,7 @@ public class SpellDescriptionWidget : MonoBehaviour
 {
     [SerializeField] TMP_Text spellName;
     [SerializeField] TMP_Text spellDescription;
+    [SerializeField] TMP_Text spellRequirement;
     [SerializeField] TMP_Text spellRessourceCost;
     [SerializeField] TMP_Text spellCooldown;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,12 +32,28 @@ public class SpellDescriptionWidget : MonoBehaviour
             spellDescription.text = GetSpellDescription(_spell);
             spellRessourceCost.text = "Ressource Cost : " + _spell.ressourceCost.ToString();
             spellCooldown.text = "Cooldown : " + _spell.cooldown.ToString();
+            if (_spell.hasRequirement)
+            {
+                switch (_spell.EquipmentRequirement)
+                {
+                    case EquipmentSlotType.Equipment_Right_Hand:
+                        spellRequirement.text = "Require Weapon";
+                        break;
+                    case EquipmentSlotType.Equipment_Left_Hand:
+                        spellRequirement.text = "Require Shield";
+                        break;
+                }
+            }
+            else
+                spellRequirement.text = "";
+
         }
         else if (_ability is BasicAttack _attack)
         {
             spellDescription.text = GetBasicAttackDescription(_attack);
             spellRessourceCost.text = "";
             spellCooldown.text = "";
+            spellRequirement.text = "";
         }
     }
 
