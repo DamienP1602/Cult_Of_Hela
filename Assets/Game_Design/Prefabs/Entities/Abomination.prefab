@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 7724343605294005430}
   - component: {fileID: 2864175206089570027}
   - component: {fileID: 4410670111727877189}
+  - component: {fileID: 7187271142057599961}
   m_Layer: 6
   m_Name: Abomination
   m_TagString: Untagged
@@ -62,8 +63,8 @@ MonoBehaviour:
   <EntityName>k__BackingField: Abomination
   initialized: 0
   hasBeenDestroyed: 0
-  enemyLevel: 1
-  experienceValue: 10
+  enemyLevel: 5
+  experienceValue: 50
 --- !u!195 &5419714764502712191
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 3
+  m_Speed: 2
   m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 500
@@ -127,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawRange: 0
-  detectionRange: 3
+  detectionRange: 6
   target: {fileID: 0}
 --- !u!114 &5233563450351358414
 MonoBehaviour:
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showDebug: 0
-  interactionDistance: 1.5
+  interactionDistance: 2
   target: {fileID: 0}
 --- !u!114 &108026398239283241
 MonoBehaviour:
@@ -166,17 +167,17 @@ MonoBehaviour:
     value: 0
     maxValue: 0
   strength:
-    value: 0
+    value: 8
   dexterity:
     value: 0
   intelligence:
     value: 0
   vitality:
-    value: 0
+    value: 20
   spirit:
     value: 0
   armor:
-    value: 0
+    value: 100
   canRegenerate: 0
   healthRegeneration:
     value: 0
@@ -270,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac91cc06318dd2e4a9bd906554f1d909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainType: 1
   fsm:
     currentStateName: 
   isFsmInitialized: 0
@@ -299,7 +301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allLearnedAbilities: []
-  bindedSpells: []
+  bindedSpells:
+  - {fileID: 11400000, guid: 064f4c0a735d7904eb77d646769d9499, type: 2}
   learnableSpells: []
   cooldowns: []
   <CanLaunchSpell>k__BackingField: 1
@@ -343,6 +346,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7187271142057599961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154692442606286198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b633e634a1bae04cb653a731d2ba6c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousEffect: {fileID: 8926484042661614526, guid: ab5fe151d29248b49803d96cc10da7bb, type: 3}
 --- !u!1001 &6583677762709931056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -351,6 +367,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6869733879563237291}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 04c27ce8a671d9740a86ed895503914c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 04c27ce8a671d9740a86ed895503914c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 04c27ce8a671d9740a86ed895503914c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04c27ce8a671d9740a86ed895503914c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -390,6 +418,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 04c27ce8a671d9740a86ed895503914c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 04c27ce8a671d9740a86ed895503914c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 04c27ce8a671d9740a86ed895503914c, type: 3}
       propertyPath: m_Name

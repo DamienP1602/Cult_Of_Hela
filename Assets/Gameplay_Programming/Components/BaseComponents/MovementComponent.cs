@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class MovementComponent : MonoBehaviour
@@ -156,6 +155,8 @@ public class MovementComponent : MonoBehaviour
 
     public void SetTarget(GameEntity _entity)
     {
+        if (!_entity) return;
+
         if (!agent.enabled || isDashing) return;
 
         if (!canMove) return;

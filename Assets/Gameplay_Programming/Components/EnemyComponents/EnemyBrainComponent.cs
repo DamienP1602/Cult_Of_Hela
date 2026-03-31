@@ -80,9 +80,16 @@ public class EnemyBrainComponent : MonoBehaviour
         List<Transition> _chaseTransitions = new List<Transition>()
         {
             new Transition(_idleState, () => !_detectionComponent.IsPlayerInDetectionRange()),
-            new Transition(_spellState, () => _interactionComponent.IsTargetInInteractionRange())
+            new Transition(_spellState, () => _spellBookComponent.HasAvailableSpell() && _interactionComponent.IsTargetInInteractionRange())
         };
         _chaseState.allTransitions = _chaseTransitions;
+
+        SpellState _spellStateCasted = _spellState as SpellState;
+        List<Transition> _spellTransitions = new List<Transition>()
+        {
+            new Transition(_chaseState, () => _spellStateCasted.ShouldEndState())
+        };
+        _spellState.allTransitions = _spellTransitions;
 
         // Return the first State
         return _idleState;

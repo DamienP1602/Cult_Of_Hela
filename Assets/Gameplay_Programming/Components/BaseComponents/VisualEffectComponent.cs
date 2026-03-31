@@ -74,6 +74,17 @@ public class VisualEffectComponent : MonoBehaviour
         createdVisualEffect.Add(new CreatedEffectData(_newEffect, _lifetime));
     }
 
+    public void CreateVisualEffect(VisualEffectAsset _visualEffect, float _lifetime)
+    {
+        VisualEffect _newEffect = Instantiate(GameManager.Instance.EmptyVisualEffect, transform);
+
+        _newEffect.transform.localScale = Vector3.one;
+        _newEffect.visualEffectAsset = _visualEffect;
+        _newEffect.Play();
+
+        createdVisualEffect.Add(new CreatedEffectData(_newEffect, _lifetime));
+    }
+
     Transform SearchTransfromFromSlot(EquipmentSlotType _slotEmplacement)
     {
         PlayerVisualEquipmentComponent _component = GetComponent<PlayerVisualEquipmentComponent>();

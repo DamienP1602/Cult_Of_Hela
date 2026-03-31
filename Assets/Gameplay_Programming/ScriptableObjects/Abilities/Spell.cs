@@ -105,7 +105,7 @@ public class Spell : Ability
         }
         else
         {
-            Macro.CustomPhysics.LineSphereAll(out List<BaseEntity> _hits, _owner.transform, areaOfEffect, 50);
+            Macro.CustomPhysics.LineSphereAll(out List<BaseEntity> _hits, _owner.transform, areaOfEffect, 50,true);
             List<BaseEntity> _targets = new List<BaseEntity>();
             foreach (BaseEntity _entity in _hits)
             {

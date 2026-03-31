@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimationComponent : MonoBehaviour
 {
+    public event Action OnEndSpellAnimation;
+
     Animator Animator;
 
     [SerializeField] List<string> blockedAnimations = new List<string>();
@@ -73,6 +76,8 @@ public class AnimationComponent : MonoBehaviour
 
         // unlock the spell animation with 0.1 sec delay => can't block by spamming 
         Invoke(nameof(UnlockSpellAnimation), 0.1f);
+
+        OnEndSpellAnimation?.Invoke();
     }
 
     void Anim_Death()

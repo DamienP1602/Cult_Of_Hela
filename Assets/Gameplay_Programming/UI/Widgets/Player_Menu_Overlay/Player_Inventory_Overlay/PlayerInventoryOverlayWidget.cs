@@ -110,6 +110,7 @@ public class PlayerInventoryOverlayWidget : MonoBehaviour
         else
         {
             ResetSelectedItem();
+            informationWidget.gameObject.SetActive(false);
         }
     }
 

@@ -51,7 +51,7 @@ public class PlayerOverlayWidget : MonoBehaviour
             menuWidget.ShowAbilities();
         }
         else
-            menuWidget.gameObject.SetActive(false);
+            menuWidget.PlayerAbilitiesWidget.HideAbilitiesPanel();
 
         GameManager.Instance.Player.ClickComponent.SetIsInUI(_newValue);
         menuWidget.gameObject.SetActive(_newValue);

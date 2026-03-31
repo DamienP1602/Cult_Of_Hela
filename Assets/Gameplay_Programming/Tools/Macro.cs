@@ -36,7 +36,7 @@ public static class Macro
 
     public struct CustomPhysics
     {
-        public static bool LineSphereAll<T>(out List<T> _hits, Transform _origin, float _size, int _rayNumber)
+        public static bool LineSphereAll<T>(out List<T> _hits, Transform _origin, float _size, int _rayNumber, bool _showRays)
         {
             _hits = new List<T>();
             float _angle = 360.0f / _rayNumber;
@@ -56,6 +56,9 @@ public static class Macro
                         _hits.Add(_component);
                 }
             }
+
+            if (_showRays)
+                Gizmo.DrawLineSphere(_origin, _size, _rayNumber, 5.0f);
 
             return _hits.Count > 0;
         }

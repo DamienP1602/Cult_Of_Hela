@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000008, guid: 5f3861bd448c05346b828eecac5291dc, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -586,13 +586,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12656887, y: -0.8708212, z: 0.29784805, w: 0.3700506}
-  m_LocalPosition: {x: 93.27, y: 5.86, z: 97.72}
+  m_LocalRotation: {x: 0.1737346, y: -0.82318276, z: 0.41943246, w: 0.34097347}
+  m_LocalPosition: {x: 93.9, y: 5.966, z: 93.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 37.765, y: -133.954, z: 0}
+  m_LocalEulerAnglesHint: {x: 54, y: -135, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1812,29 +1812,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 108026398239283241, guid: ac82f25a46d5a374f8b3dd69988971c8, type: 3}
-      propertyPath: strength.value
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 108026398239283241, guid: ac82f25a46d5a374f8b3dd69988971c8, type: 3}
-      propertyPath: vitality.value
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2154692442606286198, guid: ac82f25a46d5a374f8b3dd69988971c8, type: 3}
       propertyPath: m_Name
       value: Abomination_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5148427442676430571, guid: ac82f25a46d5a374f8b3dd69988971c8, type: 3}
-      propertyPath: brainType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592668145876387148, guid: ac82f25a46d5a374f8b3dd69988971c8, type: 3}
-      propertyPath: enemyLevel
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592668145876387148, guid: ac82f25a46d5a374f8b3dd69988971c8, type: 3}
-      propertyPath: experienceValue
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6869733879563237291, guid: ac82f25a46d5a374f8b3dd69988971c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1890,16 +1870,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2496062509223166893, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
-      propertyPath: offset.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2496062509223166893, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
       propertyPath: currentCamera
       value: 
       objectReference: {fileID: 330585545}
     - target: {fileID: 3675799141449721626, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 63.88
+      value: 91.44
       objectReference: {fileID: 0}
     - target: {fileID: 3675799141449721626, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1907,7 +1883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3675799141449721626, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.81
+      value: 91.79
       objectReference: {fileID: 0}
     - target: {fileID: 3675799141449721626, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1941,14 +1917,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8339556638269489716, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
-      propertyPath: bindedSpells.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8339556638269489716, guid: 07ada64233d5f9e4694d8064a085b697, type: 3}
-      propertyPath: 'bindedSpells.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: f761f9b249843cf4898bf1b051e0c020, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

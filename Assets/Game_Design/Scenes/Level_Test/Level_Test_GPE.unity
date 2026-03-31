@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000004, guid: 5f3861bd448c05346b828eecac5291dc, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -163,6 +163,18 @@ PrefabInstance:
     - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
       propertyPath: text
       value: You can press 'V' to investigate your spells and manage equipped spells.
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: texts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: 'texts.Array.data[0]'
+      value: You can press 'V' to investigate your spells and manage equipped spells.
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: 'texts.Array.data[1]'
+      value: Left Click on spells in the Abilities Menu will equip or unequipp it.
       objectReference: {fileID: 0}
     - target: {fileID: 3961812417545283230, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
       propertyPath: m_Size.x
@@ -340,6 +352,20 @@ PrefabInstance:
       value: Press Left click to interact with a chest. Chests contain objects, you
         can investigate your inventory by pressing 'C'.
       objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: texts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: 'texts.Array.data[0]'
+      value: Press Left click to interact with a chest. Chests contain objects, you
+        can investigate your inventory by pressing 'C'.
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: 'texts.Array.data[1]'
+      value: Left click will select an item and shows where it can be equipped. Right
+        click will auto-equip it.
+      objectReference: {fileID: 0}
     - target: {fileID: 3961812417545283230, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
       propertyPath: m_Size.x
       value: 6
@@ -483,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1052565176083574832, guid: 617b828060d677046855c1a730d96e63, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9765796
+      value: 0.9800885
       objectReference: {fileID: 0}
     - target: {fileID: 1052565176083574832, guid: 617b828060d677046855c1a730d96e63, type: 3}
       propertyPath: m_LocalRotation.x
@@ -491,7 +517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1052565176083574832, guid: 617b828060d677046855c1a730d96e63, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.2151566
+      value: 0.19856133
       objectReference: {fileID: 0}
     - target: {fileID: 1052565176083574832, guid: 617b828060d677046855c1a730d96e63, type: 3}
       propertyPath: m_LocalRotation.z
@@ -503,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1052565176083574832, guid: 617b828060d677046855c1a730d96e63, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -24.849
+      value: 22.906
       objectReference: {fileID: 0}
     - target: {fileID: 1052565176083574832, guid: 617b828060d677046855c1a730d96e63, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -532,6 +558,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
       propertyPath: text
+      value: You can Dash pressing 'Space'.
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: texts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: 'texts.Array.data[0]'
       value: You can Dash pressing 'Space'.
       objectReference: {fileID: 0}
     - target: {fileID: 3961812417545283230, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
@@ -671,6 +705,14 @@ PrefabInstance:
       propertyPath: text
       value: Press Left Click to move or attack an enemy.
       objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: texts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224843420827307583, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
+      propertyPath: 'texts.Array.data[0]'
+      value: Press Left Click to move or attack an enemy.
+      objectReference: {fileID: 0}
     - target: {fileID: 3961812417545283230, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -729,7 +771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7085262884328367150, guid: 7701fa737faebc64399592da5ab017d9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

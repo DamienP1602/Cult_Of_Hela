@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,7 +28,8 @@ public class SpellBookComponent : MonoBehaviour
     }
 
     public event Action<Spell> OnLaunchSpell;
-    public event Action<Spell,int> OnStartCooldown;
+    public event Action OnStartSpell;
+    public event Action<Spell, int> OnStartCooldown;
     public event Action OnLearnSpell;
 
     [Header("Parameters")]
@@ -43,7 +45,7 @@ public class SpellBookComponent : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -119,8 +121,8 @@ public class SpellBookComponent : MonoBehaviour
             LaunchSpell(_owner);
         }
 
-        cooldowns.Add(new BindedSpellsData(currentSpell,currentSpell.cooldown));
-        OnStartCooldown?.Invoke(currentSpell,_index);
+        cooldowns.Add(new BindedSpellsData(currentSpell, currentSpell.cooldown));
+        OnStartCooldown?.Invoke(currentSpell, _index);
     }
 
     void Anim_StartSpell()
@@ -130,6 +132,7 @@ public class SpellBookComponent : MonoBehaviour
         _owner.MovementComponent.SetCanMove(true);
 
         LaunchSpell(_owner);
+        OnStartSpell?.Invoke();
     }
 
     void LaunchSpell(BaseEntity _entity)
@@ -143,7 +146,10 @@ public class SpellBookComponent : MonoBehaviour
             if (currentSpell.visualEffect)
             {
                 VisualEffectComponent _effectComp = GetComponent<VisualEffectComponent>();
-                _effectComp.CreateVisualEffect(currentSpell.visualEffect, currentSpell.EquipmentRequirement, 2.0f);
+                if (currentSpell.hasRequirement)
+                    _effectComp.CreateVisualEffect(currentSpell.visualEffect,currentSpell.EquipmentRequirement ,2.0f);
+                else
+                    _effectComp.CreateVisualEffect(currentSpell.visualEffect,2.0f);
             }
         }
     }
@@ -192,5 +198,33 @@ public class SpellBookComponent : MonoBehaviour
         return true;
     }
 
+    public bool HasAvailableSpell()
+    {
+        return bindedSpells.Count > cooldowns.Count;
+    }
 
+    public int GetRandomSpellIndex()
+    {
+        List<Spell> _availableSpells = new List<Spell>();
+        foreach (Spell _spell in bindedSpells)
+        {
+            foreach (BindedSpellsData _cooldownSpell in cooldowns)
+            {
+                if (_spell == _cooldownSpell.spell)
+                    break;
+            }
+            _availableSpells.Add(_spell);
+        }
+        int _randomIndexAvailableSpell = UnityEngine.Random.Range(0, _availableSpells.Count - 1);
+        Spell _foundedSpell = _availableSpells[_randomIndexAvailableSpell];
+
+        int _finalIndex = 0;
+        foreach (Spell _spell in bindedSpells)
+        {
+            if (_spell == _foundedSpell)
+                break;
+            _finalIndex++;
+        }
+        return _finalIndex;
+    }
 }

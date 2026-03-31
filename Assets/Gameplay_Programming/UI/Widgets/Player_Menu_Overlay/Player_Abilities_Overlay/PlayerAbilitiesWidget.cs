@@ -32,6 +32,12 @@ public class PlayerAbilitiesWidget : MonoBehaviour
         InitSpecialisationsPanel(_player);
     }
 
+    public void HideAbilitiesPanel()
+    {
+        gameObject.SetActive(false);
+        descriptionWidget.gameObject.SetActive(false);
+    }
+
     void InitBasicSpells(PlayerEntity _player)
     {
         int _widgetCount = basicSpells.Count;

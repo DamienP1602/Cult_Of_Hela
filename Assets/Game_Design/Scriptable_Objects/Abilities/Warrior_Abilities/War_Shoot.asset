@@ -34,3 +34,4 @@ MonoBehaviour:
   areaOfEffect: 0
   inFront: 0
   specialObjectToSpawn: {fileID: 0}
+  visualEffect: {fileID: 0}
