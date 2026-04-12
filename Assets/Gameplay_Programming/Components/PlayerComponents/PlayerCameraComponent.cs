@@ -7,7 +7,6 @@ public class PlayerCameraComponent : MonoBehaviour
     [SerializeField] Camera currentCamera;
     [SerializeField] float cameraMoveSpeed = 5.0f;
     [SerializeField] Vector3 offset;
-    [SerializeField] List<GameObject> obstacles;
 
     [Header("Debug")]
     [SerializeField] bool drawOffset;
@@ -46,30 +45,6 @@ public class PlayerCameraComponent : MonoBehaviour
 
         Quaternion _rot = Quaternion.LookRotation(_lookAt);
         currentCamera.transform.rotation = Quaternion.RotateTowards(currentCamera.transform.rotation, _rot, Time.deltaTime * 100.0f);
-    }
-
-    private void OnTriggerEnter(Collider _other)
-    {
-        if (_other.gameObject.layer == LayerMask.NameToLayer("Buildings"))
-        {
-            if (!obstacles.Contains(_other.gameObject))
-            {
-                _other.gameObject.GetComponentInChildren<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-                obstacles.Add(_other.gameObject);
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider _other)
-    {
-        if (_other.gameObject.layer == LayerMask.NameToLayer("Buildings"))
-        {
-            if (obstacles.Contains(_other.gameObject))
-            {
-                _other.gameObject.GetComponentInChildren<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-                obstacles.Remove(_other.gameObject);
-            }
-        }
     }
 
     private void OnDrawGizmos()

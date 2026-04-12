@@ -35,7 +35,11 @@ public class PlayerOverlayWidget : MonoBehaviour
         else
             menuWidget.gameObject.SetActive(false);
 
-        GameManager.Instance.Player.ClickComponent.SetIsInUI(_newValue);
+        PlayerEntity _player = GameManager.Instance.Player;
+        _player.ClickComponent.SetIsInUI(_newValue);
+
+        _player.SpellBookComponent.CanLaunchSpell = !_newValue;
+
         menuWidget.InventoryOverlayWidget.SetInventoryUsage(_newValue);
 
         menuWidget.gameObject.SetActive(_newValue);
@@ -53,7 +57,11 @@ public class PlayerOverlayWidget : MonoBehaviour
         else
             menuWidget.PlayerAbilitiesWidget.HideAbilitiesPanel();
 
-        GameManager.Instance.Player.ClickComponent.SetIsInUI(_newValue);
+        PlayerEntity _player = GameManager.Instance.Player;
+        _player.ClickComponent.SetIsInUI(_newValue);
+
+        _player.SpellBookComponent.CanLaunchSpell = !_newValue;
+
         menuWidget.gameObject.SetActive(_newValue);
     }
 }

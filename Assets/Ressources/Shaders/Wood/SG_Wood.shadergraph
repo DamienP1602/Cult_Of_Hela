@@ -1099,8 +1099,8 @@
     "m_ObjectId": "06b7be743bdb49aa832b7a717aba248c",
     "m_Title": "Smoothness",
     "m_Position": {
-        "x": -266.0,
-        "y": 987.0
+        "x": -266.0000305175781,
+        "y": 986.999755859375
     }
 }
 
@@ -5070,7 +5070,7 @@
     "m_ObjectId": "b158404892e141c08925c1708eebe916",
     "m_Title": "Layer 1",
     "m_Position": {
-        "x": -2300.0,
+        "x": -2300.000244140625,
         "y": -72.0
     }
 }
@@ -6579,7 +6579,7 @@
     "m_ObjectId": "f0127fdea98c4e14a6f854af903af06d",
     "m_Title": "Smudge Noise",
     "m_Position": {
-        "x": -2403.0,
+        "x": -2403.000244140625,
         "y": 1287.0
     }
 }

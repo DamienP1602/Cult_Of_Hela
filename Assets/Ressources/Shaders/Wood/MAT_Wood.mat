@@ -47,6 +47,7 @@ Material:
     - _UV_Scale: 2.21
     - _Wiggle_Amp: 0.0134
     - _Wiggle_Size: 84.5
+    - _alpha: 1
     m_Colors:
     - _Color_Dark: {r: 0.39607844, g: 0.24705882, b: 0.08235294, a: 0}
     - _Color_Light: {r: 0.6431373, g: 0.40784308, b: 0.15686277, a: 0}

@@ -254,7 +254,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac91cc06318dd2e4a9bd906554f1d909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainType: 0
   fsm:
     currentStateName: 
   isFsmInitialized: 0
